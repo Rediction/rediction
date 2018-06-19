@@ -1,0 +1,49 @@
+version: '2'
+services:
+  redis:
+    image: redis:4.0.9
+    volumes_from:
+      - datastore
+    ports:
+      - "6379:6379"
+
+  mysql:
+    build: ./docker/mysql/
+    volumes_from:
+      - datastore
+    ports:
+      - "3306:3306"
+
+  rails: &app_base
+    build:
+      context: ./
+      dockerfile: ./docker/rails/Dockerfile
+    volumes:
+      - .:/app
+    volumes_from:
+      - datastore
+    environment:
+      REDIS_SESSION_URL: "redis://redis:6379"
+    links:
+      - mysql
+      - redis
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    tty: true
+    stdin_open: true
+    ports:
+      - "3000:3000"
+
+  datastore:
+    image: busybox
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - redis-data:/data
+      - bundle:/usr/local/bundle
+
+volumes:
+  mysql-data:
+    driver: local
+  redis-data:
+    driver: local
+  bundle:
+    driver: local
