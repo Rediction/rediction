@@ -11,6 +11,7 @@ jobs:
         environment:
           RAILS_ENV: test
           RACK_ENV: test
+          MYSQL_HOST: mysql
       - image: circleci/mysql:5.7
         environment:
           MYSQL_USER: root
