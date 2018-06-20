@@ -1,18 +1,21 @@
 # Rediction
 ## 初回ローカル環境セットアップ
-1. Docker for Mac インストール
+1. Docker for Mac インストール（以下、参考URL）
   - https://docs.docker.com/docker-for-mac/install/
 2. Docker起動
   - インストールしたDockerを起動させる。
-3. DockerをbuildしてImageとContainerを作成
-  - 以下のコマンドでBuildする。(最初は少し時間かかるかも)
-    - `docker-compose build`
-4. DBとか諸々作成
-  - 以下のコマンドを実行する。(最初は少し時間かかるかも)
-    - `bin/setup`
-5. 起動
-  - 以下のコマンドで起動する。
-    - `docker-compose up`
+3. リポジトリをclone
+  - `git clone https://github.com/Rediction/rediction.git`
+4. cloneしたディレクトリに移動
+  - `cd rediction`
+5. DockerをbuildしてImageとContainerを作成
+  - `docker-compose build`
+6. DBとか諸々作成
+  - `bin/setup`
+7. 起動
+  - `docker-compose up`
+8. ブラウザでプロダクトにアクセス
+  - `http://localhost:3000`にアクセスするとRedictionにアクセスできる。
 
 ## よく使うコマンド
 ### 起動
@@ -48,3 +51,6 @@ docker-compose run --rm rails rails c
 **例**
 
 山田太郎がissue（番号４）の対応用のブランチを作る場合の名前は`taro#4`になる。
+
+## masterブランチへのプルリク作成コマンド
+`hub pull-request -b master -h develop -m "RELEASE `date '+%Y%m%d%H%M'`"`
