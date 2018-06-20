@@ -47,5 +47,5 @@ docker-compose run --rm rails rails c
 
 **例**
 
-山田太郎が下画像のissue対応用のブランチを作る場合のブランチは以下の通り
+山田太郎がissue（番号４）の対応用のブランチを作る場合のブランチは以下の通り
 `taro#4`
