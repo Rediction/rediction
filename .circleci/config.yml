@@ -13,7 +13,6 @@ jobs:
           RACK_ENV: test
       - image: circleci/mysql:5.7
         environment:
-          MYSQL_HOST: mysql
           MYSQL_USER: root
           MYSQL_ALLOW_EMPTY_PASSWORD: yes
       - image: circleci/redis:4.0.9

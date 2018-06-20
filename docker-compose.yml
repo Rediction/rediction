@@ -9,6 +9,8 @@ services:
 
   mysql:
     build: ./docker/mysql/
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "true"
     volumes_from:
       - datastore
     ports:
@@ -24,7 +26,6 @@ services:
     volumes_from:
       - datastore
     environment:
-      MYSQL_ALLOW_EMPTY_PASSWORD: "true"
       MYSQL_HOST: "mysql"
       MYSQL_USER: "root"
       REDIS_SESSION_URL: "redis://redis:6379"
