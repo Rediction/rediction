@@ -2,19 +2,19 @@
 ## 初回ローカル環境セットアップ
 1. Docker for Mac インストール（以下、参考URL）
   - https://docs.docker.com/docker-for-mac/install/
-1. Docker起動
+2. Docker起動
   - インストールしたDockerを起動させる。
-1. リポジトリをclone
+3. リポジトリをclone
   - `git clone https://github.com/Rediction/rediction.git`
-1. cloneしたディレクトリに移動
+4. cloneしたディレクトリに移動
   - `cd rediction`
-1. DockerをbuildしてImageとContainerを作成
+5. DockerをbuildしてImageとContainerを作成
   - `docker-compose build`
-1. DBとか諸々作成
+6. DBとか諸々作成
   - `bin/setup`
-1. 起動
+7. 起動
   - `docker-compose up`
-1. ブラウザでプロダクトにアクセス
+8. ブラウザでプロダクトにアクセス
   - `http://localhost:3000`にアクセスするとRedictionにアクセスできる。
 
 ## よく使うコマンド
