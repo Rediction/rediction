@@ -1,9 +1,20 @@
 # Rediction
-## ローカル環境セットアップ
-### セットアップ
-- Docker for Mac インストール
+## 初回ローカル環境セットアップ
+1. Docker for Mac インストール
   - https://docs.docker.com/docker-for-mac/install/
+2. Docker起動
+  - インストールしたDockerを起動させる。
+3. DockerをbuildしてImageとContainerを作成
+  - 以下のコマンドでBuildする。(最初は少し時間かかるかも)
+    - `docker-compose build`
+4. DBとか諸々作成
+  - 以下のコマンドを実行する。(最初は少し時間かかるかも)
+    - `bin/setup`
+5. 起動
+  - 以下のコマンドで起動する。
+    - `docker-compose up`
 
+## よく使うコマンド
 ### 起動
 `docker-compose up`
 
@@ -13,10 +24,17 @@
 ### Railsコマンド
 `docker-compose run rails コマンド`
 
-**例**
+#### 例
+```
+# マイグレーション
+docker-compose run --rm rails rails db:migrate
 
-- rails c
-  - `docker-compose run rails rails c`
+# テスト(RSpec)実行
+docker-compose run --rm -e RAILS_ENV=test rails bundle exec rspec
+
+# Railsコンソール
+docker-compose run --rm rails rails c
+```
 
 ### コンテナに入る
 `docker-compose run --rm rails bash`
