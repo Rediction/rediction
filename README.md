@@ -51,3 +51,6 @@ docker-compose run --rm rails rails c
 **例**
 
 山田太郎がissue（番号４）の対応用のブランチを作る場合の名前は`taro#4`になる。
+
+## masterブランチへのプルリク作成コマンド
+`hub pull-request -b master -h develop -m "RELEASE `date '+%Y%m%d%H%M'`"`
