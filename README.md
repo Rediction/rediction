@@ -41,3 +41,10 @@ docker-compose run --rm rails rails c
 
 ### コンテナを停止
 `docker-compose down`
+
+## ブランチの命名規約
+[担当の名前]#[issue番号]
+
+**例**
+
+山田太郎がissue（番号４）の対応用のブランチを作る場合の名前は`taro#4`になる。
