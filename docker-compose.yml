@@ -19,15 +19,14 @@ services:
       context: ./
       dockerfile: ./docker/rails/Dockerfile
     env_file: .docker-env
-    environment:
-      MYSQL_ALLOW_EMPTY_PASSWORD: "true"
-      MYSQL_HOST: mysql
-      MYSQL_USER: "root"
     volumes:
       - .:/app
     volumes_from:
       - datastore
     environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "true"
+      MYSQL_HOST: "mysql"
+      MYSQL_USER: "root"
       REDIS_SESSION_URL: "redis://redis:6379"
     depends_on:
       - mysql

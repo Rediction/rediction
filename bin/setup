@@ -26,7 +26,7 @@ chdir APP_ROOT do
   # end
 
   puts "\n== Preparing database =="
-  system! 'docker-compose run --rm rails bundle exec rails db:create db:migrate db:seed_fu'
+  system! 'docker-compose run --rm rails bundle exec rails db:create db:migrate'
 
   puts "\n== Removing old logs and tempfiles =="
   system! 'docker-compose run --rm rails bundle exec rails log:clear tmp:clear'
