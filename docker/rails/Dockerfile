@@ -1,6 +1,7 @@
 FROM ruby:2.5.1
 
 ENV LANG C.UTF-8
+ENV RAILS_ENV=development
 
 RUN curl -sL https://deb.nodesource.com/setup_6.x | bash - && \
     curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
