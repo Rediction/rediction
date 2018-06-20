@@ -7,15 +7,16 @@ jobs:
   build:
     docker:
       # specify the version you desire here
-       - image: circleci/ruby:2.5.1-node-browsers
-         environment:
-           RAILS_ENV: test
-           RACK_ENV: test
-       - image: circleci/mysql:5.7
-         environment:
-           MYSQL_USER: root
-           MYSQL_ALLOW_EMPTY_PASSWORD: yes
-       - image: circleci/redis:4.0.9
+      - image: circleci/ruby:2.5.1-node-browsers
+        environment:
+          RAILS_ENV: test
+          RACK_ENV: test
+      - image: circleci/mysql:5.7
+        environment:
+          MYSQL_HOST: mysql
+          MYSQL_USER: root
+          MYSQL_ALLOW_EMPTY_PASSWORD: yes
+      - image: circleci/redis:4.0.9
 
     working_directory: ~/repo
 
