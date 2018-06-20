@@ -41,7 +41,8 @@ jobs:
 
       # Database setup
       - run: bundle exec rake db:create
-      - run: bundle exec rake db:schema:load
+      # Todo: Migrationファイルが作られたタイミングでコメントアウトを外す
+      # - run: bundle exec rake db:schema:load
 
       # run tests!
       - run:
