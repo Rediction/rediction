@@ -1,0 +1,3 @@
+BUNDLE_GEMFILE=Gemfile
+TZ=Asia/Tokyo
+skip_on_db_migrate=false

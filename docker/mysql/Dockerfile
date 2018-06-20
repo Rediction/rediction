@@ -1,10 +1,6 @@
 
 FROM mysql:5.7
 
-ENV MYSQL_ALLOW_EMPTY_PASSWORD=yes
-ENV MYSQL_ROOT_PASSWORD=""
-ENV MYSQL_USER="root"
-
 RUN apt-get update && \
     apt-get install -y locales && \
     rm -rf /var/lib/apt/lists/* && \
