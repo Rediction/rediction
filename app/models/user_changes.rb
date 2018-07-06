@@ -12,10 +12,9 @@
 
 class UserChanges < ApplicationRecord
 
-  has_secure_password validations: true
-  belongs_to :user, foreign_key: 'user_id'
+  has_secure_password
+  belongs_to :user
 
-  validates :user_id,  presence: true
-  validates :email,    presence: true
-  validates :password, presence: true
+  validates :email,           presence: true
+  validates :password_digest, presence: true
 end
