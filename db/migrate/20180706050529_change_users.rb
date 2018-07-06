@@ -1,5 +1,7 @@
-class ChangeUsers < ActiveRecord::Migration[5.1]
+class ChangeUsers < ActiveRecord::Migration[5.2]
   def change
+    add_index :user_changes, :user_id
+
     create_table :user_changes do |t|
       t.bigint    :user_id,          null: false, comment: "更新したユーザーのid"
       t.string    :email,            null: false, comment: "更新したメールアドレス"

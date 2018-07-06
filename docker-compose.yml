@@ -28,7 +28,7 @@ services:
     environment:
       MYSQL_HOST: "mysql"
       MYSQL_USER: "root"
-      REDIS_SESSION_URL: "redis://redis:6379"
+      REDIS_URL: "redis://redis:6379"
     depends_on:
       - mysql
       - redis

@@ -10,8 +10,7 @@
 #  updated_at :datetime         not null
 #
 
-class UserChanges < ApplicationRecord
-
+class UserChange < ApplicationRecord
   has_secure_password
   belongs_to :user
 
