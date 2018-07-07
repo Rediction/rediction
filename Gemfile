@@ -41,6 +41,9 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'rails-i18n'
 # slim記法を利用できるようにしてくれるもの
 gem 'slim-rails'
+# schemaにコメントを残す
+gem 'migration_comments'
+
 
 
 group :development, :test do
