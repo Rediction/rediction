@@ -1,7 +1,7 @@
-class ChangeUserProfiles < ActiveRecord::Migration[5.2]
+class CreateUserProfileChanges < ActiveRecord::Migration[5.2]
   def change
-    create_table :user_profile_changes do |t|
-      t.bigint   :user_profile_id, null: false, uniqueness: true,  comment: "ユーザープロフィールID"
+    create_table :user_profile_changes, comment: "ユーザープロフィール更新履歴" do |t|
+      t.bigint   :user_profile_id, null: false, comment: "ユーザープロフィールID"
       t.string   :last_name,       null: false, comment: "苗字"
       t.string   :last_name_kana,  null: false, comment: "苗字(フリガナ)"
       t.string   :first_name,      null: false, comment: "名前"

@@ -1,0 +1,2 @@
+class UserFreezedReason < ApplicationRecord
+end

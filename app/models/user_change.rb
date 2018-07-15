@@ -15,5 +15,5 @@ class UserChange < ApplicationRecord
   belongs_to :user, optional: true
 
   validates :email,           presence: true
-  validates :password_digest, presence: true
+  validates :password_digest, presence: true, length: { minimum: 8 }
 end

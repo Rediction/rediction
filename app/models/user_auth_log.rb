@@ -1,0 +1,2 @@
+class UserAuthLog < ApplicationRecord
+end

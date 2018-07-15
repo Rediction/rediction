@@ -1,6 +1,6 @@
-class ProvisionalUsers < ActiveRecord::Migration[5.2]
+class CreateProvisionalUsers < ActiveRecord::Migration[5.2]
   def change
-    create_table :provisional_users do |t|
+    create_table :provisional_users, comment: "仮ユーザー情報" do |t|
       t.string    :email,               null: false, comment: "メールアドレス"
       t.string    :password_digest,     null: false, comment: "パスワード"
       t.string    :verification_token,  null: false, comment: "検証用トークン"

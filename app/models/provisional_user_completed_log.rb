@@ -1,0 +1,2 @@
+class ProvisionalUserCompletedLog < ApplicationRecord
+end
