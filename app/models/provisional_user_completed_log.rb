@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: provisional_user_completed_logs # 仮ユーザーとユーザーの関連履歴
+# Table name: provisional_user_completed_logs # usersテーブルとprovisional_usersテーブルの結び付き関係を格納
 #
 #  id                  :bigint(8)        not null, primary key
 #  user_id             :bigint(8)        not null              # ユーザーID(FK)

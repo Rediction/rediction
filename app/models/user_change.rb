@@ -15,7 +15,5 @@ class UserChange < ApplicationRecord
   has_secure_password
   belongs_to :user
 
-  validates :email, presence: true
-  validates :password_digest, presence: true, length: { minimum: 8 }
   validates :event, presence: true
 end

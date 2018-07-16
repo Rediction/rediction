@@ -4,7 +4,7 @@
 #
 #  id         :bigint(8)        not null, primary key
 #  user_id    :bigint(8)        not null              # ユーザーID(FK)
-#  success    :boolean          not null              # ユーザー認証が成功したか失敗を判断したテーブル
+#  success    :boolean          not null              # ユーザー認証が成功したか失敗を判した結果が反映されるテーブル
 #  created_at :datetime         not null
 #
 

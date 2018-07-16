@@ -12,7 +12,7 @@
 
 ActiveRecord::Schema.define(version: 2018_07_15_042801) do
 
-  create_table "provisional_user_completed_logs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", comment: "仮ユーザーとユーザーの関連履歴", force: :cascade do |t|
+  create_table "provisional_user_completed_logs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", comment: "usersテーブルとprovisional_usersテーブルの結び付き関係を格納", force: :cascade do |t|
     t.bigint "user_id", null: false, comment: "ユーザーID(FK)"
     t.bigint "provisional_user_id", null: false, comment: "仮ユーザーID(FK)"
     t.datetime "created_at", null: false
@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(version: 2018_07_15_042801) do
 
   create_table "user_auth_logs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", comment: "ユーザーのアカウント認証記録が格納されるテーブル", force: :cascade do |t|
     t.bigint "user_id", null: false, comment: "ユーザーID(FK)"
-    t.boolean "success", null: false, comment: "ユーザー認証が成功したか失敗を判断したテーブル"
+    t.boolean "success", null: false, comment: "ユーザー認証が成功したか失敗を判した結果が反映されるテーブル"
     t.datetime "created_at", null: false
     t.index ["user_id"], name: "index_user_auth_logs_on_user_id"
   end
