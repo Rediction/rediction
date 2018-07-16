@@ -27,9 +27,9 @@ ActiveRecord::Schema.define(version: 2018_07_15_042801) do
     t.datetime "created_at", null: false
   end
 
-  create_table "user_auth_logs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", comment: "ユーザーアカウント認証記録", force: :cascade do |t|
+  create_table "user_auth_logs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", comment: "ユーザーのアカウント認証記録が格納されるテーブル", force: :cascade do |t|
     t.bigint "user_id", null: false, comment: "ユーザーID(FK)"
-    t.boolean "success", null: false, comment: "成功"
+    t.boolean "success", null: false, comment: "ユーザー認証が成功したか失敗を判断したテーブル"
     t.datetime "created_at", null: false
     t.index ["user_id"], name: "index_user_auth_logs_on_user_id"
   end
