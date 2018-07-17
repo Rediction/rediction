@@ -12,12 +12,11 @@
 
 class User < ApplicationRecord
   has_secure_password
-  has_one :user_auth_log
-  has_one :user_change
-  has_one :user_profile
-  has_one :provisional_user_completed_log
-  has_one :user_freezed_reason
-  has_one :user_unfreezed_reason
+  has_one :user_profile, :dependent => :destroy
+  has_one :provisional_user_completed_log, :dependent => :destroy
+  has_many :user_freezed_reasons, :dependent => :destroy
+  has_many :user_unfreezed_reasons, :dependent => :destroy
+  has_many :user_auth_logs, :dependent => :destroy
 
   validates :email, presence: true
   validates :password_digest, presence: true

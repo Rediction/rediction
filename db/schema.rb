@@ -25,11 +25,12 @@ ActiveRecord::Schema.define(version: 2018_07_15_042801) do
     t.string "password_digest", null: false, comment: "パスワード"
     t.string "verification_token", null: false, comment: "検証用トークン"
     t.datetime "created_at", null: false
+    t.index ["verification_token"], name: "index_provisional_users_on_verification_token", unique: true
   end
 
   create_table "user_auth_logs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", comment: "ユーザーのアカウント認証記録が格納されるテーブル", force: :cascade do |t|
     t.bigint "user_id", null: false, comment: "ユーザーID(FK)"
-    t.boolean "success", null: false, comment: "ユーザー認証が成功したか失敗を判した結果が反映されるテーブル"
+    t.boolean "success", null: false, comment: "ユーザー認証が成功したか失敗したかを判断した結果が反映されるテーブル"
     t.datetime "created_at", null: false
     t.index ["user_id"], name: "index_user_auth_logs_on_user_id"
   end
@@ -72,7 +73,7 @@ ActiveRecord::Schema.define(version: 2018_07_15_042801) do
     t.string "job", null: false, comment: "職業"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_user_profiles_on_user_id"
+    t.index ["user_id"], name: "index_user_profiles_on_user_id", unique: true
   end
 
   create_table "user_unfreezed_reasons", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", comment: "ユーザーのアカウント凍結解除記録", force: :cascade do |t|
@@ -88,6 +89,7 @@ ActiveRecord::Schema.define(version: 2018_07_15_042801) do
     t.boolean "freezed", default: false, null: false, comment: "凍結状態"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
   end
 
   add_foreign_key "provisional_user_completed_logs", "provisional_users"

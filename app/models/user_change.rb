@@ -12,7 +12,5 @@
 #
 
 class UserChange < ApplicationRecord
-  has_secure_password
-  belongs_to :user
   validates :event, presence: true
 end

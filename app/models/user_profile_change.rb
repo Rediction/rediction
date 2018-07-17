@@ -15,6 +15,5 @@
 #
 
 class UserProfileChange < ApplicationRecord
-  belongs_to :user
   validates :event, presence: true
 end
