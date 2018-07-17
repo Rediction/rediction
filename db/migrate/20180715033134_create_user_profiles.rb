@@ -1,7 +1,7 @@
 class CreateUserProfiles < ActiveRecord::Migration[5.2]
   def change
     create_table :user_profiles, comment: "ユーザープロフィール情報" do |t|
-      t.references :user, null: false, uniqueness: true, comment: "ユーザーID(FK)"
+      t.references :user, null: false, foreign_key: true, uniqueness: true, comment: "ユーザーID(FK)"
       t.string :last_name, null: false, comment: "苗字"
       t.string :last_name_kana, null: false, comment: "苗字(フリガナ)"
       t.string :first_name, null: false, comment: "名前"

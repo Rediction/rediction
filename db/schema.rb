@@ -16,8 +16,8 @@ ActiveRecord::Schema.define(version: 2018_07_15_042801) do
     t.bigint "user_id", null: false, comment: "ユーザーID(FK)"
     t.bigint "provisional_user_id", null: false, comment: "仮ユーザーID(FK)"
     t.datetime "created_at", null: false
-    t.index ["provisional_user_id"], name: "index_provisional_user_completed_logs_on_provisional_user_id"
-    t.index ["user_id"], name: "index_provisional_user_completed_logs_on_user_id"
+    t.index ["provisional_user_id"], name: "index_provisional_user_completed_logs_on_provisional_user_id", unique: true
+    t.index ["user_id"], name: "index_provisional_user_completed_logs_on_user_id", unique: true
   end
 
   create_table "provisional_users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", comment: "仮ユーザー情報", force: :cascade do |t|
@@ -35,13 +35,12 @@ ActiveRecord::Schema.define(version: 2018_07_15_042801) do
   end
 
   create_table "user_changes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", comment: "ユーザー情報更新履歴", force: :cascade do |t|
-    t.bigint "user_id", null: false, comment: "更新したユーザーのID(FK)"
+    t.bigint "user_id", null: false, comment: "更新したユーザーのID"
     t.string "email", null: false, comment: "更新したメールアドレス"
     t.string "password_digest", null: false, comment: "更新されたパスワード"
     t.boolean "freezed", null: false, comment: "凍結状態"
     t.string "event", null: false, comment: "レコード登録時のイベント"
     t.datetime "created_at", null: false
-    t.index ["user_id"], name: "index_user_changes_on_user_id"
   end
 
   create_table "user_freezed_reasons", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", comment: "ユーザーのアカウント凍結記録", force: :cascade do |t|
@@ -83,11 +82,18 @@ ActiveRecord::Schema.define(version: 2018_07_15_042801) do
     t.index ["user_id"], name: "index_user_unfreezed_reasons_on_user_id"
   end
 
-  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", comment: "ユーザー情報", force: :cascade do |t|
     t.string "email", null: false, comment: "メールアドレス"
     t.string "password_digest", null: false, comment: "パスワード"
+    t.boolean "freezed", default: false, null: false, comment: "凍結状態"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "provisional_user_completed_logs", "provisional_users"
+  add_foreign_key "provisional_user_completed_logs", "users"
+  add_foreign_key "user_auth_logs", "users"
+  add_foreign_key "user_freezed_reasons", "users"
+  add_foreign_key "user_profiles", "users"
+  add_foreign_key "user_unfreezed_reasons", "users"
 end

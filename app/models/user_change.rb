@@ -3,7 +3,7 @@
 # Table name: user_changes # ユーザー情報更新履歴
 #
 #  id              :bigint(8)        not null, primary key
-#  user_id         :bigint(8)        not null              # 更新したユーザーのID(FK)
+#  user_id         :bigint(8)        not null              # 更新したユーザーのID
 #  email           :string(255)      not null              # 更新したメールアドレス
 #  password_digest :string(255)      not null              # 更新されたパスワード
 #  freezed         :boolean          not null              # 凍結状態
@@ -14,6 +14,5 @@
 class UserChange < ApplicationRecord
   has_secure_password
   belongs_to :user
-
   validates :event, presence: true
 end
