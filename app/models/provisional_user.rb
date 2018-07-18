@@ -11,7 +11,7 @@
 
 class ProvisionalUser < ApplicationRecord
   has_secure_password
-  has_one :provisional_user_completed_log, :dependent => :destroy
+  has_one :provisional_user_completed_log, dependent: :destroy
 
   validates :email, presence: true
   validates :password_digest, presence: true, length: { minimum: 8 }
