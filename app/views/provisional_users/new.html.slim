@@ -1,0 +1,14 @@
+h1
+  | 会員登録ページ
+br
+= link_to("homeにもどる","/")
+br
+= form_for @provisional_user, url: provisional_users_path do |f|
+
+  = f.label :email
+  = f.text_field :email
+
+  = f.label :password
+  = f.text_field :password_digest
+
+  = f.submit '登録'

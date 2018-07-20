@@ -1,0 +1,15 @@
+doctype html
+html lang="ja"
+  head
+  body
+  h2
+    = @user.email
+
+  p
+    | ようこそRedictionへ。メールの認証を完了させて、本会員登録を完了させてください。
+    = @url
+
+  p
+    | ユーザーのメールアドレス:
+  = @user.email
+

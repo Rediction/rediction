@@ -1,0 +1,29 @@
+h1
+  | 会員登録ページ
+br
+= link_to("homeにもどる","/")
+br
+h2
+  | 会員登録が完了しました。プロフィールを入力しよう！
+br
+= form_for @user_profile, url: user_profiles_path do |f|
+
+  = f.label :苗字
+  = f.text_field :last_name
+
+  = f.label :フリガナ(苗字)
+  = f.text_field :last_name_kana
+
+  = f.label :名前
+  = f.text_field :first_name
+
+  = f.label :フリガナ(名前)
+  = f.text_field :first_name_kana
+
+  = f.label :生年月日
+  = f.date_select :birth_on, use_month_numbers: :true
+
+  = f.label :職業
+  = f.text_field :job
+
+  = f.submit '完了'
