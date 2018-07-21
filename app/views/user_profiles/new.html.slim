@@ -6,18 +6,18 @@ br
 h2
   | 会員登録が完了しました。プロフィールを入力しよう！
 br
-= form_for @user_profile, url: user_profiles_path do |f|
+= form_for @user_profile do |f|
 
-  = f.label :苗字
+  = f.label :last_name
   = f.text_field :last_name
 
-  = f.label :フリガナ(苗字)
-  = f.text_field :last_name_kana
-
-  = f.label :名前
+  = f.label :first_name
   = f.text_field :first_name
 
-  = f.label :フリガナ(名前)
+  = f.label :last_name_kana
+  = f.text_field :last_name_kana
+
+  = f.label :first_name
   = f.text_field :first_name_kana
 
   = f.label :生年月日
@@ -26,4 +26,4 @@ br
   = f.label :職業
   = f.text_field :job
 
-  = f.submit '完了'
+  = f.submit '完了', data: { disable_with: "送信中..." }

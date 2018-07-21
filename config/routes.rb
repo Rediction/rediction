@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+
   root to: 'root#index'
 
-  resources :provisional_users, only: :new, :create, :destroy
-  resources :users
-  resources :user_profiles
+  resources :provisional_users, only: [:index, :new, :create]
+
+  namespace :users do
+    resources :users, only: [:create]
+    resources :user_profiles, only: [:new, :create]
+  end
 end

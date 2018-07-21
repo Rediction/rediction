@@ -10,7 +10,8 @@
 #  event           :string(255)      not null              # レコード登録時のイベント
 #  created_at      :datetime         not null
 #
-
-class UserChange < ApplicationRecord
-  validates :event, presence: true
+module User
+  class UserChange < ApplicationRecord
+    validates :event, presence: true
+  end
 end

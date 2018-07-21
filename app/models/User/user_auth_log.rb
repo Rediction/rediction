@@ -7,8 +7,9 @@
 #  success    :boolean          not null              # ユーザー認証が成功したか失敗したかを判断した結果が反映されるテーブル
 #  created_at :datetime         not null
 #
-
-class UserAuthLog < ApplicationRecord
-  belongs_to :user
-  validates :success, presence: true
+module User
+  class UserAuthLog < ApplicationRecord
+    belongs_to :user
+    validates :success, presence: true
+  end
 end

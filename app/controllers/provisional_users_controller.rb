@@ -7,11 +7,12 @@ class ProvisionalUsersController < ApplicationController
   def create
     @provisional_user = ProvisionalUser.new(provisional_user_params)
     @provisional_user.verification_token = SecureRandom.uuid
+
     if @provisional_user.save
       RegisterationMailer.send_when_registeration(@provisional_user).deliver_now
-      flash[:success] = "登録成功"
-      redirect_to root_path
+      render 'provisional_users/create'
     else
+      flash[:error] = "failed"
       render 'new'
     end
   end
@@ -19,7 +20,7 @@ class ProvisionalUsersController < ApplicationController
   private
 
     def provisional_user_params
-      params.require(:provisional_user).permit(:email, :password_digest)
+      params.require(:provisional_user).permit(:email, :password)
     end
 
 end

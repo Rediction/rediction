@@ -13,7 +13,8 @@
 #  event           :string(255)      not null              # イベント
 #  created_at      :datetime         not null
 #
-
-class UserProfileChange < ApplicationRecord
-  validates :event, presence: true
+module User
+  class UserProfileChange < ApplicationRecord
+    validates :event, presence: true
+  end
 end

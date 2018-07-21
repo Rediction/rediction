@@ -1,14 +1,14 @@
 h1
   | 会員登録ページ
 br
-= link_to("homeにもどる","/")
+= link_to "homeにもどる", root_path
 br
-= form_for @provisional_user, url: provisional_users_path do |f|
+= form_for @provisional_user do |f|
 
   = f.label :email
-  = f.text_field :email
+  = f.email_field :email
 
   = f.label :password
-  = f.text_field :password_digest
+  = f.password_field :password
 
-  = f.submit '登録'
+  = f.submit '登録', data: { disable_with: "送信中" }
