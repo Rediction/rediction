@@ -12,5 +12,8 @@
 #
 
 class UserChange < ApplicationRecord
-  validates :event, presence: true
+  include CreatableFromOriginal
+  ORIGINAL_FOREIGN_KEY = :user_id
+
+  belongs_to :user
 end
