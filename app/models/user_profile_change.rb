@@ -15,5 +15,8 @@
 #
 
 class UserProfileChange < ApplicationRecord
-  validates :event, presence: true
+  include CreatableFromOriginal
+  ORIGINAL_FOREIGN_KEY = :user_profile_id
+
+  belongs_to :user_profile
 end
