@@ -13,8 +13,17 @@
 #  event           :string(255)      not null              # イベント
 #  created_at      :datetime         not null
 #
+<<<<<<< HEAD:app/models/User/user_profile_change.rb
 module User
   class UserProfileChange < ApplicationRecord
     validates :event, presence: true
   end
+=======
+
+class UserProfileChange < ApplicationRecord
+  include CreatableFromOriginal
+  ORIGINAL_FOREIGN_KEY = :user_profile_id
+
+  belongs_to :user_profile
+>>>>>>> 5a602449e56720220089b205b012a97033572a0d:app/models/user_profile_change.rb
 end

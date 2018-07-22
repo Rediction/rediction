@@ -1,0 +1,13 @@
+h1
+  | メールが送信されましたので、ご確認ください。
+= link_to "homeにもどる", "/"
+br
+- @provisional_users.each do |provisional_user|
+  br
+  hr
+  = provisional_user.email
+  br
+  = provisional_user.password_digest
+  br
+  = provisional_user.verification_token
+  hr

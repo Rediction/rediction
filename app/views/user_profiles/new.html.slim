@@ -9,21 +9,21 @@ br
 = form_for @user_profile do |f|
 
   = f.label :last_name
-  = f.text_field :last_name
+  = f.text_field :last_name, placeholder: true
 
   = f.label :first_name
-  = f.text_field :first_name
+  = f.text_field :first_name, placeholder: true
 
   = f.label :last_name_kana
-  = f.text_field :last_name_kana
+  = f.text_field :last_name_kana, placeholder: true
 
   = f.label :first_name
-  = f.text_field :first_name_kana
+  = f.text_field :first_name_kana, placeholder: true
 
-  = f.label :生年月日
-  = f.date_select :birth_on, use_month_numbers: :true
+  = f.label :birth_on
+  = f.date_select :birth_on, use_month_numbers: :true, placeholder: true
 
-  = f.label :職業
-  = f.text_field :job
+  = f.label :job
+  = f.text_field :job, placeholder: true
 
   = f.submit '完了', data: { disable_with: "送信中..." }
