@@ -1,2 +1,19 @@
 ja:
   hello: 'こんにちは'
+
+  activerecord:
+    attributes:
+      provisional_user:
+        email: "メールアドレス"
+        password: "パスワード"
+      user_profile:
+        last_name: '苗字'
+        last_name_kana: 'フリガナ(苗字)'
+        first_name: '名前'
+        first_name_kana: 'フリガナ(名前)'
+        birth_on: '生年月日'
+        job: '職業'
+
+
+
+

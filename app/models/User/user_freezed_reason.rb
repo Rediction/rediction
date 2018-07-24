@@ -7,8 +7,9 @@
 #  description :string(255)      not null              # 凍結理由
 #  created_at  :datetime         not null
 #
-
-class UserFreezedReason < ApplicationRecord
-  belongs_to :user
-  validates :description, presence: true
+module User
+  class UserFreezedReason < ApplicationRecord
+    belongs_to :user
+    validates :description, presence: true
+  end
 end

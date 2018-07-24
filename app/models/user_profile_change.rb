@@ -13,7 +13,6 @@
 #  event           :string(255)      not null              # イベント
 #  created_at      :datetime         not null
 #
-
 class UserProfileChange < ApplicationRecord
   include CreatableFromOriginal
   ORIGINAL_FOREIGN_KEY = :user_profile_id
