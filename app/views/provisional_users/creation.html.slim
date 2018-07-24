@@ -1,19 +1,4 @@
 h1
   | メールが送信されましたので、ご確認ください。
 = link_to "homeにもどる", root_path
-br
-= link_to "メールを確認する", letter_opener_web_path
-br
 
-br
-- @provisional_users.each do |provisional_user|
-  br
-  hr
-  = provisional_user.id
-  br
-  = provisional_user.email
-  br
-  = provisional_user.password_digest
-  br
-  = provisional_user.verification_token
-  hr

@@ -1,11 +1,10 @@
 h1
   | 会員登録ページ
 br
-= link_to("homeにもどる","/")
+= link_to "homeにもどる", root_path
 br
 h2
-  | 会員登録が完了しました。プロフィールを入力しよう！
-br
+  | 本会員登録が完了しました。プロフィールを入力しよう！
 = form_for @user_profile do |f|
 
   = f.label :last_name

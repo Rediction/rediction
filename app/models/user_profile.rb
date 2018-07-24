@@ -13,7 +13,7 @@
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #
-module User
+# module User
   class UserProfile < ApplicationRecord
     belongs_to :user
     validates :last_name, presence: true, length: { maximum: 20 }
@@ -23,4 +23,4 @@ module User
     validates :birth_on, presence: true
     validates :job, presence: true
   end
-end
+# end

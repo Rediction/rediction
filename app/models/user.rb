@@ -9,7 +9,7 @@
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #
-module User
+# module User
   class User < ApplicationRecord
     has_secure_password
     has_one :user_profile, dependent: :destroy
@@ -21,4 +21,4 @@ module User
     validates :email, presence: true
     validates :password_digest, presence: true
   end
-end
+# end

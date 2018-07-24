@@ -5,11 +5,11 @@ class ProvisionalUsersController < ApplicationController
   end
 
   def create
-    @provisional_user = ProvisionalUser.new(provisional_user_params)
-    @provisional_user.verification_token = SecureRandom.uuid
+      @provisional_user = ProvisionalUser.new(provisional_user_params)
+      @provisional_user.verification_token = SecureRandom.uuid
 
-    if @provisional_user.save
-      # RegisterationMailer.send_when_registeration(@provisional_user).deliver
+    if @provisional_user
+      RegisterationMailer.send_when_registeration(@provisional_user).deliver
       redirect_to provisional_users_creation_path
     else
       flash[:error] = "failed"
@@ -19,7 +19,6 @@ class ProvisionalUsersController < ApplicationController
 
   def creation
     @provisional_users = ProvisionalUser.all.order(created_at: :desc)
-    # @provisional_user = ProvisionalUser.find_by(email: params[:provisional_user][:email])
   end
 
   private
@@ -27,5 +26,6 @@ class ProvisionalUsersController < ApplicationController
     def provisional_user_params
       params.require(:provisional_user).permit(:email, :password)
     end
+
 
 end
