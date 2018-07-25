@@ -1,0 +1,10 @@
+- flash.each do |type, message|
+      #flash-msg.flash class="flash-#{type}"
+        = message
+
+= simple_form_for Word.new, url: words_path, method: :post do |f|
+  = f.input :name, label: false, placeholder: t('placeholder.word.name')
+  = f.input :phonetic, label: false, placeholder: t('placeholder.word.phonetic')
+  = f.input :description, label: false, placeholder: t('placeholder.word.description')
+  /= f.input :user_id, as: :hidden, input_html: {value: user_id}
+  = f.button :submit, "投稿する", data: { disable_with: "投稿中" }

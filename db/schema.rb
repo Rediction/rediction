@@ -10,7 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_15_042801) do
+ActiveRecord::Schema.define(version: 2018_07_24_181557) do
+
+  create_table "favorite_changes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", comment: "お気に入りが外された時の履歴", force: :cascade do |t|
+    t.bigint "user_id", null: false, comment: "ユーザーID(FK)"
+    t.bigint "word_id", null: false, comment: "言葉ID(FK)"
+    t.string "event", null: false, comment: "イベント"
+    t.datetime "created_at", null: false
+    t.index ["user_id"], name: "index_favorite_changes_on_user_id"
+    t.index ["word_id"], name: "index_favorite_changes_on_word_id"
+  end
+
+  create_table "favorites", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", comment: "お気に入り", force: :cascade do |t|
+    t.bigint "user_id", null: false, comment: "ユーザーID(FK)"
+    t.bigint "word_id", null: false, comment: "言葉ID(FK)"
+    t.datetime "created_at", null: false
+    t.index ["user_id"], name: "index_favorites_on_user_id"
+    t.index ["word_id"], name: "index_favorites_on_word_id"
+  end
 
   create_table "provisional_user_completed_logs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", comment: "usersテーブルとprovisional_usersテーブルの結び付き関係を格納", force: :cascade do |t|
     t.bigint "user_id", null: false, comment: "ユーザーID(FK)"
@@ -92,10 +109,38 @@ ActiveRecord::Schema.define(version: 2018_07_15_042801) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  create_table "word_changes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", comment: "投稿が削除された時の履歴", force: :cascade do |t|
+    t.bigint "user_id", null: false, comment: "ユーザーID(FK)"
+    t.bigint "word_id", null: false, comment: "言葉ID(FK)"
+    t.string "name", null: false, comment: "名前"
+    t.string "phonetic", null: false, comment: "ふりがな"
+    t.string "description", null: false, comment: "説明"
+    t.string "event", null: false, comment: "イベント"
+    t.datetime "created_at", null: false
+    t.index ["user_id"], name: "index_word_changes_on_user_id"
+    t.index ["word_id"], name: "index_word_changes_on_word_id"
+  end
+
+  create_table "words", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", comment: "言葉", force: :cascade do |t|
+    t.bigint "user_id", null: false, comment: "ユーザーID(FK)"
+    t.string "name", null: false, comment: "名前"
+    t.string "phonetic", null: false, comment: "ふりがな"
+    t.string "description", null: false, comment: "説明"
+    t.datetime "created_at", null: false
+    t.index ["user_id"], name: "index_words_on_user_id"
+  end
+
+  add_foreign_key "favorite_changes", "users"
+  add_foreign_key "favorite_changes", "words"
+  add_foreign_key "favorites", "users"
+  add_foreign_key "favorites", "words"
   add_foreign_key "provisional_user_completed_logs", "provisional_users"
   add_foreign_key "provisional_user_completed_logs", "users"
   add_foreign_key "user_auth_logs", "users"
   add_foreign_key "user_freezed_reasons", "users"
   add_foreign_key "user_profiles", "users"
   add_foreign_key "user_unfreezed_reasons", "users"
+  add_foreign_key "word_changes", "users"
+  add_foreign_key "word_changes", "words"
+  add_foreign_key "words", "users"
 end

@@ -1,0 +1,12 @@
+ja:
+  activerecord:
+    models:
+      word: 言葉
+    attributes:
+      word: &word
+        name: 名前
+        phonetic: ふりがな
+        description: 説明
+  placeholder:
+    word:
+      <<: *word
