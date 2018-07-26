@@ -14,13 +14,11 @@ class ProvisionalUser < ApplicationRecord
   has_one :provisional_user_completed_log, dependent: :destroy
 
   validates :email, presence: true
-  validates :password_digest, presence: true, length: { minimum: 8 }
+  validates :password, presence: true, length: { minimum: 8 }
   validates :verification_token, presence: true
 
-  def save_account_information
-    p "-----------------------------"
-    p self.verification_token = SecureRandom.uuid
-    p save
-    exit
+  def save_with_verification_token
+     self.verification_token = SecureRandom.uuid
+     save
   end
 end

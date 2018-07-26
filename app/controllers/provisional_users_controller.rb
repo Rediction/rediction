@@ -4,10 +4,16 @@ class ProvisionalUsersController < ApplicationController
   end
 
   def create
-  p "-----------------------------"
-    p provisional_user = ProvisionalUser.new(provisional_user_params)
-    p provisional_user.save
-    exit
+
+    provisional_user = ProvisionalUser.new(provisional_user_params)
+    provisional_user.save_with_verification_token
+
+    if provisional_user
+      RegisterationMailer.send_when_registeration(provisional_user).deliver_now
+    else
+      flash[:error] = "failed"
+      render 'new'
+    end
   end
 
  private
