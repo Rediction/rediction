@@ -16,4 +16,11 @@ class ProvisionalUser < ApplicationRecord
   validates :email, presence: true
   validates :password_digest, presence: true, length: { minimum: 8 }
   validates :verification_token, presence: true
+
+  def save_account_information
+    p "-----------------------------"
+    p self.verification_token = SecureRandom.uuid
+    p save
+    exit
+  end
 end
