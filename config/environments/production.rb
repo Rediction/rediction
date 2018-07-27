@@ -89,20 +89,20 @@ Rails.application.configure do
     config.logger    = ActiveSupport::TaggedLogging.new(logger)
   end
 
-  config.service_host = ENV['SERVICE_DOMAIN'] || 'https://rediction-prod.herokuapp.com'
+  config.service_host = ENV['SERVICE_DOMAIN'] || "https://rediction-prod.herokuapp.com"
   # アプリケーションのホスト情報をmailer内で使用する際にそれをグローバルで利用できるようにするもの
   config.action_mailer.default_url_options = { host: config.service_host }
 
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.smtp_settings = {
-  enable_starttls_auto => true,
-  address: 'smtp.gmail.com',
-  port: '587',
-  domain: 'smtp.gmail.com',
-  authentication: 'plain',
-  user_name: 'rediction.coela@gmail.com',
-  password: 'redictioncoela'
+    enable_starttls_auto: true,
+    address: "smtp.gmail.com",
+    port: "587",
+    domain: "smtp.gmail.com",
+    authentication: "plain",
+    user_name: ENV["ACTION_MAILER_USER_NAME"],
+    password: ENV["ACTION_MAILER_PASSWORD"]
   }
 
   # Do not dump schema after migrations.
