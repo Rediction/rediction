@@ -15,7 +15,7 @@ class ProvisionalUsersController < ApplicationController
     end
   end
 
- private
+  private
 
     def provisional_user_params
       params.require(:provisional_user).permit(:email, :password)
