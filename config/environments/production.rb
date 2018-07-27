@@ -93,6 +93,18 @@ Rails.application.configure do
   # アプリケーションのホスト情報をmailer内で使用する際にそれをグローバルで利用できるようにするもの
   config.action_mailer.default_url_options = { host: config.service_host }
 
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.smtp_settings = {
+  enable_starttls_auto => true,
+  address: 'smtp.gmail.com',
+  port: '587',
+  domain: 'smtp.gmail.com',
+  authentication: 'plain',
+  user_name: 'rediction.coela@gmail.com',
+  password: 'redictioncoela'
+  }
+
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 end
