@@ -5,4 +5,3 @@ Rails.application.routes.draw do
   resource :user_profiles, only: [:new, :create]
   mount LetterOpenerWeb::Engine, at: '/letter_opener' if Rails.env.development?
 end
-  

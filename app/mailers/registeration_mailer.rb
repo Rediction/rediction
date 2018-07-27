@@ -7,4 +7,3 @@ class RegisterationMailer < ApplicationMailer
     mail to: @provisional_user.email, subject: "メール認証"
   end
 end
-  

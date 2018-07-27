@@ -3,4 +3,3 @@ class UserProfilesController < ApplicationController
     @user_profile = UserProfile.new
   end
 end
-  
