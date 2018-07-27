@@ -57,13 +57,13 @@ Rails.application.configure do
 
   # letter_opener用の設定
   config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+  config.action_mailer.default_url_options = { host: "localhost", port: 3000 }
   config.action_mailer.delivery_method = :letter_opener_web
 
   # メールにURLを埋め込む設定
-  config.action_controller.asset_host = "http://localhost:3000/user_profiles/new?verification_token=#{@provisional_user.verification_token}&#{@provisional_user.id}"
+  config.action_controller.asset_host = "http://localhost:3000"
   config.action_mailer.asset_host = config.action_controller.asset_host
-  config.action_mailer.default_url_options= { host:'localhost:3000' }
+  config.action_mailer.default_url_options= { host:"localhost:3000" }
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true

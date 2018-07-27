@@ -8,10 +8,10 @@ class ProvisionalUsersController < ApplicationController
 
     if @provisional_user.save_with_verification_token
       # ユーザー認証を行い、本会員登録を完了させるためのメール
-      RegisterationMailer.send_when_registeration(@provisional_user).deliver_now
+      RegisterationMailer.send_when_registration(@provisional_user).deliver_now
     else
-      flash[:error] = "failed to register"
-      render 'new'
+      flash.now[:error] = "仮会員登録に失敗しました"
+      render "new"
     end
   end
 

@@ -1,27 +1,26 @@
 ja:
-  hello: 'こんにちは'
-# TODO (Shokei Takanashi) : modelフォルダーを作り、その中でModel別にフォルダーを切り分けて管理する予定
+  hello: "こんにちは"
+  # TODO (Shokei Takanashi) : modelフォルダーを作り、その中でModel別にフォルダーを切り分けて管理する予定
   activerecord:
     attributes:
       provisional_user:
         email: "メールアドレス"
         password: "パスワード"
       user_profile:
-        last_name: '苗字'
-        last_name_kana: 'フリガナ(苗字)'
-        first_name: '名前'
-        first_name_kana: 'フリガナ(名前)'
-        birth_on: '生年月日'
-        job: '職業'
+        last_name: "苗字"
+        last_name_kana: "フリガナ(苗字)"
+        first_name: "名前"
+        first_name_kana: "フリガナ(名前)"
+        birth_on: "生年月日"
+        job: "職業"
   helpers:
     placeholder:
       provisional_user:
         email: "sample@example.com"
         password: "✳︎✳︎✳︎✳︎✳︎✳︎✳︎✳︎"
       user_profile:
-        last_name: '山田'
-        last_name_kana: 'ヤマダ'
-        first_name: '太郎'
-        first_name_kana: 'タロウ'
-        birth_on: '生年月日'
-        job: '会社員'
+        last_name: "山田"
+        last_name_kana: "ヤマダ"
+        first_name: "太郎"
+        first_name_kana: "タロウ"
+        job: "会社員"

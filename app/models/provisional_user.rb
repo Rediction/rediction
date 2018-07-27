@@ -25,10 +25,11 @@ class ProvisionalUser < ApplicationRecord
 
   #ユニークなトークンを生成するもの
   class << self
+    #検証用トークンを生成した際、同じものがデータベースに存在した場合にもう一度生成するもの
     def generate_token
       loop do
         token = SecureRandom.uuid
-        return token unless exists?(verification_token: "token")
+        return token unless exists?(verification_token: token)
       end
     end
   end

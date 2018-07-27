@@ -8,11 +8,10 @@ br
   hr
 br
 = form_for @provisional_user, url: provisional_users_path do |f|
-
   = f.label :email
   = f.email_field :email, placeholder: true
 
   = f.label :password
   = f.password_field :password, placeholder: true
 
-  = f.submit '登録', data: { disable_with: "送信中" }
+  = f.submit "登録", data: { disable_with: "送信中..." }
