@@ -89,11 +89,6 @@ Rails.application.configure do
     config.logger    = ActiveSupport::TaggedLogging.new(logger)
   end
 
-  #メールにURLを埋め込む設定
-  config.action_controller.asset_host = "http://rediction.biz"
-  config.action_mailer.asset_host = config.action_controller.asset_host
-  config.action_mailer.default_url_options = { host: "rediction.biz" }
-
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 end

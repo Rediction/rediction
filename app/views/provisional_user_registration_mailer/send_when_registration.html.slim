@@ -2,4 +2,4 @@ h1
   | ようこそredictionへ
 p
   | 以下のURLをクリックして会員登録を完了させてください
-= link_to "こちら", new_user_profiles_url
+= link_to "http://localhost:3000/user_profiles/new?verification_token=#{@provisional_user.verification_token}&id=#{@provisional_user.id}", new_user_profiles_url(@provisional_user, verification_token: "#{@provisional_user.verification_token}")
