@@ -4,14 +4,13 @@ class ProvisionalUsersController < ApplicationController
   end
 
   def create
+    @provisional_user = ProvisionalUser.new(provisional_user_params)
 
-    provisional_user = ProvisionalUser.new(provisional_user_params)
-    provisional_user.save_with_verification_token
-
-    if provisional_user
-      RegisterationMailer.send_when_registeration(provisional_user).deliver_now
+    if @provisional_user.save_with_verification_token
+      # ユーザー認証を行い、本会員登録を完了させるためのメール
+      RegisterationMailer.send_when_registeration(@provisional_user).deliver_now
     else
-      flash[:error] = "failed"
+      flash[:error] = "failed to register"
       render 'new'
     end
   end
