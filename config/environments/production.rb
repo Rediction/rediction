@@ -89,6 +89,9 @@ Rails.application.configure do
     config.logger    = ActiveSupport::TaggedLogging.new(logger)
   end
 
+  # letter_opener用の設定
+  config.action_mailer.default_url_options= ENV['SERVICE_DOMAIN'] || 今のHerokuドメイン(Production)
+
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 end

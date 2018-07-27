@@ -4,6 +4,6 @@ Rails.application.routes.draw do
   resource :provisional_users, only: [:new, :create]
   resource :user_profiles, only: [:new, :create]
 
-  #開発中にrailsから送信されたメールを確認するためのもの。
+  # letter_openerのgemを利用するroutingで開発中にrailsから送信されたメールを確認するためのもの
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
 end
