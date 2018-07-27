@@ -4,7 +4,7 @@ br
 = link_to "homeにもどる", root_path
 h2
   | 本会員登録が完了しました。プロフィールを入力しよう！
-= form_for @user_profile do |f|
+= form_for @user_profile, url: user_profiles_path do |f|
   = f.label :last_name
   = f.text_field :last_name, placeholder: true, required: true
 
