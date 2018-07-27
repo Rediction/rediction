@@ -14,6 +14,22 @@ class ProvisionalUser < ApplicationRecord
   has_one :provisional_user_completed_log, dependent: :destroy
 
   validates :email, presence: true
-  validates :password_digest, presence: true, length: { minimum: 8 }
-  validates :verification_token, presence: true
+  validates :password, presence: true, length: { minimum: 8 }
+  validates :verification_token, presence: true, uniqueness: true
+
+  # 検証用トークンとともに仮会員の情報を保存するもの
+  def save_with_verification_token
+    self.verification_token = ProvisionalUser.generate_token
+    save
+  end
+
+  class << self
+    # ユニークな検証用トークンを生成
+    def generate_token
+      loop do
+        token = SecureRandom.uuid
+        return token unless exists?(verification_token: token)
+      end
+    end
+  end
 end
