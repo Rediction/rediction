@@ -11,4 +11,15 @@
 class UserAuthLog < ApplicationRecord
   belongs_to :user
   validates :success, presence: true
+
+  class << self
+    # ユーザーの認証成功記録を保存するメソッド
+    def certification_success_log(user)
+       user.user_auth_logs.create(success: true)
+    end
+    # ユーザーの認証失敗記録を保存するメソッド
+    def certification_failed_log(user)
+       user.user_auth_logs.create(success: false)
+    end
+  end
 end

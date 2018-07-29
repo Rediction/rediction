@@ -10,7 +10,7 @@
 #  updated_at      :datetime         not null
 #
 
-class User < ApplicationRecord
+class User < ApplicationRecord.transaction do
   has_secure_password
   has_one :user_profile, dependent: :destroy
   has_one :provisional_user_completed_log, dependent: :destroy
@@ -21,9 +21,11 @@ class User < ApplicationRecord
   validates :email, presence: true
   validates :password_digest, presence: true
 
-  def create_user_data(user,provisional_user)
-    UserAuthLog.create(user_id: user.id, success: true)
-    ProvisionalUserCompletedLog.create(user_id: user.id, provisional_user_id: provisional_user.id)
-    UserChange.create_from_original!(original_record: user, event: 'create')
+  class << self
+    # 仮会員と本会員の結び付き関係およびusersテーブルのコピーを保存するメソッド
+    def save_provisional_user_completion_log(user, provisional_user)
+      user.create_provisional_user_completed_log(provisional_user_id: provisional_user.id)
+      UserChange.create_from_original!(original_record: user, event: 'create')
+    end
   end
 end
