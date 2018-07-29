@@ -20,4 +20,10 @@ class User < ApplicationRecord
 
   validates :email, presence: true
   validates :password_digest, presence: true
+
+  def create_user_data(user,provisional_user)
+    UserAuthLog.create(user_id: user.id, success: true)
+    ProvisionalUserCompletedLog.create(user_id: user.id, provisional_user_id: provisional_user.id)
+    UserChange.create_from_original!(original_record: user, event: 'create')
+  end
 end
