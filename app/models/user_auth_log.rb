@@ -14,12 +14,13 @@ class UserAuthLog < ApplicationRecord
 
   class << self
     # ユーザーの認証成功記録を保存するメソッド
-    def certification_success_log(user)
-       user.user_auth_logs.create(success: true)
+    def save_success_log(user)
+       user.user_auth_logs.create(user: user, success: true)
     end
+
     # ユーザーの認証失敗記録を保存するメソッド
-    def certification_failed_log(user)
-       user.user_auth_logs.create(success: false)
+    def save_fail_log(user)
+       user.user_auth_logs.create(user: user, success: false)
     end
   end
 end

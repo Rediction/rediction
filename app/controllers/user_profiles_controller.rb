@@ -15,12 +15,7 @@ class UserProfilesController < ApplicationController
     def complete_user_registration
       @provisional_user = ProvisionalUser.find_by(verification_token: params[:verification_token])
 
-      if @provisional_user
-        user = User.create(email: @provisional_user.email, password_digest: @provisional_user.password_digest)
-        User.save_provisional_user_completion_log(user, @provisional_user)
-        UserAuthLog.certification_success_log(user)
-      else
-        render "new"
-      end
+      return render text: "認証に失敗しました。登録しなおしてください。" unless @provisional_user
+      User.save_provisional_user_completion_log(@provisional_user)
     end
 end

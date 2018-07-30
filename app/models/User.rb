@@ -22,11 +22,17 @@ class User < ApplicationRecord
   validates :password_digest, presence: true
 
   class << self
-    # 仮会員と本会員の結び付き関係およびusersテーブルのコピーを保存するメソッド
-    def save_provisional_user_completion_log(user, provisional_user)
-      User.transaction do
+    # 会員登録の処理を行うメソッド
+    def save_provisional_user_completion_log(provisional_user)
+      ActiveRecord::Base.transaction do
+        user = User.create(email: provisional_user.email, password_digest: provisional_user.password_digest)
+
+        return render text: "正しく処理が行われませんでした" unless user.email != nil || user.password_digest != nil
         user.create_provisional_user_completed_log(provisional_user_id: provisional_user.id)
         UserChange.create_from_original!(original_record: user, event: 'create')
+
+        # TODO (shuji ota):この処理が行われるタイミングでログインの処理が行われるようにする
+        UserAuthLog.save_success_log(user)
       end
     end
   end
