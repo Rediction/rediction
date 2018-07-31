@@ -18,20 +18,21 @@ class User < ApplicationRecord
   has_many :user_unfreezed_reasons, dependent: :destroy
   has_many :user_auth_logs, dependent: :destroy
 
+  # TODO(shuji ota):形式チェックのvalidationを追加する
   validates :email, presence: true
+
+  # TODO(shuji ota):形式チェックのvalidationを追加する
   validates :password_digest, presence: true
 
   class << self
-    # 会員登録の処理を行うメソッド
-    def save_provisional_user_completion_log(provisional_user)
+    # ユーザーの本会員登録を完了させるメソッド
+    def complete_member_registration(provisional_user)
       ActiveRecord::Base.transaction do
         user = User.create(email: provisional_user.email, password_digest: provisional_user.password_digest)
 
-        return render text: "正しく処理が行われませんでした" unless user.email != nil || user.password_digest != nil
+        raise ActiveRecord::Rollback unless user
+        UserChange.create_from_original!(original_record: user, event: "create")
         user.create_provisional_user_completed_log(provisional_user_id: provisional_user.id)
-        UserChange.create_from_original!(original_record: user, event: 'create')
-
-        # TODO (shuji ota):この処理が行われるタイミングでログインの処理が行われるようにする
         UserAuthLog.save_success_log(user)
       end
     end
