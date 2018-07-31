@@ -28,7 +28,7 @@ class User < ApplicationRecord
     # ユーザーの本会員登録を完了させるメソッド
     def complete_member_registration(provisional_user)
       ActiveRecord::Base.transaction do
-        user = User.create(email: provisional_user.email, password_digest: provisional_user.password_digest)
+        user = User.create!(email: provisional_user.email, password_digest: provisional_user.password_digest)
 
         raise ActiveRecord::Rollback unless user
         UserChange.create_from_original!(original_record: user, event: "create")

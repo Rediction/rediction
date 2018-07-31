@@ -1,5 +1,5 @@
 class UserProfilesController < ApplicationController
-  before_action :verify_provisional_user_existence, only: [:new]
+  before_action :verify_user_existence, only: [:new]
 
   def new
     @user_profile = UserProfile.new
@@ -12,7 +12,7 @@ class UserProfilesController < ApplicationController
   private
 
     # 同じ検証用トークンで本会員になったユーザーが存在するか検証するメソッド
-    def verify_provisional_user_existence
+    def verify_user_existence
       # TODO(shuji ota):時間制限の処理を追加する
       @provisional_user = ProvisionalUser.find_by(verification_token: params[:verification_token])
 
