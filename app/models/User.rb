@@ -35,6 +35,8 @@ class User < ApplicationRecord
         user.create_provisional_user_completed_log(provisional_user_id: provisional_user.id)
         UserAuthLog.save_success_log(user)
       end
+      rescue ActiveRecord::Rollback
+        redirect_to new_provisional_users_path
     end
   end
 end
