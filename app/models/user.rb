@@ -34,7 +34,7 @@ class User < ApplicationRecord
       end
     end
 
-    # 会員登録を完了させる
+    # 会員登録を完了させるメソッド
     def complete_registration(provisional_user)
       ActiveRecord::Base.transaction do
         user = create_with_changes!(email: provisional_user.email, password_digest: provisional_user.password_digest)
@@ -43,7 +43,7 @@ class User < ApplicationRecord
       end
     end
 
-    # 仮会員のemailがすでに会員登録されているかを判定する
+    # 仮会員のemailがすでに会員登録されているかを判定するメソッド
     def signuped_email?(provisional_user)
       exists?(email: provisional_user.email)
     end
