@@ -18,17 +18,24 @@ class UserProfilesController < ApplicationController
       provisional_user = ProvisionalUser.find_by(verification_token: params[:verification_token])
 
       # 検証用トークンが不正な場合、エラーメッセージを表示して会員登録画面へ遷移させる
-      return redirect_to new_provisional_users_path, flash: { error: "不正なURLです。登録をしなおしてください。" } if provisional_user.nil?
+      if provisional_user.nil?
+        return redirect_to new_provisional_users_path, flash: { error: "不正なURLです。登録をしなおしてください。" }
+      end
 
       # TODO(shuji ota):ログインページにredirect先変える
       # インスタンスに格納されてるemailがすでにuserに登録されてるものかどうかを判定し、重複している場合、会員登録画面へ遷移させる
-      return redirect_to new_provisional_users_path, flash: { error: "このメールアドレスはすでに登録済みです。ログインしてください。" } if User.signuped_email?(provisional_user)
+      if User.signuped_email?(provisional_user)
+        flash[:error] = "このメールアドレスはすでに登録済みです。ログインしてください。"
+        return redirect_to new_provisional_users_path
+      end
 
       # ユーザーの本会員登録を完了させる
       user = User.complete_registration(provisional_user)
 
       # ユーザーが存在しない場合、会員登録画面へ画面を遷移させる
-      return redirect_to new_provisional_users_path, flash: { error: "登録に失敗しました。もう一度やり直してください。"} unless user
+      unless user
+        return redirect_to new_provisional_users_path, flash: { error: "登録に失敗しました。もう一度やり直してください。"}
+      end
 
       # ユーザーのログイン処理を行う
       log_in(user)
