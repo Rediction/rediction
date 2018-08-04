@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   before_action :basic_authentication if ENV['BASIC_AUTH_USERNAME'].present? && ENV['BASIC_AUTH_PASSWORD'].present?
 
+    # ログイン処理を行うメソッド
     def log_in(user)
       session[:user_id] = user.id
       UserAuthLog.create_success_log(user)

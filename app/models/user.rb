@@ -48,7 +48,7 @@ class User < ApplicationRecord
       exists?(email: provisional_user.email)
     end
 
-    # TODO(shuji ota):URLについているトークンが期限切れでないかを確かめるメソッドを作成
+    # TODO(shuji ota):URLについているトークンが期限切れでないかを確かめるメソッドを作成する
   end
 end
 
