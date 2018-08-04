@@ -1,11 +1,11 @@
 # == Schema Information
 #
-# Table name: users # ¥æ©`¥¶©`Çéˆó
+# Table name: users # ãƒ¦ãƒ¼ã‚¶ãƒ¼æƒ…å ±
 #
 #  id              :bigint(8)        not null, primary key
-#  email           :string(255)      not null                 # ¥á©`¥ë¥¢¥É¥ì¥¹
-#  password_digest :string(255)      not null                 # ¥Ñ¥¹¥ï©`¥É
-#  freezed         :boolean          default(FALSE), not null # ƒö½Y×´‘B
+#  email           :string(255)      not null                 # ãƒ¡ãƒ¼ãƒ«ã‚¢ãƒ‰ãƒ¬ã‚¹
+#  password_digest :string(255)      not null                 # ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰
+#  freezed         :boolean          default(FALSE), not null # å‡çµçŠ¶æ…‹
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #
@@ -18,14 +18,14 @@ class User < ApplicationRecord
   has_many :user_unfreezed_reasons, dependent: :destroy
   has_many :user_auth_logs, dependent: :destroy
 
-  # TODO(shuji ota):ĞÎÊ½¥Á¥§¥Ã¥¯¤Îvalidation¤ò×·¼Ó¤¹¤ë
+  # TODO(shuji ota):å½¢å¼ãƒã‚§ãƒƒã‚¯ã®validationã‚’è¿½åŠ ã™ã‚‹
   validates :email, presence: true, uniqueness: true
 
-  # TODO(shuji ota):ĞÎÊ½¥Á¥§¥Ã¥¯¤Îvalidation¤ò×·¼Ó¤¹¤ë
+  # TODO(shuji ota):å½¢å¼ãƒã‚§ãƒƒã‚¯ã®validationã‚’è¿½åŠ ã™ã‚‹
   validates :password_digest, presence: true
 
   class << self
-    # »á†T¤ò_changes¥Æ©`¥Ö¥ë¤È¤È¤â¤Ë×÷¤ë¥á¥½¥Ã¥É
+    # ãƒ¦ãƒ¼ã‚¶ãƒ¼ã®æœ¬ä¼šå“¡ç™»éŒ²ã‚’å®Œäº†ã•ã›ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     def create_with_changes!(email:, password_digest:)
       ActiveRecord::Base.transaction do
         user = create!(email: email, password_digest: password_digest)
@@ -34,7 +34,7 @@ class User < ApplicationRecord
       end
     end
 
-    # ±¾»á†TµÇåh¤òÍêÁË¤µ¤»¤ë¥á¥½¥Ã¥É
+    # ä¼šå“¡ç™»éŒ²ã‚’å®Œäº†ã•ã›ã‚‹
     def complete_registration(provisional_user)
       ActiveRecord::Base.transaction do
         user = create_with_changes!(email: provisional_user.email, password_digest: provisional_user.password_digest)
@@ -43,13 +43,9 @@ class User < ApplicationRecord
       end
     end
 
-    # ¥¤¥ó¥¹¥¿¥ó¥¹¤Ë¸ñ¼{¤µ¤ì¤Æ¤ëemail¤¬¤¹¤Ç¤Ëuser¤ËµÇåh¤µ¤ì¤Æ¤ë¤â¤Î¤«¤É¤¦¤«¤òÅĞ¶¨¤¹¤ë¥á¥½¥Ã¥É
+    # ä»®ä¼šå“¡ã®emailãŒã™ã§ã«ä¼šå“¡ç™»éŒ²ã•ã‚Œã¦ã„ã‚‹ã‹ã‚’åˆ¤å®šã™ã‚‹
     def signuped_email?(provisional_user)
       exists?(email: provisional_user.email)
     end
-
-    # TODO(shuji ota):URL¤Ë¤Ä¤¤¤Æ¤¤¤ë¥È©`¥¯¥ó¤¬ÆÚÏŞÇĞ¤ì¤Ç¤Ê¤¤¤«¤ò´_¤«¤á¤ë¥á¥½¥Ã¥É¤ò×÷³É¤¹¤ë
   end
 end
-
-
