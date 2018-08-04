@@ -1,11 +1,11 @@
 # == Schema Information
 #
-# Table name: users # ãƒ¦ãƒ¼ã‚¶ãƒ¼æƒ…å ±
+# Table name: users # ¥æ©`¥¶©`Çéˆó
 #
 #  id              :bigint(8)        not null, primary key
-#  email           :string(255)      not null                 # ãƒ¡ãƒ¼ãƒ«ã‚¢ãƒ‰ãƒ¬ã‚¹
-#  password_digest :string(255)      not null                 # ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰
-#  freezed         :boolean          default(FALSE), not null # å‡çµçŠ¶æ…‹
+#  email           :string(255)      not null                 # ¥á©`¥ë¥¢¥É¥ì¥¹
+#  password_digest :string(255)      not null                 # ¥Ñ¥¹¥ï©`¥É
+#  freezed         :boolean          default(FALSE), not null # ƒö½Y×´‘B
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #
@@ -18,25 +18,38 @@ class User < ApplicationRecord
   has_many :user_unfreezed_reasons, dependent: :destroy
   has_many :user_auth_logs, dependent: :destroy
 
-  # TODO(shuji ota):å½¢å¼ãƒã‚§ãƒƒã‚¯ã®validationã‚’è¿½åŠ ã™ã‚‹
-  validates :email, presence: true
+  # TODO(shuji ota):ĞÎÊ½¥Á¥§¥Ã¥¯¤Îvalidation¤ò×·¼Ó¤¹¤ë
+  validates :email, presence: true, uniqueness: true
 
-  # TODO(shuji ota):å½¢å¼ãƒã‚§ãƒƒã‚¯ã®validationã‚’è¿½åŠ ã™ã‚‹
+  # TODO(shuji ota):ĞÎÊ½¥Á¥§¥Ã¥¯¤Îvalidation¤ò×·¼Ó¤¹¤ë
   validates :password_digest, presence: true
 
   class << self
-    # ãƒ¦ãƒ¼ã‚¶ãƒ¼ã®æœ¬ä¼šå“¡ç™»éŒ²ã‚’å®Œäº†ã•ã›ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
-    def complete_member_registration(provisional_user)
+    # »á†T¤ò_changes¥Æ©`¥Ö¥ë¤È¤È¤â¤Ë×÷¤ë¥á¥½¥Ã¥É
+    def create_with_changes!(email:, password_digest:)
       ActiveRecord::Base.transaction do
-        user = User.create!(email: provisional_user.email, password_digest: provisional_user.password_digest)
-
-        raise ActiveRecord::Rollback unless user
+        user = create!(email: email, password_digest: password_digest)
         UserChange.create_from_original!(original_record: user, event: "create")
-        user.create_provisional_user_completed_log(provisional_user_id: provisional_user.id)
-        UserAuthLog.save_success_log(user)
+        user
       end
-      rescue ActiveRecord::Rollback
-        redirect_to new_provisional_users_path
     end
+
+    # ±¾»á†TµÇåh¤òÍêÁË¤µ¤»¤ë¥á¥½¥Ã¥É
+    def complete_registration(provisional_user)
+      ActiveRecord::Base.transaction do
+        user = create_with_changes!(email: provisional_user.email, password_digest: provisional_user.password_digest)
+        ProvisionalUserCompletedLog.create!(user_id: user.id, provisional_user_id: provisional_user.id)
+        user
+      end
+    end
+
+    # ¥¤¥ó¥¹¥¿¥ó¥¹¤Ë¸ñ¼{¤µ¤ì¤Æ¤ëemail¤¬¤¹¤Ç¤Ëuser¤ËµÇåh¤µ¤ì¤Æ¤ë¤â¤Î¤«¤É¤¦¤«¤òÅĞ¶¨¤¹¤ë¥á¥½¥Ã¥É
+    def signuped_email?(provisional_user)
+      exists?(email: provisional_user.email)
+    end
+
+    # TODO(shuji ota):URL¤Ë¤Ä¤¤¤Æ¤¤¤ë¥È©`¥¯¥ó¤¬ÆÚÏŞÇĞ¤ì¤Ç¤Ê¤¤¤«¤ò´_¤«¤á¤ë¥á¥½¥Ã¥É¤ò×÷³É
   end
 end
+
+
