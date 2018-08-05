@@ -39,5 +39,4 @@ class UsersController < ApplicationController
     def authenticate_user
       redirect_to new_user_profiles_path if session[:user_id]
     end
-
 end
