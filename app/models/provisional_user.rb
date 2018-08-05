@@ -20,14 +20,19 @@ class ProvisionalUser < ApplicationRecord
   validates :password, presence: true, length: { minimum: 8 }
   validates :verification_token, presence: true, uniqueness: true
 
-  # 検証用トークンとともに仮会員の情報を保存するもの
+  # 検証用トークンとともに仮会員の情報を保存するメソッド
   def save_with_verification_token
     self.verification_token = ProvisionalUser.generate_token
     save
   end
 
+  # 仮会員のemailがすでに会員登録されているかを判定するメソッド
+  def signuped_email?
+    User.exists?(email: self.email)
+  end
+
   class << self
-    # ユニークな検証用トークンを生成
+    # ユニークな検証用トークンを生成するメソッド
     def generate_token
       loop do
         token = SecureRandom.uuid

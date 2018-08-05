@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root to: "root#index"
+  # 仮会員に送られるメールのURLから直接createで会員情報を格納するためにgetに明示的にしている
+  get "users/create", to: "users#create"
   resource :provisional_users, only: %i[new create]
   resource :user_profiles, only: %i[new create]
 
