@@ -27,20 +27,18 @@ class ProvisionalUser < ApplicationRecord
   end
 
   # 仮会員のemailがすでに会員登録されているかを判定するメソッド
-  def signedup_email?
+  def signed_up_email?
     User.exists?(email: email)
   end
 
-  private
-
-    class << self
+  class << self
 
       # ユニークな検証用トークンを生成するメソッド
-      def generate_token
-        loop do
-          token = SecureRandom.uuid
-          return token unless exists?(verification_token: token)
-        end
+    def generate_token
+      loop do
+        token = SecureRandom.uuid
+        return token unless exists?(verification_token: token)
       end
+    end
   end
 end

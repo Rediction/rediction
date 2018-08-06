@@ -15,7 +15,6 @@ class ApplicationController < ActionController::Base
 
   # ユーザー認証を行うメソッド
   def authenticate
-
     # TODO (Shuji Ota) : ログインページが出来次第、リダイレクト先をログインページに変更する。
     redirect_to root_path, flash: { error: "ログインしてください。"} unless logged_in?
   end

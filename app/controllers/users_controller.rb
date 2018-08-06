@@ -1,11 +1,9 @@
 class UsersController < ApplicationController
-  before_action :verify_user_login_status, only: [:create]
   skip_before_action :authenticate, only: [:create]
 
   # 会員登録の処理を行うメソッド
   def create
     # TODO(shuji ota):時間制限の処理を追加する
-
     # URLについてるトークンから仮会員の情報を取得する
     provisional_user = ProvisionalUser.find_by(verification_token: params[:verification_token])
 
@@ -15,9 +13,8 @@ class UsersController < ApplicationController
     end
 
     # TODO(shuji ota):ログインページにredirect先を変更する
-
     # 仮会員のemailが本会員として登録済みの場合は、会員登録画面へ遷移させる
-    if provisional_user.signedup_email?
+    if provisional_user.signed_up_email?
       flash[:error] = "このメールアドレスはすでに登録済みです。ログインしてください。"
       return redirect_to new_provisional_users_path
     end
@@ -36,13 +33,4 @@ class UsersController < ApplicationController
     # 本会員登録に失敗した場合、会員登録画面へ画面を遷移させる
     redirect_to new_provisional_users_path, flash: { error: "登録に失敗しました。もう一度やり直してください。"}
   end
-
-  private
-
-    # ログイン済みかどうかを確認するメソッド
-    def verify_user_login_status
-
-      # ユーザーがログインしている場合、初回プロフィール入力画面へ遷移させる
-      redirect_to new_user_profiles_path if logged_in?
-    end
 end

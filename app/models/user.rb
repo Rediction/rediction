@@ -26,7 +26,7 @@ class User < ApplicationRecord
 
   class << self
 
-    # 会員テーブルをコピーとともに作成するメソッド
+    # 会員テーブルをchangesテーブルとともに作成するメソッド
     def create_with_changes!(email:, password_digest:)
       ActiveRecord::Base.transaction do
         user = create!(email: email, password_digest: password_digest)
