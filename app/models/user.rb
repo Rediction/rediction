@@ -25,6 +25,7 @@ class User < ApplicationRecord
   validates :password_digest, presence: true
 
   class << self
+
     # »á†T¥Æ©`¥Ö¥ë¤òchanges¥Æ©`¥Ö¥ë¤È¤È¤â¤Ë×÷³É¤¹¤ë¥á¥½¥Ã¥É
     def create_with_changes!(email:, password_digest:)
       ActiveRecord::Base.transaction do
