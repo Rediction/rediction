@@ -27,7 +27,7 @@ class ProvisionalUser < ApplicationRecord
   end
 
   # 仮会員のemailがすでに会員登録されているかを判定するメソッド
-  def signuped_email?
+  def signedup_email?
     User.exists?(email: self.email)
   end
 

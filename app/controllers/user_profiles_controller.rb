@@ -7,5 +7,4 @@ class UserProfilesController < ApplicationController
   def create
 
   end
-
 end
