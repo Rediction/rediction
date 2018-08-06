@@ -1,11 +1,11 @@
 # == Schema Information
 #
-# Table name: users # ¥æ©`¥¶©`Çéˆó
+# Table name: users # ãƒ¦ãƒ¼ã‚¶ãƒ¼æƒ…å ±
 #
 #  id              :bigint(8)        not null, primary key
-#  email           :string(255)      not null                 # ¥á©`¥ë¥¢¥É¥ì¥¹
-#  password_digest :string(255)      not null                 # ¥Ñ¥¹¥ï©`¥É
-#  freezed         :boolean          default(FALSE), not null # ƒö½Y×´‘B
+#  email           :string(255)      not null                 # ãƒ¡ãƒ¼ãƒ«ã‚¢ãƒ‰ãƒ¬ã‚¹
+#  password_digest :string(255)      not null                 # ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰
+#  freezed         :boolean          default(FALSE), not null # å‡çµçŠ¶æ…‹
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #
@@ -18,15 +18,15 @@ class User < ApplicationRecord
   has_many :user_unfreezed_reasons, dependent: :destroy
   has_many :user_auth_logs, dependent: :destroy
 
-  # TODO(shuji ota):ĞÎÊ½¥Á¥§¥Ã¥¯¤Îvalidation¤ò×·¼Ó¤¹¤ë
+  # TODO(shuji ota):å½¢å¼ãƒã‚§ãƒƒã‚¯ã®validationã‚’è¿½åŠ ã™ã‚‹
   validates :email, presence: true, uniqueness: true
 
-  # TODO(shuji ota):ĞÎÊ½¥Á¥§¥Ã¥¯¤Îvalidation¤ò×·¼Ó¤¹¤ë
+  # TODO(shuji ota):å½¢å¼ãƒã‚§ãƒƒã‚¯ã®validationã‚’è¿½åŠ ã™ã‚‹
   validates :password_digest, presence: true
 
   class << self
 
-    # »á†T¥Æ©`¥Ö¥ë¤òchanges¥Æ©`¥Ö¥ë¤È¤È¤â¤Ë×÷³É¤¹¤ë¥á¥½¥Ã¥É
+    # ä¼šå“¡ãƒ†ãƒ¼ãƒ–ãƒ«ã‚’changesãƒ†ãƒ¼ãƒ–ãƒ«ã¨ã¨ã‚‚ã«ä½œæˆã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     def create_with_changes!(email:, password_digest:)
       ActiveRecord::Base.transaction do
         user = create!(email: email, password_digest: password_digest)
@@ -35,12 +35,12 @@ class User < ApplicationRecord
       end
     end
 
-    # »á†TµÇåh¤òÍêÁË¤µ¤»¤ë¥á¥½¥Ã¥É
+    # ä¼šå“¡ç™»éŒ²ã‚’å®Œäº†ã•ã›ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     def complete_member_registration!(provisional_user)
       ActiveRecord::Base.transaction do
         user = create_with_changes!(email: provisional_user.email, password_digest: provisional_user.password_digest)
 
-        # users¥Æ©`¥Ö¥ë¤Èprovisional_users¥Æ©`¥Ö¥ë¤Î½Y¤Ó¸¶¤­év‚S¤ò¸ñ¼{¤¹¤ë
+        # usersãƒ†ãƒ¼ãƒ–ãƒ«ã¨provisional_usersãƒ†ãƒ¼ãƒ–ãƒ«ã®çµã³ä»˜ãé–¢ä¿‚ã‚’æ ¼ç´ã™ã‚‹
         ProvisionalUserCompletedLog.create!(user_id: user.id, provisional_user_id: provisional_user.id)
         user
       end
