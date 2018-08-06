@@ -25,6 +25,7 @@ class User < ApplicationRecord
   validates :password_digest, presence: true
 
   class << self
+
     # 会員テーブルをコピーとともに作成するメソッド
     def create_with_changes!(email:, password_digest:)
       ActiveRecord::Base.transaction do
@@ -35,9 +36,10 @@ class User < ApplicationRecord
     end
 
     # 会員登録を完了させるメソッド
-    def member_registration!(provisional_user)
+    def complete_member_registration!(provisional_user)
       ActiveRecord::Base.transaction do
         user = create_with_changes!(email: provisional_user.email, password_digest: provisional_user.password_digest)
+
         # usersテーブルとprovisional_usersテーブルの結び付き関係を格納する
         ProvisionalUserCompletedLog.create!(user_id: user.id, provisional_user_id: provisional_user.id)
         user
