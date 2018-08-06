@@ -1,4 +1,6 @@
 class ProvisionalUsersController < ApplicationController
+  skip_before_action :authenticate, only: %i[new create]
+
   def new
     @provisional_user = ProvisionalUser.new
   end
