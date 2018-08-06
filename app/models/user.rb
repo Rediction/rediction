@@ -25,7 +25,6 @@ class User < ApplicationRecord
   validates :password_digest, presence: true
 
   class << self
-
     # 会員テーブルをchangesテーブルとともに作成するメソッド
     def create_with_changes!(email:, password_digest:)
       ActiveRecord::Base.transaction do

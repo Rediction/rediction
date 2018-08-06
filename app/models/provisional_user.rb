@@ -32,7 +32,6 @@ class ProvisionalUser < ApplicationRecord
   end
 
   class << self
-
       # ユニークな検証用トークンを生成するメソッド
     def generate_token
       loop do
