@@ -18,6 +18,31 @@ class User < ApplicationRecord
   has_many :user_unfreezed_reasons, dependent: :destroy
   has_many :user_auth_logs, dependent: :destroy
 
-  validates :email, presence: true
+  # TODO(shuji ota):形式チェックのvalidationを追加する
+  validates :email, presence: true, uniqueness: true
+
+  # TODO(shuji ota):形式チェックのvalidationを追加する
   validates :password_digest, presence: true
+
+  class << self
+    # 会員テーブルをchangesテーブルとともに作成するメソッド
+    def create_with_changes!(email:, password_digest:)
+      ActiveRecord::Base.transaction do
+        user = create!(email: email, password_digest: password_digest)
+        UserChange.create_from_original!(original_record: user, event: "create")
+        user
+      end
+    end
+
+    # 会員登録を完了させるメソッド
+    def complete_member_registration!(provisional_user)
+      ActiveRecord::Base.transaction do
+        user = create_with_changes!(email: provisional_user.email, password_digest: provisional_user.password_digest)
+
+        # usersテーブルとprovisional_usersテーブルの結び付き関係を格納する
+        ProvisionalUserCompletedLog.create!(user_id: user.id, provisional_user_id: provisional_user.id)
+        user
+      end
+    end
+  end
 end

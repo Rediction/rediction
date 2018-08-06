@@ -4,6 +4,6 @@ class UserProfilesController < ApplicationController
   end
 
   def create
-    
+
   end
 end
