@@ -13,6 +13,9 @@ ja:
         first_name_kana: "フリガナ(名前)"
         birth_on: "生年月日"
         job: "職業"
+      user:
+        email: "メールアドレス"
+        password: "パスワード"
   helpers:
     placeholder:
       provisional_user:
@@ -24,3 +27,6 @@ ja:
         first_name: "太郎"
         first_name_kana: "タロウ"
         job: "会社員"
+      user:
+        email: "sample@example.com"
+        password: "✳︎✳︎✳︎✳︎✳︎✳︎✳︎✳︎"

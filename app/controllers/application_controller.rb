@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   before_action :basic_authentication if ENV['BASIC_AUTH_USERNAME'].present? && ENV['BASIC_AUTH_PASSWORD'].present?
   before_action :authenticate
+  helper_method :logged_in?
 
   # ログイン処理を行うメソッド
   def log_in(user)
@@ -15,8 +16,12 @@ class ApplicationController < ActionController::Base
 
   # ユーザー認証を行うメソッド
   def authenticate
-    # TODO (Shuji Ota) : ログインページが出来次第、リダイレクト先をログインページに変更する。
-    redirect_to root_path, flash: { error: "ログインしてください。"} unless logged_in?
+    redirect_to new_login_path, flash: { error: "ログインしてください。"} unless logged_in?
+  end
+
+  # sessionのuser_idを削除するメソッド
+  def log_out
+    session[:user_id] = nil
   end
 
   private

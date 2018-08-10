@@ -10,7 +10,7 @@
 
 class UserAuthLog < ApplicationRecord
   belongs_to :user
-  validates :success, presence: true
+  validates :success, inclusion: {in: [true, false]}
 
   class << self
     # ユーザーの認証成功記録を保存するメソッド
