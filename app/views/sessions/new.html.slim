@@ -1,0 +1,10 @@
+h1
+  | ログイン
+= form_for @user, url: login_path do |f|
+  = f.label :email
+  = f.email_field :email, placeholder: true, required: true
+
+  = f.label :password
+  = f.password_field :password, placeholder: true, required: true
+
+  = f.submit "ログイン", data: { disable_with: "送信中..." }

@@ -12,11 +12,10 @@ class UsersController < ApplicationController
       return redirect_to new_provisional_users_path, flash: { error: "不正なURLです。登録をしなおしてください。" }
     end
 
-    # TODO(shuji ota):ログインページにredirect先を変更する
-    # 仮会員のemailが本会員として登録済みの場合は、会員登録画面へ遷移させる
+    # 仮会員のemailが本会員として登録済みの場合は、ログイン画面へ遷移させる
     if provisional_user.signed_up_email?
       flash[:error] = "このメールアドレスはすでに登録済みです。ログインしてください。"
-      return redirect_to new_provisional_users_path
+      return redirect_to new_login_path
     end
 
     # ユーザーの本会員登録を完了させる
