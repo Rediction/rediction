@@ -24,6 +24,11 @@ class ApplicationController < ActionController::Base
     session[:user_id] = nil
   end
 
+  # ユーザーが初回プロフィールを入力したかどうかを確かめるメソッド
+  def profile_exists?
+    UserProfile.exists?(user_id: session[:user_id])
+  end
+
   private
 
     # Basic認証

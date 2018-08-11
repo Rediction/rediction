@@ -17,9 +17,21 @@
 class UserProfile < ApplicationRecord
   belongs_to :user
   validates :last_name, presence: true, length: { maximum: 20 }
-  validates :last_name_kana, presence: true, length: { maximum: 30 }
+  validates :last_name_kana, presence: true, length: { maximum: 30 }, format: { with: /\A[ァ-ヴー]+\z/ }
   validates :first_name, presence: true, length: { maximum: 20 }
-  validates :first_name_kana, presence: true, length: { maximum: 30 }
+  validates :first_name_kana, presence: true, length: { maximum: 30 }, format: { with: /\A[ァ-ヴー]+\z/ }
   validates :birth_on, presence: true
   validates :job, presence: true
+
+  class << self
+    # 会員プロフィールテーブルをchangesテーブルとともに作成するメソッド
+    def save_with_changes!(user_profile_params:, session_id:)
+      ActiveRecord::Base.transaction do
+        user_profile = UserProfile.new(user_profile_params)
+        user_profile.user_id = session_id
+        user_profile.save
+        UserProfileChange.create_from_original!(original_record: user_profile, event: "create")
+      end
+    end
+  end
 end

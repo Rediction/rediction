@@ -4,6 +4,7 @@
 #
 #  id              :bigint(8)        not null, primary key
 #  user_profile_id :bigint(8)        not null              # ユーザープロフィールID
+#  user_id         :bigint(8)        not null              # ユーザーID
 #  last_name       :string(255)      not null              # 苗字
 #  last_name_kana  :string(255)      not null              # 苗字(フリガナ)
 #  first_name      :string(255)      not null              # 名前
