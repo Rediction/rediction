@@ -15,14 +15,14 @@ class UserProfilesController < ApplicationController
   rescue ActiveRecord::RecordInvalid
 
     if user_profile_params[:last_name_kana] !~ /\A[ァ-ヴー]+\z/ || user_profile_params[:first_name_kana] !~ /\A[ァ-ヴー]+\z/
-      flash.now[:error] = "カタカナのみが使用できます。"
+      flash.now[:error] = "フリガナにはカタカナのみが使用できます。"
       @user_profile = UserProfile.new(user_profile_params)
-      render "new"
     else
       flash.now[:error] = "登録に失敗しました。登録し直してください。"
       @user_profile = UserProfile.new(user_profile_params)
-      render "new"
     end
+
+    render "new"
   end
 
   private

@@ -62,7 +62,6 @@ ActiveRecord::Schema.define(version: 2018_07_15_042801) do
     t.string "job", null: false, comment: "職業"
     t.string "event", null: false, comment: "イベント"
     t.datetime "created_at", null: false
-    t.index ["user_id"], name: "index_user_profile_changes_on_user_id"
   end
 
   create_table "user_profiles", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", comment: "ユーザープロフィール情報", force: :cascade do |t|
