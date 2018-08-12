@@ -1,0 +1,8 @@
+@import 'variables';
+
+// メディアクエリ生成用のmixin(PCファースト)
+@mixin mq-down($breakpoint: s) {
+  @media #{map-get($breakpoints-down, $breakpoint)} {
+    @content
+  }
+}
