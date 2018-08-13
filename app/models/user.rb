@@ -12,14 +12,13 @@
 
 class User < ApplicationRecord
   has_secure_password
-  has_one :user_profile, dependent: :destroy
+  has_one :profile, dependent: :destroy, class_name: "UserProfile"
   has_one :provisional_user_completed_log, dependent: :destroy
   has_many :user_freezed_reasons, dependent: :destroy
   has_many :user_unfreezed_reasons, dependent: :destroy
   has_many :user_auth_logs, dependent: :destroy
 
-  # TODO(shuji ota):形式チェックのvalidationを追加する
-  validates :email, presence: true, uniqueness: true
+  validates :email, presence: true, uniqueness: true, email: true
 
   # TODO(shuji ota):形式チェックのvalidationを追加する
   validates :password_digest, presence: true
