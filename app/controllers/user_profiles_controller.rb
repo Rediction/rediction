@@ -7,19 +7,12 @@ class UserProfilesController < ApplicationController
 
   def create
     # user_profilesテーブルと_changesテーブルにデータを格納する
-    UserProfile.save_with_changes!(user_profile_params: user_profile_params, session_id: session[:user_id])
+    UserProfile.save_with_changes!(user_profile_params: user_profile_params, current_user_id: @current_user.id)
 
     # TODO(shuji ota):画面の遷移先をタイムラインの画面に変更する
-    redirect_to root_path, flash: { success: "ようこそredictionへ。" }
-
-  rescue ActiveRecord::RecordInvalid
-
-    if user_profile_params[:last_name_kana] !~ /\A[ァ-ヴー]+\z/ || user_profile_params[:first_name_kana] !~ /\A[ァ-ヴー]+\z/
-      flash.now[:error] = "フリガナにはカタカナのみが使用できます。"
-    else
-      flash.now[:error] = "登録に失敗しました。登録し直してください。"
-    end
-
+    redirect_to root_path, flash: { success: "プロフィール登録が完了しました。" }
+  rescue ActiveRecord::RecordInvalid => e
+    flash.now[:error] = e.message
     @user_profile = UserProfile.new(user_profile_params)
     render "new"
   end
@@ -33,6 +26,6 @@ class UserProfilesController < ApplicationController
     # ユーザーの初回プロフィール入力の有無を確かめるメソッド
     def check_if_user_has_profile
       # TODO(shuji ota):画面の遷移先をプロフィール編集画面に変更する。
-      return redirect_to root_path, flash: { error: "すでに初回プロフィールの入力はお済みです。" } if profile_exists?
+      redirect_to root_path if UserProfile.exists?(user_id: @current_user.id)
     end
 end

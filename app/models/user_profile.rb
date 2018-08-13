@@ -16,20 +16,37 @@
 
 class UserProfile < ApplicationRecord
   belongs_to :user
-  validates :last_name, presence: true, length: { maximum: 20 }
-  validates :last_name_kana, presence: true, length: { maximum: 30 }, format: { with: /\A[ァ-ヴー]+\z/ }
-  validates :first_name, presence: true, length: { maximum: 20 }
-  validates :first_name_kana, presence: true, length: { maximum: 30 }, format: { with: /\A[ァ-ヴー]+\z/ }
+  validates :last_name, presence: true, length: { maximum: 20, message: "の長さは最大20文字までです。" }
+
+  # TODO(shuji ota):Validatorクラスを使ってそれを利用するようにする
+  validates :last_name_kana, presence: true, length: { maximum: 30, message: "の長さは最大30文字までです。" },
+             format: { with: /\A[ァ-ヴー]+\z/, message: "にはカタカナのみが使用できます。"}
+
+  validates :first_name, presence: true, length: { maximum: 20, message: "の長さは最大20文字までです。" }
+
+  # TODO(shuji ota):Validatorクラスを使ってそれを利用するようにする
+  validates :first_name_kana, presence: true, length: { maximum: 30, message: "の長さは最大30文字までです。" },
+             format: { with: /\A[ァ-ヴー]+\z/, message: "にはカタカナのみが使用できます。"}
+
   validates :birth_on, presence: true
-  validates :job, presence: true
+  validates :job, presence: true, length: { maximum: 20 }
+  validate :check_birth_date
+
+
+
+    def check_birth_date
+      date_format = "%Y%m%d"
+      age = (Date.today.strftime(date_format).to_i - birth_on.strftime(date_format).to_i) / 10000
+
+      return errors.add(:birth_on, "が不正です。6歳未満はご利用になれません。") if age < 6
+    end
 
   class << self
     # 会員プロフィールテーブルをchangesテーブルとともに作成するメソッド
-    def save_with_changes!(user_profile_params:, session_id:)
+    def save_with_changes!(user_profile_params:, current_user_id:)
       ActiveRecord::Base.transaction do
-        user_profile = UserProfile.new(user_profile_params)
-        user_profile.user_id = session_id
-        user_profile.save
+        user_profile = UserProfile.new(user_profile_params.merge(user_id: current_user_id))
+        user_profile.save!
         UserProfileChange.create_from_original!(original_record: user_profile, event: "create")
       end
     end

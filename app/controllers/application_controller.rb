@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   before_action :basic_authentication if ENV['BASIC_AUTH_USERNAME'].present? && ENV['BASIC_AUTH_PASSWORD'].present?
   before_action :authenticate
+  before_action :current_user
   helper_method :logged_in?
 
   # ログイン処理を行うメソッド
@@ -24,9 +25,9 @@ class ApplicationController < ActionController::Base
     session[:user_id] = nil
   end
 
-  # ユーザーが初回プロフィールを入力したかどうかを確かめるメソッド
-  def profile_exists?
-    UserProfile.exists?(user_id: session[:user_id])
+  # ログイン中のユーザーを定義するメソッド
+  def current_user
+    @current_user ||= User.find_by(id: session[:user_id])
   end
 
   private
