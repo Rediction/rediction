@@ -8,7 +8,7 @@ Rails.application.configure do
   config.cache_classes = true
 
   # サービスのホストドメインを指定
-  config.service_host = ENV['SERVICE_DOMAIN'] || 'localhost:3000'
+  config.service_host = ENV["SERVICE_DOMAIN"] || "localhost:3000"
 
   # Do not eager load code on boot. This avoids loading your whole application
   # just for the purpose of running a single test. If you are using a tool that
@@ -18,11 +18,11 @@ Rails.application.configure do
   # Configure public file server for tests with Cache-Control for performance.
   config.public_file_server.enabled = true
   config.public_file_server.headers = {
-    'Cache-Control' => "public, max-age=#{1.hour.to_i}"
+    "Cache-Control" => "public, max-age=#{1.hour.to_i}",
   }
 
   # Show full error reports and disable caching.
-  config.consider_all_requests_local       = true
+  config.consider_all_requests_local = true
   config.action_controller.perform_caching = false
 
   # Raise exceptions instead of rendering exception templates.
@@ -47,4 +47,18 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+
+  # OmniAuthをテストモードに設定
+  OmniAuth.config.test_mode = true
+
+  # env["omniauth.auth"]を設定
+  OmniAuth.config.mock_auth[:google_oauth2] = OmniAuth::AuthHash.new(
+    {
+      provider: "google_oauth2",
+      uid: "xxxxxxxxxxxxxxxxxxxxx",
+      info: {email: "example@gmail.com"},
+    }
+  )
+  Rails.application.env_config["omniauth.auth"] = OmniAuth.config.mock_auth[:google_oauth2]
+  config.omniauth_env = Rails.application.env_config["omniauth.auth"]
 end

@@ -1,0 +1,10 @@
+header
+  .logo
+    | Rediction Admin
+
+  - if logged_in?
+    .auth-session-btn
+        = link_to "ログアウト", admin_logout_path, method: :delete
+
+    .header-menu
+      i#header-menu.fas.fa-bars
