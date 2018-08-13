@@ -20,4 +20,7 @@ Rails.application.routes.draw do
 
   # letter_openerのgemを利用するroutingで開発中にrailsから送信されたメールを確認するためのもの
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
+
+  # いずれのルーティング定義にも当てはまらない場合にエラー画面を表示
+  get "*not_found", to: "exceptions#routing_error" unless Rails.env.development?
 end
