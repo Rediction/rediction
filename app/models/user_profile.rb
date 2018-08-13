@@ -32,11 +32,9 @@ class UserProfile < ApplicationRecord
   validates :job, presence: true, length: { maximum: 20 }
   validate :check_birth_date
 
-
-
     def check_birth_date
       date_format = "%Y%m%d"
-      age = (Date.today.strftime(date_format).to_i - birth_on.strftime(date_format).to_i) / 10000
+      age = (Time.zone.today.strftime(date_format).to_i - birth_on.strftime(date_format).to_i) / 10000
 
       return errors.add(:birth_on, "が不正です。6歳未満はご利用になれません。") if age < 6
     end
