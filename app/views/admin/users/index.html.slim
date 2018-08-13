@@ -1,0 +1,33 @@
+.panel.panel-default
+  .panel-heading
+    | ユーザー一覧
+
+  .panel-body
+    = render partial: "admin/partials/paginate_notation", locals: { items: @users }
+
+    .mobile-table-frame
+      table.table.table-striped
+        thead
+          tr
+            th
+              | ID
+            th
+              = User.human_attribute_name(:email)
+            th
+              | 登録日
+            th
+              | #
+        tbody
+          - @users.each do |user|
+            tr
+              td
+                = user.id
+              td
+                = user.email
+              td
+                = ja_full_datetime user.created_at
+              td
+                = link_to "詳細ページ", admin_user_path(user)
+
+    .text-center
+      = paginate @users

@@ -1,0 +1,31 @@
+doctype html
+html
+  head
+    meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no'
+    title Rediction | 管理画面
+    = csrf_meta_tags
+    = csp_meta_tag
+
+    = stylesheet_link_tag    "https://use.fontawesome.com/releases/v5.2.0/css/all.css", integrity: "sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ", crossorigin: "anonymous"
+    = stylesheet_link_tag    "admin/application", media: "all", "data-turbolinks-track": "reload"
+
+    = javascript_include_tag "https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"
+    = javascript_include_tag "admin/application", "data-turbolinks-track": "reload"
+  body
+    = render partial: "admin/partials/header"
+
+    .wrapper
+      - if logged_in?
+        #side-menu.side-menu
+          = render partial: "admin/partials/side_menu"
+
+      .main-content
+        - flash.each do |type, message|
+          .flash class="flash-#{type}" onclick="this.remove()"
+            = message
+
+        .main-content-inner
+          = yield
+
+      / Mobile用のOverlay。Menuを開いた時に表示される。
+      #header-menu-overlay.header-menu-overlay

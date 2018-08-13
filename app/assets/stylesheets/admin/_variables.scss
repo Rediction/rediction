@@ -1,0 +1,23 @@
+// FontFamily
+$baseFontFamily: Trebuchet MS,Arial,Helvetica,ヒラギノ角ゴ Pro W3,Hiragino Kaku Gothic Pro,メイリオ,Meiryo,ＭＳ\ Ｐゴシック,MS PGothic,sans-serif;
+
+
+// Base Color
+$black: #000;
+$white: #fff;
+$baseBlack: #363636;
+$baseBorderColor: #aaa;
+
+// Site Color
+$primaryColor: #333;
+$flashSuccessColor: #55acee;
+$flashErrorColor: #c53727;
+
+
+// レスポンシブ
+$smallScreen: 768px;
+$breakpoints-down: ('s': "(max-width: #{$smallScreen})");
+
+
+// ZIndex
+$headerZIndex: 3000;
