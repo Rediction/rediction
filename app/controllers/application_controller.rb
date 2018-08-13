@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   include ExceptionHandlers unless Rails.env.development?
 
+  protect_from_forgery with: :exception
   before_action :basic_authentication if ENV['BASIC_AUTH_USERNAME'].present? && ENV['BASIC_AUTH_PASSWORD'].present?
   before_action :authenticate
   helper_method :logged_in?

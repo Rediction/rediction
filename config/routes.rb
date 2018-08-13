@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
+  # namespaceで区切られているものはroutesフォルダーに切り分けて、routes.rbが膨らまないようにする。
+  def draw(name)
+    instance_eval(File.read(Rails.root.join("config/routes/#{name}.rb")))
+  end
+
+  draw :admin
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root to: "root#index"
 
