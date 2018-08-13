@@ -7,6 +7,7 @@ html
     = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track": "reload"
     = javascript_include_tag "application", "data-turbolinks-track": "reload"
 
+    = render partial: "layouts/partials/google_analytics"
     = render partial: "layouts/partials/rollbar_js"
   body
     - flash.each do |type, message|
