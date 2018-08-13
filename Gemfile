@@ -47,6 +47,8 @@ gem "migration_comments"
 gem "omniauth-oauth2"
 # GoogleアカウントでOAuth認証できるようにするもの
 gem "omniauth-google-oauth2"
+# エラー通知をしてくれるようにするもの
+gem "rollbar"
 
 ## 管理画面用
 # BootstrapをImportして利用できるようにするもの
