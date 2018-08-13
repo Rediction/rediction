@@ -43,7 +43,8 @@ gem 'rails-i18n'
 gem 'slim-rails'
 # annotateと連携して、migrationのコメントをmodelなどに表示するためのもの
 gem 'migration_comments'
-
+# エラー通知をしてくれるようにするもの
+gem 'rollbar'
 
 
 group :development, :test do
