@@ -10,13 +10,14 @@
 
 class User::FreezedReason < ApplicationRecord
   belongs_to :user
-  validates :description, presence: true, length: {maximum: 1000}
+  validates :description, presence: true, length: {maximum: 140}
 
   # レコードを保存して、リレーションのあるユーザーを凍結させるメソッド
   def save_and_freeze_user!
     ActiveRecord::Base.transaction do
-      save
+      save!
       user.update_with_changes!(freezed: :freezed)
+      self
     end
   end
 end

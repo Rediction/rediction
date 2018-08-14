@@ -10,10 +10,21 @@ namespace :admin do
   resource :dashboard, only: %i[show]
   resources :words, only: %i[index show]
 
+  namespace :user, as: "users" do
+    namespace :resignation do
+      resources :requests, only: %i[index]
+    end
+  end
+
   resources :users, only: %i[index show] do
-    namespace :user do
-      resource :freezed_reason, only: %i[new create]
-      resource :unfreezed_reason, only: %i[new create]
+    scope module: :user do
+      resources :freezed_reasons, only: %i[new create]
+      resources :unfreezed_reasons, only: %i[new create]
+
+      namespace :resignation do
+        resources :requests, only: %i[new create]
+        resources :request_cancels, only: %i[new create]
+      end
     end
   end
 end
