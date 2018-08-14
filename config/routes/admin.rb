@@ -8,6 +8,12 @@ namespace :admin do
 
   resource :logout, controller: :sessions, only: %i[destroy]
   resource :dashboard, only: %i[show]
-  resources :users, only: %i[index show]
   resources :words, only: %i[index show]
+
+  resources :users, only: %i[index show] do
+    namespace :user do
+      resource :freezed_reason, only: %i[new create]
+      resource :unfreezed_reason, only: %i[new create]
+    end
+  end
 end

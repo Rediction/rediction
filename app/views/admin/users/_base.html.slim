@@ -1,0 +1,20 @@
+.mobile-table-frame
+  table.table.table-bordered
+    thead
+      th
+        | ID
+      th
+        = User.human_attribute_name(:email)
+      th
+        = User.human_attribute_name(:freezed)
+      th
+        | 登録日
+    tbody
+      td
+        = user.id
+      td
+        = user.email
+      td
+        = user.freezed_i18n
+      td
+        = ja_full_datetime user.created_at

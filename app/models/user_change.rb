@@ -16,4 +16,6 @@ class UserChange < ApplicationRecord
   ORIGINAL_FOREIGN_KEY = :user_id
 
   belongs_to :user
+
+  enum freezed: {freezed: true, unfreezed: false}
 end

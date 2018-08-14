@@ -1,3 +1,9 @@
-= link_to "ダッシュボード", admin_dashboard_path
-= link_to "ユーザー一覧", admin_users_path
-= link_to "言葉一覧", admin_words_path
+= link_to admin_dashboard_path do
+  i.fa.fa-tachometer-alt
+  | ダッシュボード
+= link_to admin_users_path do
+  i.fa.fa-user
+  | ユーザー一覧
+= link_to admin_words_path do
+  i.fa.fa-book
+  | 言葉一覧

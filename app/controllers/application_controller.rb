@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :basic_authentication if ENV['BASIC_AUTH_USERNAME'].present? && ENV['BASIC_AUTH_PASSWORD'].present?
   before_action :authenticate
-  helper_method :logged_in?
+  helper_method :logged_in?, :current_user
 
   # ログイン処理を行うメソッド
   def log_in(user)
@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
 
   # ユーザーがログインをしているか確かめるメソッド
   def logged_in?
-    session[:user_id].present?
+    current_user.present?
   end
 
   # ユーザー認証を行うメソッド
@@ -28,6 +28,11 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
+    # ログイン中のユーザーのインスタンスを生成するメソッド(稼働中のもの)
+    def current_user
+      @current_user ||= User.unfreezed.find_by(id: session[:user_id])
+    end
 
     # Basic認証
     def basic_authentication

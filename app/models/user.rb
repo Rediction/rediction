@@ -14,14 +14,26 @@ class User < ApplicationRecord
   has_secure_password
   has_one :profile, dependent: :destroy, class_name: "UserProfile"
   has_one :provisional_user_completed_log, dependent: :destroy
-  has_many :user_freezed_reasons, dependent: :destroy
-  has_many :user_unfreezed_reasons, dependent: :destroy
+  has_many :freezed_reasons, dependent: :destroy
+  has_many :unfreezed_reasons, dependent: :destroy
   has_many :user_auth_logs, dependent: :destroy
+
+  enum freezed: {freezed: true, unfreezed: false}
 
   validates :email, presence: true, uniqueness: true, email: true
 
   # TODO(shuji ota):形式チェックのvalidationを追加する
   validates :password_digest, presence: true
+
+  # ユーザーデータを更新して、changesテーブルを作成するメソッド
+  # TODO(Shokei Takanashi) : changesテーブルを有する全Modelにこのメソッドが書かれるのは単調なので、あとでModule化する。
+  def update_with_changes!(attributes)
+    ActiveRecord::Base.transaction do
+      update!(attributes)
+      UserChange.create_from_original!(original_record: self, event: "update")
+      self
+    end
+  end
 
   class << self
     # 会員テーブルをchangesテーブルとともに作成するメソッド

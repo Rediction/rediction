@@ -1,0 +1,17 @@
+ja:
+  activerecord:
+    attributes:
+      user:
+        email: メールアドレス
+        password: パスワード
+        freezed: 凍結状態
+  helpers:
+    placeholder:
+      user:
+        email: sample@example.com
+        password: ✳︎✳︎✳︎✳︎✳︎✳︎✳︎✳︎
+  enums:
+    user:
+      freezed:
+        freezed: 凍結中
+        unfreezed: 稼働中
