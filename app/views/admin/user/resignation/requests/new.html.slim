@@ -1,0 +1,24 @@
+.panel.panel-default
+  .panel-heading
+    = link_to "ユーザー一覧", admin_users_path
+    | &nbsp;>&nbsp;
+    = link_to "ユーザー詳細", admin_user_path(@user)
+    | &nbsp;> ユーザー凍結フォーム
+
+  .panel-body
+    h3
+      | 基本データ
+    = render partial: "admin/users/base", locals: { user: @user }
+
+    hr
+
+    p.text-center.text-danger
+      | ユーザーを退会させると、
+      br
+      | 一定期間後に退会させたユーザーのデータが全て削除されます。
+      br
+      | 十分に注意した上で、退会処理を行なってください。
+
+    = simple_form_for @request, method: :post, url: admin_user_resignation_requests_path do |f|
+      = f.input :description, as: :text
+      = f.submit "退会させる", class: "btn btn-danger"

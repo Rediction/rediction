@@ -99,8 +99,8 @@ header {
       background: $white;
       position: fixed;
       top: 52px;
-      left: -90vw;
-      width: 90vw;
+      left: -85vw;
+      width: 85vw;
       height: calc(100vh - 52px); // ヘッダーの高さ(52px)を考慮している
       transition: left .3s ease-out;
       z-index: $headerZIndex;
@@ -125,6 +125,10 @@ header {
         background: rgba($black, .05);
         transition: background .3s;
       }
+
+      i {
+        margin-right: 10px;
+      }
     }
   }
 
@@ -141,6 +145,11 @@ header {
         @include mq-down { overflow-x: auto }
       }
     }
+
+    .invalid-feedback {
+      margin-top: 10px;
+      color: $errorColor;
+    }
   }
 
   .header-menu-overlay {
@@ -148,6 +157,7 @@ header {
 
     @include mq-down {
       display: block;
+      cursor: pointer;
       z-index: $headerZIndex - 1;
       position: fixed;
       top: 52px;
