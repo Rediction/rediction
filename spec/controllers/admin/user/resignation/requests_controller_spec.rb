@@ -20,7 +20,7 @@ describe Admin::User::Resignation::RequestsController, type: :controller do
     let(:pagination_per) { 20 }
 
     context "ページネーションの制限以下に退会手続きが登録されている場合" do
-      before { create_list(:user_resignation_request, pagination_per) }
+      before { pagination_per.times { create(:user_resignation_request, user: create(:user, resigned: :resigned)) } }
 
       it "登録されている退会手続き全てが取得されること", :aggregate_failures do
         expect(response).to have_http_status 200
@@ -37,7 +37,9 @@ describe Admin::User::Resignation::RequestsController, type: :controller do
     end
 
     context "ページネーションの制限以上に退会手続きが登録されている場合" do
-      before { create_list(:user_resignation_request, pagination_per + 1) }
+      before do
+        (pagination_per + 1).times { create(:user_resignation_request, user: create(:user, resigned: :resigned)) }
+      end
 
       it "HTTP 200 OK", :aggregate_failures do
         expect(response).to have_http_status 200

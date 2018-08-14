@@ -2,7 +2,11 @@ class Admin::User::Resignation::RequestsController < Admin::ApplicationControlle
   before_action :set_unresigned_user, only: %i[new create]
 
   def index
-    @requests = ::User::Resignation::Request.page(params[:page]).per(20).order(id: :desc)
+    @requests = ::User::Resignation::Request.joins(:user)
+                                           .where(users: { resigned: true })
+                                           .page(params[:page])
+                                           .per(20)
+                                           .order(id: :desc)
   end
 
   def new
