@@ -8,6 +8,8 @@
       th
         = User.human_attribute_name(:freezed)
       th
+        = User.human_attribute_name(:resigned)
+      th
         | 登録日
     tbody
       td
@@ -16,5 +18,7 @@
         = user.email
       td
         = user.freezed_i18n
+      td
+        = user.resigned_i18n
       td
         = ja_full_datetime user.created_at

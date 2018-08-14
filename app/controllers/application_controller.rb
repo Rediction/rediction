@@ -31,7 +31,7 @@ class ApplicationController < ActionController::Base
 
     # ログイン中のユーザーのインスタンスを生成するメソッド(稼働中のもの)
     def current_user
-      @current_user ||= User.unfreezed.find_by(id: session[:user_id])
+      @current_user ||= User.active.find_by(id: session[:user_id])
     end
 
     # Basic認証

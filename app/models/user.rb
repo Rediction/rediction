@@ -3,9 +3,10 @@
 # Table name: users # ユーザー情報
 #
 #  id              :bigint(8)        not null, primary key
-#  email           :string(255)      not null                 # メールアドレス
-#  password_digest :string(255)      not null                 # パスワード
-#  freezed         :boolean          default(FALSE), not null # 凍結状態
+#  email           :string(255)      not null                        # メールアドレス
+#  password_digest :string(255)      not null                        # パスワード
+#  freezed         :boolean          default("unfreezed"), not null  # 凍結状態
+#  resigned        :boolean          default("unresigned"), not null # 退会状態
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #
@@ -16,14 +17,20 @@ class User < ApplicationRecord
   has_one :provisional_user_completed_log, dependent: :destroy
   has_many :freezed_reasons, dependent: :destroy
   has_many :unfreezed_reasons, dependent: :destroy
+  has_many :resignation_requests, class_name: "User::Resignation::Request"
+  has_many :resignation_request_cancels, class_name: "User::Resignation::RequestCancel"
   has_many :user_auth_logs, dependent: :destroy
 
   enum freezed: {freezed: true, unfreezed: false}
+  enum resigned: {resigned: true, unresigned: false}
 
   validates :email, presence: true, uniqueness: true, email: true
 
   # TODO(shuji ota):形式チェックのvalidationを追加する
   validates :password_digest, presence: true
+
+  # 稼働中のアカウント(未凍結 & 退会していない)
+  scope :active, -> { unfreezed.unresigned }
 
   # ユーザーデータを更新して、changesテーブルを作成するメソッド
   # TODO(Shokei Takanashi) : changesテーブルを有する全Modelにこのメソッドが書かれるのは単調なので、あとでModule化する。

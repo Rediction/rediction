@@ -12,6 +12,6 @@
 
     hr
 
-    = simple_form_for @freezed_reason, method: :post, url: admin_user_freezed_reasons_path(user_id: @user.id) do |f|
+    = simple_form_for @request_cancel, method: :post, url: admin_user_resignation_request_cancels_path(user_id: @user.id) do |f|
       = f.input :description, as: :text
-      = f.submit "凍結する", class: "btn btn-danger"
+      = f.submit "退会手続きをキャンセルする", class: "btn btn-danger"

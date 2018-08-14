@@ -145,6 +145,11 @@ header {
         @include mq-down { overflow-x: auto }
       }
     }
+
+    .invalid-feedback {
+      margin-top: 10px;
+      color: $errorColor;
+    }
   }
 
   .header-menu-overlay {

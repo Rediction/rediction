@@ -12,6 +12,6 @@
 
     hr
 
-    = simple_form_for @unfreezed_reason, method: :post, url: admin_user_user_unfreezed_reason_path(user_id: @user.id) do |f|
+    = simple_form_for @unfreezed_reason, method: :post, url: admin_user_unfreezed_reasons_path(user_id: @user.id) do |f|
       = f.input :description, as: :text
       = f.submit "凍結を解除する", class: "btn btn-warning"

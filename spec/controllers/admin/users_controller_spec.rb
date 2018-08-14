@@ -11,7 +11,7 @@ describe Admin::UsersController, type: :controller do
     context "ページネーションの制限以下にユーザーが登録されている場合" do
       before { create_list(:user, pagination_per) }
 
-      it "登録されているユーザー全てが取得されること", :aggregate_failure do
+      it "登録されているユーザー全てが取得されること", :aggregate_failures do
         expect(response).to have_http_status 200
         expect(response).to render_template :index
       end
@@ -28,7 +28,7 @@ describe Admin::UsersController, type: :controller do
     context "ページネーションの制限以上にユーザーが登録されている場合" do
       before { create_list(:user, pagination_per + 1) }
 
-      it "HTTP 200 OK", :aggregate_failure do
+      it "HTTP 200 OK", :aggregate_failures do
         expect(response).to have_http_status 200
         expect(response).to render_template :index
       end
@@ -51,7 +51,7 @@ describe Admin::UsersController, type: :controller do
     context "平常時アクセスの場合" do
       before { subject }
 
-      it "HTTP 200 OK", :aggregate_failure do
+      it "HTTP 200 OK", :aggregate_failures do
         expect(response).to have_http_status 200
         expect(response).to render_template :show
       end
