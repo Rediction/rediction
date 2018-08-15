@@ -49,12 +49,16 @@ gem "omniauth-oauth2"
 gem "omniauth-google-oauth2"
 # エラー通知をしてくれるようにするもの
 gem "rollbar"
+# enumでi18nを利用できるようにするもの
+gem "enum_help"
 
 ## 管理画面用
 # BootstrapをImportして利用できるようにするもの
 gem "bootstrap-sass"
 # ページネーションを簡易的にできるようにするもの
 gem "kaminari"
+# FormBuilderの一種でform_helperをシンプルな形式で記述できるというもの
+gem "simple_form"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

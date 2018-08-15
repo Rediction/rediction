@@ -1,27 +1,12 @@
 .panel.panel-default
   .panel-heading
-    = link_to "ユーザー一覧 ", admin_users_path
-    | > ユーザー詳細
+    = link_to "ユーザー一覧", admin_users_path
+    | &nbsp;> ユーザー詳細
 
   .panel-body
     h3
       | 基本データ
-    .mobile-table-frame
-      table.table.table-bordered
-        thead
-          th
-            | ID
-          th
-            = User.human_attribute_name(:email)
-          th
-            | 登録日
-        tbody
-          td
-            = @user.id
-          td
-            = @user.email
-          td
-            = ja_full_datetime @user.created_at
+    = render partial: "admin/users/base", locals: { user: @user }
 
     hr
 
@@ -54,3 +39,16 @@
               = @user.profile.job
     - else
       | 未登録
+
+    .text-right
+      - if @user.freezed?
+        = link_to "凍結解除フォームへ", new_admin_user_unfreezed_reason_path(user_id: @user.id)
+      - else
+        = link_to "凍結フォームへ", new_admin_user_freezed_reason_path(user_id: @user.id)
+
+      | &nbsp;&nbsp;&nbsp;
+
+      - if @user.resigned?
+        = link_to "退会キャンセルフォームへ", new_admin_user_resignation_request_cancel_path(user_id: @user.id)
+      - else
+        = link_to "退会フォームへ", new_admin_user_resignation_request_path(user_id: @user.id), class: "text-danger"

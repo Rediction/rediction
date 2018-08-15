@@ -10,7 +10,7 @@ describe Admin::SessionsController, type: :controller do
         subject
       end
 
-      it "HTTP 302 Moved Temporarily", :aggregate_failure do
+      it "HTTP 302 Moved Temporarily", :aggregate_failures do
         expect(response).to have_http_status 302
         expect(response).to redirect_to admin_dashboard_path
         expect(flash[:success]).to eq "管理画面にログインしました。"
@@ -24,7 +24,7 @@ describe Admin::SessionsController, type: :controller do
         subject
       end
 
-      it "HTTP 302 Moved Temporarily", :aggregate_failure do
+      it "HTTP 302 Moved Temporarily", :aggregate_failures do
         expect(response).to have_http_status 302
         expect(response).to redirect_to admin_root_path
         expect(flash[:error]).to eq "認証に失敗しました。"
@@ -38,7 +38,7 @@ describe Admin::SessionsController, type: :controller do
     before { subject }
 
     context "平常時アクセスの場合" do
-      it "HTTP 302 Moved Temporarily", :aggregate_failure do
+      it "HTTP 302 Moved Temporarily", :aggregate_failures do
         expect(response).to have_http_status 302
         expect(response).to redirect_to admin_root_path
         expect(flash[:success]).to eq "ログアウトしました。"

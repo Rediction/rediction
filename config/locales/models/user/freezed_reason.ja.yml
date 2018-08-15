@@ -1,0 +1,5 @@
+ja:
+  activerecord:
+    attributes:
+      user/freezed_reason:
+        description: 凍結理由
