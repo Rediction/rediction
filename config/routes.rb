@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root to: "root#index"
 
+  resources :words, only: %i[index new create destroy]
+
   # 仮会員に送られるメールのURLから遷移する際、getメソッドしか使えないため明示的にgetメソッドにしている
   get "users/create", to: "users#create"
   resource :provisional_users, only: %i[new create]

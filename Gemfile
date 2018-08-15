@@ -77,6 +77,10 @@ group :development, :test do
   gem "rails-controller-testing"
   # テスト結果を整形できたりするCI用のもの
   gem "rspec_junit_formatter"
+  # デバック用 binding.pry で止めれる
+  gem 'pry-rails'
+  gem 'pry-byebug'
+  gem 'pry-doc'
 end
 
 group :development do
