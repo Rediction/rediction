@@ -61,6 +61,7 @@ ActiveRecord::Schema.define(version: 2018_08_14_115515) do
 
   create_table "user_profile_changes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", comment: "ユーザープロフィール更新履歴", force: :cascade do |t|
     t.bigint "user_profile_id", null: false, comment: "ユーザープロフィールID"
+    t.bigint "user_id", null: false, comment: "ユーザーID"
     t.string "last_name", null: false, comment: "苗字"
     t.string "last_name_kana", null: false, comment: "苗字(フリガナ)"
     t.string "first_name", null: false, comment: "名前"
