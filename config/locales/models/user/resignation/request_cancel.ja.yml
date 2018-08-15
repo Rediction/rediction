@@ -1,0 +1,5 @@
+ja:
+  activerecord:
+    attributes:
+      user/resignation/request_cancel:
+        description: 退会キャンセル理由

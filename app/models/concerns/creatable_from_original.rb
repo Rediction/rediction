@@ -4,10 +4,10 @@
 module CreatableFromOriginal
   extend ActiveSupport::Concern
 
-  CHANGES_EVENT_TYPES = ['create', 'update', 'delete']
+  CHANGES_EVENT_TYPES = ["create", "update", "delete"]
 
   included do
-    validates :event, presence: true, inclusion: { in: CHANGES_EVENT_TYPES }
+    validates :event, presence: true, inclusion: {in: CHANGES_EVENT_TYPES}
   end
 
   module ClassMethods
@@ -18,8 +18,8 @@ module CreatableFromOriginal
     def create_from_original!(original_record:, event:)
       create!(
         original_record.attributes
-                .except("id", "created_at", "updated_at")
-                .merge(self::ORIGINAL_FOREIGN_KEY => original_record.id, event: event)
+          .except("id", "created_at", "updated_at")
+          .merge(self::ORIGINAL_FOREIGN_KEY => original_record.id, event: event)
       )
     end
   end
