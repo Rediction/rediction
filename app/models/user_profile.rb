@@ -40,7 +40,7 @@ class UserProfile < ApplicationRecord
 
   # 登録する年齢に制限を設けるメソッド
   def check_birth_date
-    age = DateTime.now.year - birth_on.year
+    age = DateTime.current.year - birth_on.year
     errors.add(:birth_on, "が不正です。" + MINIMUM_AGE.to_s + "歳未満はご利用になれません。") if age < MINIMUM_AGE
     errors.add(:birth_on, "が不正です。") if age > MAXIMUM_AGE
   end
