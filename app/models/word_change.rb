@@ -15,4 +15,7 @@
 class WordChange < ApplicationRecord
   include CreatableFromOriginal
   ORIGINAL_FOREIGN_KEY = :word_id
+
+  belongs_to :user
+  belongs_to :word
 end

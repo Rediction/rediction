@@ -12,6 +12,4 @@
   = f.label :description
   = f.text_field :description, placeholder: true, required: true
 
-  = f.hidden_field :user_id, :value => current_user.id
-
   = f.submit "投稿する", data: { disable_with: "投稿中" }
