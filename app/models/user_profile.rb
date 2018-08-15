@@ -15,6 +15,7 @@
 #
 
 class UserProfile < ApplicationRecord
+  include PerformableWithChanges
   # サービスを利用できる最少年齢を設定している
   MINIMUM_AGE = 13
 
