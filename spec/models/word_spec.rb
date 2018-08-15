@@ -10,13 +10,8 @@
 #  created_at  :datetime         not null
 #
 
-class Word < ApplicationRecord
-  include PerformableWithChanges
+require "rails_helper"
 
-  belongs_to :user
-
-  validates :user_id, presence: true
-  validates :name, presence: true
-  validates :phonetic, presence: true
-  validates :description, presence: true
+RSpec.describe Word, type: :model do
+  include_context 'Changesテーブルを有する場合', Word
 end

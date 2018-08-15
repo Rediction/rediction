@@ -2,6 +2,7 @@ class CreateUserProfileChanges < ActiveRecord::Migration[5.2]
   def change
     create_table :user_profile_changes, comment: "ユーザープロフィール更新履歴" do |t|
       t.bigint :user_profile_id, null: false, comment: "ユーザープロフィールID"
+      t.bigint :user_id, null: false, comment: "ユーザーID"
       t.string :last_name, null: false, comment: "苗字"
       t.string :last_name_kana, null: false, comment: "苗字(フリガナ)"
       t.string :first_name, null: false, comment: "名前"
