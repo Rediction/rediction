@@ -1,0 +1,37 @@
+.panel.panel-default
+  .panel-heading
+    | 退会手続き一覧
+
+  .panel-body
+    = render partial: "admin/partials/paginate_notation", locals: { items: @requests }
+
+    .mobile-table-frame
+      table.table.table-striped
+        thead
+          tr
+            th
+              | ID
+            th
+              | ユーザーID
+            th
+              = User::Resignation::Request.human_attribute_name(:description)
+            th
+              | 退会日時
+            th
+              | #
+        tbody
+          - @requests.each do |request|
+            tr
+              td
+                = request.id
+              td
+                = request.user_id
+              td
+                = request.description
+              td
+                = ja_full_datetime request.created_at
+              td
+                = link_to "ユーザー詳細ページ", admin_user_path(request.user)
+
+    .text-center
+      = paginate @requests

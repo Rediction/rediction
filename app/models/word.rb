@@ -11,9 +11,24 @@
 #
 
 class Word < ApplicationRecord
-  before_destroy :remove_word
+  belongs_to :user
 
-  def remove_word
-    WordChange.create(user_id: user_id, word_id: id, name: name, phonetic: phonetic, description: description, event: "deleted")
+  validates :user_id, presence: true
+  validates :name, presence: true
+  validates :phonetic, presence: true
+  validates :description, presence: true
+
+  def save_with_changes!
+    ActiveRecord::Base.transaction do
+      save!
+      WordChange.create_from_original!(original_record: self, event: "create")
+    end
+  end
+
+  def destroy_with_changes!
+    ActiveRecord::Base.transaction do
+      WordChange.create_from_original!(original_record: self, event: "delete")
+      destroy!
+    end
   end
 end

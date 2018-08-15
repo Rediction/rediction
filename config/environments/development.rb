@@ -55,9 +55,11 @@ Rails.application.configure do
   # Suppress logger output for asset requests.
   config.assets.quiet = true
 
-  # letter_opener用の設定
+  # メール配信に失敗した際にエラーを発生するかどうかを指定するもの
   config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+  # アプリケーションのホスト情報をmailer内で使用する際にそれをグローバルで利用できるようにするもの
+  config.action_mailer.default_url_options = { host: "localhost", port: 3000 }
+  # letter_opener用の設定
   config.action_mailer.delivery_method = :letter_opener_web
 
   # Raises error for missing translations
@@ -67,3 +69,4 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::FileUpdateChecker
 end
+

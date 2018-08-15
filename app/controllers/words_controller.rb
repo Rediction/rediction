@@ -1,28 +1,29 @@
 class WordsController < ApplicationController
 
+  def index
+    @words = Word.order("id DESC")
+  end
+
   def new
+    @word = Word.new
   end
 
   def create
-    word = Word.new(word_params)
-    if word.save
-      flash[:success] = "投稿しました"
-      redirect_to timelines_path
-    else
-      flash[:error] = "投稿に失敗しました"
-      redirect_to new_word_path
-    end
+    @word = Word.new(word_params)
+    @word.save_with_changes!
+    redirect_to words_path, flash: { success: "投稿しました。" }
+  rescue ActiveRecord::RecordInvalid
+    flash[:error] = "投稿に失敗しました。"
+    render :new
   end
 
   def destroy
     word = Word.find(params[:id])
-    if word.destroy
-      flash[:success] = "削除しました"
-      redirect_to timelines_path
-    else
-      flash[:error] = "削除に失敗しました"
-      redirect_to timelines_path
-    end
+    word.destroy_with_changes!
+    redirect_to words_path, flash: { success: "削除しました。" }
+  rescue ActiveRecord::RecordInvalid
+    flash[:error] = "削除に失敗しました。"
+    redirect_to words_path
   end
 
   private

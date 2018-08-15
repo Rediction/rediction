@@ -1,0 +1,20 @@
+doctype html
+html
+  head
+    title Rediction
+    = csrf_meta_tags
+    = csp_meta_tag
+    = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track": "reload"
+    = javascript_include_tag "application", "data-turbolinks-track": "reload"
+
+    = render partial: "layouts/partials/google_analytics"
+    = render partial: "layouts/partials/rollbar_js"
+  body
+    - flash.each do |type, message|
+      #flash-msg.flash class="flash-#{type}"
+        = message
+    - if logged_in?
+      = link_to "ログアウト", logout_path, method: :delete
+    br
+    = link_to "homeにもどる", root_path
+    = yield

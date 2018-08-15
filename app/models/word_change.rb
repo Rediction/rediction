@@ -13,4 +13,6 @@
 #
 
 class WordChange < ApplicationRecord
+  include CreatableFromOriginal
+  ORIGINAL_FOREIGN_KEY = :word_id
 end

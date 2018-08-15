@@ -1,0 +1,26 @@
+h1
+  | 会員登録ページ
+br
+= link_to "homeにもどる", root_path
+h2
+  | 本会員登録が完了しました。プロフィールを入力しよう！
+= form_for @user_profile, url: user_profiles_path do |f|
+  = f.label :last_name
+  = f.text_field :last_name, placeholder: true, required: true
+
+  = f.label :first_name
+  = f.text_field :first_name, placeholder: true, required: true
+
+  = f.label :last_name_kana
+  = f.text_field :last_name_kana, placeholder: true, required: true
+
+  = f.label :first_name
+  = f.text_field :first_name_kana, placeholder: true, required: true
+
+  = f.label :birth_on
+  = f.date_select :birth_on, use_month_numbers: :true, required: true
+
+  = f.label :job
+  = f.text_field :job, placeholder: true, required: true
+
+  = f.submit "完了", data: { disable_with: "送信中..." }
