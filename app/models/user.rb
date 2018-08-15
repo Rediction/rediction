@@ -12,6 +12,8 @@
 #
 
 class User < ApplicationRecord
+  include PerformableWithChanges
+
   has_secure_password
   has_one :profile, dependent: :destroy, class_name: "UserProfile"
   has_one :provisional_user_completed_log, dependent: :destroy
@@ -33,30 +35,11 @@ class User < ApplicationRecord
   # 稼働中のアカウント(未凍結 & 退会していない)
   scope :active, -> { unfreezed.unresigned }
 
-  # ユーザーデータを更新して、changesテーブルを作成するメソッド
-  # TODO(Shokei Takanashi) : changesテーブルを有する全Modelにこのメソッドが書かれるのは単調なので、あとでModule化する。
-  def update_with_changes!(attributes)
-    ActiveRecord::Base.transaction do
-      update!(attributes)
-      UserChange.create_from_original!(original_record: self, event: "update")
-      self
-    end
-  end
-
   class << self
-    # 会員テーブルをchangesテーブルとともに作成するメソッド
-    def create_with_changes!(email:, password_digest:)
-      ActiveRecord::Base.transaction do
-        user = create!(email: email, password_digest: password_digest)
-        UserChange.create_from_original!(original_record: user, event: "create")
-        user
-      end
-    end
-
     # 会員登録を完了させるメソッド
     def complete_member_registration!(provisional_user)
       ActiveRecord::Base.transaction do
-        user = create_with_changes!(email: provisional_user.email, password_digest: provisional_user.password_digest)
+        user = create_with_changes!({email: provisional_user.email, password_digest: provisional_user.password_digest})
 
         # usersテーブルとprovisional_usersテーブルの結び付き関係を格納する
         ProvisionalUserCompletedLog.create!(user_id: user.id, provisional_user_id: provisional_user.id)

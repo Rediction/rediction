@@ -20,12 +20,10 @@ ActiveRecord::Schema.define(version: 2018_08_14_115515) do
   end
 
   create_table "favorite_changes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", comment: "お気に入りが外された時の履歴", force: :cascade do |t|
-    t.bigint "user_id", null: false, comment: "ユーザーID(FK)"
-    t.bigint "word_id", null: false, comment: "言葉ID(FK)"
+    t.bigint "user_id", null: false, comment: "ユーザーID"
+    t.bigint "word_id", null: false, comment: "言葉ID"
     t.string "event", null: false, comment: "イベント"
     t.datetime "created_at", null: false
-    t.index ["user_id"], name: "index_favorite_changes_on_user_id"
-    t.index ["word_id"], name: "index_favorite_changes_on_word_id"
   end
 
   create_table "favorites", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", comment: "お気に入り", force: :cascade do |t|
@@ -78,6 +76,7 @@ ActiveRecord::Schema.define(version: 2018_08_14_115515) do
 
   create_table "user_profile_changes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", comment: "ユーザープロフィール更新履歴", force: :cascade do |t|
     t.bigint "user_profile_id", null: false, comment: "ユーザープロフィールID"
+    t.bigint "user_id", null: false, comment: "ユーザーID"
     t.string "last_name", null: false, comment: "苗字"
     t.string "last_name_kana", null: false, comment: "苗字(フリガナ)"
     t.string "first_name", null: false, comment: "名前"
@@ -133,15 +132,13 @@ ActiveRecord::Schema.define(version: 2018_08_14_115515) do
   end
 
   create_table "word_changes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", comment: "投稿が削除された時の履歴", force: :cascade do |t|
-    t.bigint "user_id", null: false, comment: "ユーザーID(FK)"
-    t.bigint "word_id", null: false, comment: "言葉ID(FK)"
+    t.bigint "user_id", null: false, comment: "ユーザーID"
+    t.bigint "word_id", null: false, comment: "言葉ID"
     t.string "name", null: false, comment: "名前"
     t.string "phonetic", null: false, comment: "ふりがな"
     t.string "description", null: false, comment: "説明"
     t.string "event", null: false, comment: "イベント"
     t.datetime "created_at", null: false
-    t.index ["user_id"], name: "index_word_changes_on_user_id"
-    t.index ["word_id"], name: "index_word_changes_on_word_id"
   end
 
   create_table "words", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", comment: "言葉", force: :cascade do |t|
