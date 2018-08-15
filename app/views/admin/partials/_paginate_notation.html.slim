@@ -1,0 +1,6 @@
+/ ページねーとの
+
+.text-right
+  = "ページ： #{items.current_page} / #{items.total_pages}"
+  br
+  = "#{items.total_count}件中#{items.offset_value + 1} 〜 #{items.offset_value + items.length} 件"

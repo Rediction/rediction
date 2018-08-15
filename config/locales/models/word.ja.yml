@@ -1,0 +1,13 @@
+ja:
+  activerecord:
+    attributes:
+      word:
+        name: 名前
+        phonetic: ふりがな
+        description: 説明
+  helpers:
+    placeholder:
+      word:
+        name: 名前
+        phonetic: ふりがな
+        description: 説明

@@ -1,0 +1,5 @@
+ja:
+  activerecord:
+    attributes:
+      user/unfreezed_reason:
+        description: 凍結解除理由

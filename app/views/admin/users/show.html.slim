@@ -1,0 +1,54 @@
+.panel.panel-default
+  .panel-heading
+    = link_to "ユーザー一覧", admin_users_path
+    | &nbsp;> ユーザー詳細
+
+  .panel-body
+    h3
+      | 基本データ
+    = render partial: "admin/users/base", locals: { user: @user }
+
+    hr
+
+    h3
+      | プロフィール
+    - if @user.profile.present?
+      .mobile-table-frame
+        table.table.table-bordered
+          thead
+            th
+              | ID
+            th
+              | 名前
+            th
+              | フリガナ
+            th
+              | 誕生日
+            th
+              | 職業
+          tbody
+            td
+              = @user.profile.id
+            td
+              = "#{@user.profile.last_name} #{@user.profile.first_name}"
+            td
+              = "#{@user.profile.last_name_kana} #{@user.profile.first_name_kana}"
+            td
+              = ja_full_date @user.profile.birth_on
+            td
+              = @user.profile.job
+    - else
+      | 未登録
+
+    .text-right
+      - if @user.freezed?
+        = link_to "凍結解除フォームへ", new_admin_user_unfreezed_reason_path(user_id: @user.id)
+      - else
+        = link_to "凍結フォームへ", new_admin_user_freezed_reason_path(user_id: @user.id)
+
+      | &nbsp;&nbsp;&nbsp;
+
+      - if @user.resigned?
+        = link_to "退会キャンセルフォームへ", new_admin_user_resignation_request_cancel_path(user_id: @user.id)
+      - else
+        = link_to "退会フォームへ", new_admin_user_resignation_request_path(user_id: @user.id), class: "text-danger"
