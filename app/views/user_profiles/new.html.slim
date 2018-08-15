@@ -19,8 +19,8 @@ h2
 
   = f.label :birth_on
   = f.date_select :birth_on, use_month_numbers: :true, required: true,
-                   start_year: Time.now.year - UserProfile::MAXIMUM_AGE,
-                   end_year: Time.now.year - UserProfile::MINIMUM_AGE
+                   start_year: UserProfile::MAXIMUM_AGE.years.ago.year,
+                   end_year: UserProfile::MINIMUM_AGE.years.ago.year
   = f.label :job
   = f.text_field :job, placeholder: true, required: true
 
