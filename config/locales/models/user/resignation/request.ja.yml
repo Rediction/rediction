@@ -1,0 +1,5 @@
+ja:
+  activerecord:
+    attributes:
+      user/resignation/request:
+        description: 退会理由

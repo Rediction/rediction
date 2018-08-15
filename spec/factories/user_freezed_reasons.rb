@@ -8,7 +8,9 @@
 #  created_at  :datetime         not null
 #
 
-class UserFreezedReason < ApplicationRecord
-  belongs_to :user
-  validates :description, presence: true
+FactoryBot.define do
+  factory :user_freezed_reason, class: User::FreezedReason do
+    description "description"
+    association :user
+  end
 end
