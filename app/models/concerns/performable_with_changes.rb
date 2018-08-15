@@ -10,8 +10,11 @@
 module PerformableWithChanges
   extend ActiveSupport::Concern
 
-  # レコードを保存して、Changesテーブルを登録するメソッド
+  # レコードを保存して、Changesテーブルを登録するメソッド(新規登録専用)
   def save_with_changes!
+    # すでに登録済みのレコードの場合は、例外を発生させる
+    raise ActiveRecord::RecordInvalid unless new_record?
+
     ActiveRecord::Base.transaction do
       save!
       self.class.send(:create_from_original!, original_record: self, event: "create")
@@ -19,8 +22,11 @@ module PerformableWithChanges
     end
   end
 
-  # レコードを更新して、Changesテーブルを登録するメソッド
+  # レコードを更新して、Changesテーブルを登録するメソッド(更新専用)
   def update_with_changes!(attributes)
+    # 未登録のレコードの場合は、例外を発生させる
+    raise ActiveRecord::RecordInvalid if new_record?
+
     ActiveRecord::Base.transaction do
       update!(attributes)
       self.class.send(:create_from_original!, original_record: self, event: "update")

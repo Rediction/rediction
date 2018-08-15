@@ -3,12 +3,14 @@
 # include_contextを利用して本テストをincludeして、引数に対象のクラス(Originalの方のクラス)を設定する必要がある。
 shared_context "Changesテーブルを有する場合" do |original_class|
   describe "PerformableWithChangesモジュールをincludeしている場合" do
+    # 複数箇所でinclude_contextされると定数が被ることでwarnningが発生するので、defined?での判定をする。
     FACTORY_BOT_KEY = original_class.to_s.underscore.tr("/", "_").to_sym.freeze unless defined? FACTORY_BOT_KEY
     ORIGINAL_CLASS = original_class unless defined? ORIGINAL_CLASS
     CHANGES_CLASS = eval("#{original_class}Change", binding, __FILE__, __LINE__) unless defined? CHANGES_CLASS
 
     let(:created_instance) { create(FACTORY_BOT_KEY) }
     let(:builded_instance) { build(FACTORY_BOT_KEY) }
+    before { created_instance }
 
     shared_context "OriginalのテーブルとChanges(履歴)テーブルのレコードそれぞれが正常に増減していること" do |original:, changes:|
       it { expect{ subject }.to change(ORIGINAL_CLASS, :count).by(original).and change(CHANGES_CLASS, :count).by(changes) }
@@ -32,7 +34,8 @@ shared_context "Changesテーブルを有する場合" do |original_class|
     end
 
     describe "save_with_changes!" do
-      subject { builded_instance.save_with_changes! }
+      subject { target_instance.save_with_changes! }
+      let(:target_instance) { builded_instance }
 
       context "保存処理が成功した場合" do
         include_context "OriginalのテーブルとChanges(履歴)テーブルのレコードそれぞれが正常に増減していること", original: 1, changes: 1
@@ -43,15 +46,23 @@ shared_context "Changesテーブルを有する場合" do |original_class|
       end
 
       context "保存処理に失敗した場合" do
-        before { allow(builded_instance).to receive(:save!).and_raise(ActiveRecord::RecordInvalid) }
+        before { allow(target_instance).to receive(:save!).and_raise(ActiveRecord::RecordInvalid) }
 
         include_context "OriginalのテーブルとChanges(履歴)テーブルのレコードが増えていないこと"
+      end
+
+      context "登録済みのレコードに対して、メソッドを実行した場合" do
+        let(:target_instance) { created_instance }
+
+        it "ActiveRecord::RecordInvalidの例外が発生すること" do
+          expect{ subject }.to raise_error(ActiveRecord::RecordInvalid)
+        end
       end
     end
 
     describe "update_with_changes!" do
-      subject { created_instance.update_with_changes!(created_instance.attributes) }
-      before { created_instance }
+      subject { target_instance.update_with_changes!(created_instance.attributes) }
+      let(:target_instance) { created_instance }
 
       context "更新処理が成功した場合" do
         include_context "OriginalのテーブルとChanges(履歴)テーブルのレコードそれぞれが正常に増減していること", original: 0, changes: 1
@@ -62,15 +73,22 @@ shared_context "Changesテーブルを有する場合" do |original_class|
       end
 
       context "保存処理に失敗した場合" do
-        before { allow(created_instance).to receive(:update!).and_raise(ActiveRecord::RecordInvalid) }
+        before { allow(target_instance).to receive(:update!).and_raise(ActiveRecord::RecordInvalid) }
 
         include_context "OriginalのテーブルとChanges(履歴)テーブルのレコードが増えていないこと"
+      end
+
+      context "未登録のレコードに対して、メソッドを実行した場合" do
+        let(:target_instance) { builded_instance }
+
+        it "ActiveRecord::RecordInvalidの例外が発生すること" do
+          expect{ subject }.to raise_error(ActiveRecord::RecordInvalid)
+        end
       end
     end
 
     describe "destroy_with_changes!" do
       subject { created_instance.destroy_with_changes! }
-      before { created_instance }
 
       context "保存処理が成功した場合" do
         include_context "OriginalのテーブルとChanges(履歴)テーブルのレコードそれぞれが正常に増減していること", original: -1, changes: 1
