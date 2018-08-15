@@ -12,7 +12,7 @@
 
 class User < ApplicationRecord
   has_secure_password
-  has_one :user_profile, dependent: :destroy
+  has_one :profile, class_name: "UserProfile", dependent: :destroy
   has_one :provisional_user_completed_log, dependent: :destroy
   has_many :user_freezed_reasons, dependent: :destroy
   has_many :user_unfreezed_reasons, dependent: :destroy

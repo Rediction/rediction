@@ -18,8 +18,9 @@ h2
   = f.text_field :first_name_kana, placeholder: true, required: true
 
   = f.label :birth_on
-  = f.date_select :birth_on, use_month_numbers: :true,  required: true, start_year: Time.now.year, end_year: Time.now.year - 150
-
+  = f.date_select :birth_on, use_month_numbers: :true, required: true,
+                   start_year: Time.now.year - UserProfile::MAXIMUM_AGE,
+                   end_year: Time.now.year - UserProfile::MINIMUM_AGE
   = f.label :job
   = f.text_field :job, placeholder: true, required: true
 

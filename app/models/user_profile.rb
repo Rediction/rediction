@@ -16,38 +16,36 @@
 
 class UserProfile < ApplicationRecord
   belongs_to :user
-  validates :last_name, presence: true, length: { maximum: 20, message: "の長さは最大20文字までです。" }
+  validates :last_name, presence: true, length: { maximum: 20 }
 
-  # TODO(shuji ota):Validatorクラスを使ってそれを利用するようにする
-  validates :last_name_kana, presence: true, length: { maximum: 30, message: "の長さは最大30文字までです。" },
+  # TODO(shuji ota):字数制限と正規表現のValidatorクラスを使ってそれを利用するようにする
+  validates :last_name_kana, presence: true, length: { maximum: 30 },
              format: { with: /\A[ァ-ヴー]+\z/, message: "にはカタカナのみが使用できます。"}
 
-  validates :first_name, presence: true, length: { maximum: 20, message: "の長さは最大20文字までです。" }
+  validates :first_name, presence: true, length: { maximum: 20 }
 
-  # TODO(shuji ota):Validatorクラスを使ってそれを利用するようにする
-  validates :first_name_kana, presence: true, length: { maximum: 30, message: "の長さは最大30文字までです。" },
+  # TODO(shuji ota):字数制限と正規表現のValidatorクラスを使ってそれを利用するようにする
+  validates :first_name_kana, presence: true, length: { maximum: 30 },
              format: { with: /\A[ァ-ヴー]+\z/, message: "にはカタカナのみが使用できます。"}
 
   validates :birth_on, presence: true
   validates :job, presence: true, length: { maximum: 20 }
   validate :check_birth_date
 
-    # 生年月日を計算するメソッド
-    def check_birth_date
-      date_format = "%Y%m%d"
-      age = (Time.zone.today.strftime(date_format).to_i - birth_on.strftime(date_format).to_i) / 10000
+  MINIMUM_AGE = 13
+  MAXIMUM_AGE = 150
 
-      return errors.add(:birth_on, "が不正です。6歳未満はご利用になれません。") if age < 6
-    end
+  # 生年月日から年齢を計算するメソッド
+  def check_birth_date
+    age = (Time.zone.today.strftime("%Y%m%d").to_i - birth_on.strftime("%Y%m%d").to_i) / 10000
+    errors.add(:birth_on, "が不正です。" + MINIMUM_AGE + "歳未満はご利用になれません。") if age < MINIMUM_AGE
+  end
 
-  class << self
-    # 会員プロフィールテーブルをchangesテーブルとともに作成するメソッド
-    def save_with_changes!(user_profile_params:, current_user_id:)
-      ActiveRecord::Base.transaction do
-        user_profile = UserProfile.new(user_profile_params.merge(user_id: current_user_id))
-        user_profile.save!
-        UserProfileChange.create_from_original!(original_record: user_profile, event: "create")
-      end
+  # 会員プロフィールテーブルをchangesテーブルとともに作成するメソッド
+  def save_with_changes!
+    ActiveRecord::Base.transaction do
+      save!
+      UserProfileChange.create_from_original!(original_record: self, event: "create")
     end
   end
 end
