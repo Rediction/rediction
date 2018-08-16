@@ -8,7 +8,16 @@
 #  created_at  :datetime         not null
 #
 
-class UserUnfreezedReason < ApplicationRecord
+class User::UnfreezedReason < ApplicationRecord
   belongs_to :user
-  validates :description, presence: true
+  validates :description, presence: true, length: {maximum: 140}
+
+  # レコードを保存して、リレーションのあるユーザーを凍結させるメソッド
+  def save_and_lift_user_freeze!
+    ActiveRecord::Base.transaction do
+      save!
+      user.update_with_changes!(freezed: :unfreezed)
+      self
+    end
+  end
 end
