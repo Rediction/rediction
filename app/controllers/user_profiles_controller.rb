@@ -8,7 +8,6 @@ class UserProfilesController < ApplicationController
   def create
     # user_profilesテーブルと_changesテーブルにデータを格納する
     @user_profile = current_user.build_profile(user_profile_params)
-    @user_profile.save_with_changes!
 
     # TODO(shuji ota):画面の遷移先をタイムラインの画面に変更する
     redirect_to root_path, flash: { success: "プロフィール登録が完了しました。" }

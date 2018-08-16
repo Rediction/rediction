@@ -24,11 +24,6 @@ class ApplicationController < ActionController::Base
     session[:user_id] = nil
   end
 
-  # ログイン中のユーザーをインスタンス化するメソッド
-  def current_user
-    @current_user ||= User.find_by(id: session[:user_id])
-  end
-
   private
 
     # Basic認証

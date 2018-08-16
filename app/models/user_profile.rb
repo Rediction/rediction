@@ -15,10 +15,10 @@
 #
 
 class UserProfile < ApplicationRecord
-  # サービスを利用できる最少年齢を設定している
+  # サービスを利用できる最少年齢
   MINIMUM_AGE = 13
 
-  # サービスを利用できる最長年齢を設定している
+  # サービスを利用できる最長年齢
   MAXIMUM_AGE = 150
 
   belongs_to :user
@@ -40,17 +40,10 @@ class UserProfile < ApplicationRecord
 
   # 登録する年齢に制限を設けるメソッド
   def check_birth_date
-    errors.add(:birth_on, "が不正です。" + MINIMUM_AGE.to_s + "歳未満はご利用になれません。") if birth_on.year > MINIMUM_AGE.years.ago.year
-    errors.add(:birth_on, "が不正です。") if birth_on.year < MAXIMUM_AGE.years.ago.year
-  end
-
-  # 会員プロフィールテーブルをchangesテーブルとともに作成するメソッド
-  def save_with_changes!
-    ActiveRecord::Base.transaction do
-      check_birth_date
-      save!
-      UserProfileChange.create_from_original!(original_record: self, event: "create")
-      self
+    if birth_on.to_datetime > MINIMUM_AGE.years.ago.to_datetime
+      errors.add(:birth_on, "が不正です。" + MINIMUM_AGE.to_s + "歳未満はご利用になれません。")
+    elsif birth_on.to_datetime < MAXIMUM_AGE.years.ago.to_datetime
+      errors.add(:birth_on, "が不正です。" + MAXIMUM_AGE.to_s + "歳以上はご利用になれません。")
     end
   end
 end
