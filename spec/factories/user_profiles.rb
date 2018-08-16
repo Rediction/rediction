@@ -17,9 +17,9 @@
 FactoryBot.define do
   factory :user_profile do
     last_name "string"
-    last_name_kana "string"
+    last_name_kana "アイウエオ"
     first_name "string"
-    first_name_kana "string"
+    first_name_kana "アイウエオ"
     birth_on 15.years.ago
     job "string"
     association :user

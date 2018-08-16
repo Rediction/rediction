@@ -15,6 +15,7 @@ class User < ApplicationRecord
   include PerformableWithChanges
 
   has_secure_password
+
   has_one :profile, dependent: :destroy, class_name: "UserProfile"
   has_one :provisional_user_completed_log, dependent: :destroy
   has_many :freezed_reasons, dependent: :destroy
