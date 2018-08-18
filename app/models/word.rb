@@ -14,9 +14,34 @@ class Word < ApplicationRecord
   include PerformableWithChanges
 
   belongs_to :user
+  has_many :random_fetched_records, dependent: :destroy
 
   validates :user_id, presence: true
   validates :name, presence: true
   validates :phonetic, presence: true
   validates :description, presence: true
+
+  class << self
+    # word_random_fetched_recordsのトークンを元に、取得済みのwordsを除隊してランダムで規定数取得
+    # ランダム取得ということもあり、負荷が高いメソッドなので、事前にスコアを振るレコメンドなどに切り替える予定。
+    def find_random_by_fetched_token(token:, limit: 10)
+      fetched_token = Word::RandomFetchedToken.find_by(token: token)
+
+      includes(user: :profile)
+        .where.not(id: fetched_token&.fetched_records&.map(&:word_id))
+        .order(Arel.sql("RAND()"))
+        .limit(limit)
+    end
+
+    # 最新のレコードを取得
+    # 第二引数(max_fetched_id)で取得する最大のIDを指定可能。
+    def find_latest_records(limit: 10, max_fetched_id: nil)
+      words = includes(user: :profile).order(id: :desc).limit(limit)
+
+      # 最後に取得したIDがparamsに含まれている場合、それより前のIDを取得するように条件を追加
+      words = words.where("id < ?", max_fetched_id) if max_fetched_id.present?
+
+      words
+    end
+  end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_14_115515) do
+ActiveRecord::Schema.define(version: 2018_08_18_131516) do
 
   create_table "admin_users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", comment: "管理者ユーザー", force: :cascade do |t|
     t.string "email", null: false, comment: "メールアドレス"
@@ -141,6 +141,20 @@ ActiveRecord::Schema.define(version: 2018_08_14_115515) do
     t.datetime "created_at", null: false
   end
 
+  create_table "word_random_fetched_records", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", comment: "ランダムで取得した言葉のレコードのIDが格納されるテーブル", force: :cascade do |t|
+    t.bigint "token_id", null: false, comment: "トークンID(FK)"
+    t.bigint "word_id", null: false, comment: "言葉ID(FK)"
+    t.datetime "created_at", null: false
+    t.index ["token_id"], name: "index_word_random_fetched_records_on_token_id"
+    t.index ["word_id"], name: "index_word_random_fetched_records_on_word_id"
+  end
+
+  create_table "word_random_fetched_tokens", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", comment: "ランダムで取得した言葉に紐づくユニークなトークンが格納されるテーブル", force: :cascade do |t|
+    t.string "token", null: false, comment: "トークン"
+    t.datetime "created_at", null: false
+    t.index ["token"], name: "index_word_random_fetched_tokens_on_token", unique: true
+  end
+
   create_table "words", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", comment: "言葉", force: :cascade do |t|
     t.bigint "user_id", null: false, comment: "ユーザーID(FK)"
     t.string "name", null: false, comment: "名前"
@@ -158,5 +172,7 @@ ActiveRecord::Schema.define(version: 2018_08_14_115515) do
   add_foreign_key "user_freezed_reasons", "users"
   add_foreign_key "user_profiles", "users"
   add_foreign_key "user_unfreezed_reasons", "users"
+  add_foreign_key "word_random_fetched_records", "word_random_fetched_tokens", column: "token_id"
+  add_foreign_key "word_random_fetched_records", "words"
   add_foreign_key "words", "users"
 end
