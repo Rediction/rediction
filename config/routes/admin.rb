@@ -8,7 +8,7 @@ namespace :admin do
 
   resource :logout, controller: :sessions, only: %i[destroy]
   resource :dashboard, only: %i[show]
-  resources :words, only: %i[index show]
+  resources :words, only: %i[index show destroy]
 
   namespace :user, as: "users" do
     namespace :resignation do

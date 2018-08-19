@@ -1,7 +1,46 @@
 .panel.panel-default
   .panel-heading
-    = link_to "言葉一覧 ", admin_words_path
-    | > 言葉一覧
+    = link_to "言葉一覧", admin_words_path
+    | &nbsp;> 言葉一覧
 
   .panel-body
-    | 未実装
+    h3
+      | 基本データ
+    .mobile-table-frame
+      table.table.table-bordered
+        thead
+          th
+            | ID
+          th
+            | ユーザー
+          th
+            = Word.human_attribute_name(:name)
+          th
+            = Word.human_attribute_name(:phonetic)
+          th
+            | お気に入り数
+          th
+            | 投稿日
+        tbody
+          td
+            = @word.id
+          td
+            = link_to "#{@word.user.id}：#{@word.user.profile.full_name}", admin_user_path(@word.user)
+          td
+            = @word.name
+          td
+            = @word.phonetic
+          td.text-right
+            = @word.favorites.count
+          td
+            = ja_full_datetime @word.created_at
+
+    hr
+
+    h3
+      | 定義
+    p
+      = @word.description
+
+    .text-right
+      = link_to "投稿を削除する", admin_word_path(@word), class: "text-danger", method: :delete, data: {confirm: "本当に削除しますか？"}

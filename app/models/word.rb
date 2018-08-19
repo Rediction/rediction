@@ -15,6 +15,7 @@ class Word < ApplicationRecord
 
   belongs_to :user
   has_many :random_fetched_records, dependent: :destroy
+  has_many :favorites, dependent: :destroy
 
   validates :user_id, presence: true
   validates :name, presence: true
