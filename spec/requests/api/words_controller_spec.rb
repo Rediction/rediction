@@ -100,4 +100,93 @@ describe Api::WordsController, type: :request do
       include_context "ページネーションの規定値分の値が取れること"
     end
   end
+
+  describe "GET #search" do
+    subject { get search_api_words_path(last_fetched_word_id: last_fetched_word_id, search_word: search_word) }
+    let(:last_fetched_word_id) { nil }
+    let(:search_word) { "" }
+
+    context "平常時アクセスの場合" do
+      it "返り値のKeyの値が適切であること", :aggregate_failures do
+        is_expected.to eq 200
+        expect(response.body).to have_json_type(Array).at_path("words")
+      end
+    end
+
+    context "Wordがページネーションの規定数以上登録されている場合" do
+      before { create_list(:word_with_profile, Api::WordsController::FETCH_COUNT + 1) }
+
+      include_context "ページネーションの規定値分の値が取れること"
+    end
+
+    context "検索ワードに言葉を入れた場合" do
+      before { create_list(:word_with_profile, Api::WordsController::FETCH_COUNT) }
+      let(:word) { create(:word_with_profile, name: "hoge") }
+
+      context "完全一致" do
+        let(:search_word) { word.name }
+
+        it "該当するレコードが取得できること", :aggregate_failures do
+          is_expected.to eq 200
+          expect(JSON.parse(response.body)["words"].first["id"]).to eq word.id
+          expect(JSON.parse(response.body)["words"].count).to eq 1
+        end
+      end
+
+      context "前方一致" do
+        let(:search_word) { word.name[0] }
+
+        it "該当するレコードが取得できること", :aggregate_failures do
+          is_expected.to eq 200
+          expect(JSON.parse(response.body)["words"].first["id"]).to eq word.id
+          expect(JSON.parse(response.body)["words"].count).to eq 1
+        end
+      end
+
+      context "後方一致" do
+        let(:search_word) { word.name[-1] }
+
+        it "該当するレコードが取得できること", :aggregate_failures do
+          is_expected.to eq 200
+          expect(JSON.parse(response.body)["words"].first["id"]).to eq word.id
+          expect(JSON.parse(response.body)["words"].count).to eq 1
+        end
+      end
+    end
+
+    context "検索ワードにふりがなを入れた場合" do
+      before { create_list(:word_with_profile, Api::WordsController::FETCH_COUNT) }
+      let(:word) { create(:word_with_profile, phonetic: "ほげ") }
+
+      context "完全一致" do
+        let(:search_word) { word.phonetic }
+
+        it "該当するレコードが取得できること", :aggregate_failures do
+          is_expected.to eq 200
+          expect(JSON.parse(response.body)["words"].first["id"]).to eq word.id
+          expect(JSON.parse(response.body)["words"].count).to eq 1
+        end
+      end
+
+      context "前方一致" do
+        let(:search_word) { word.phonetic[0] }
+
+        it "該当するレコードが取得できること", :aggregate_failures do
+          is_expected.to eq 200
+          expect(JSON.parse(response.body)["words"].first["id"]).to eq word.id
+          expect(JSON.parse(response.body)["words"].count).to eq 1
+        end
+      end
+
+      context "後方一致" do
+        let(:search_word) { word.phonetic[-1] }
+
+        it "該当するレコードが取得できること", :aggregate_failures do
+          is_expected.to eq 200
+          expect(JSON.parse(response.body)["words"].first["id"]).to eq word.id
+          expect(JSON.parse(response.body)["words"].count).to eq 1
+        end
+      end
+    end
+  end
 end

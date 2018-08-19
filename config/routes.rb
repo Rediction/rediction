@@ -11,6 +11,7 @@ Rails.application.routes.draw do
       get "index_random_order"
       get "index_scoped_favorite_words"
       get "index_scoped_follow_users"
+      get "search"
     end
   end
 

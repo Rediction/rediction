@@ -48,4 +48,13 @@ class Api::WordsController < Api::SecureApplicationController
     @words = Word.find_latest_records(limit: FETCH_COUNT, max_fetched_id: params[:last_fetched_word_id])
                  .where(user_id: params[:user_id])
   end
+
+  # 検索結果一覧
+  def search
+    @words = Word.find_latest_records(limit: FETCH_COUNT, max_fetched_id: params[:last_fetched_word_id])
+
+    # 検索条件を追加
+    @words = @words.where("name LIKE ?", "%#{params[:search_word]}%")
+                   .or(@words.where("phonetic LIKE ?", "%#{params[:search_word]}%"))
+  end
 end
