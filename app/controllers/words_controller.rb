@@ -15,6 +15,10 @@ class WordsController < ApplicationController
   def index_scoped_follow_users
   end
 
+  # 検索結果一覧
+  def search
+  end
+
   def new
     @word = current_user.words.build
   end
