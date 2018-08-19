@@ -10,7 +10,7 @@
             | 総ユーザー数
           .panel-body.text-right
             span.h3
-              = @users_count
+              = separate_comma @users_count
             | &nbsp;ユーザー
 
       .col-md-4.col-sm-12
@@ -18,11 +18,14 @@
           .panel-heading
             | 言葉の総数
           .panel-body.text-right
-            | 未実装
+            span.h3
+              = separate_comma @words_count
+            | &nbsp;投稿
 
       .col-md-4.col-sm-12
         .panel.panel-warning
           .panel-heading
             | 総お気に入り数
           .panel-body.text-right
-            | 未実装
+            span.h3
+              = separate_comma @favorites_count
