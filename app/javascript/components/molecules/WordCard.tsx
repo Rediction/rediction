@@ -9,7 +9,7 @@ interface Props {
 
 const WordCard: React.SFC<Props> = ({ word, intervalSpace }) => {
   return (
-    <Card>
+    <Card link={`/words/${word.id}`}>
       <div style={{ ...styles.container, marginBottom: `${intervalSpace}px` }}>
         <h4>言葉</h4>
         <p>ID : {word.id}</p>

@@ -32,6 +32,10 @@ class WordsController < ApplicationController
     render :new
   end
 
+  def show
+    @word = Word.find(params[:id]);
+  end
+
   def destroy
     word = current_user.words.find(params[:id])
     word.destroy_with_changes!

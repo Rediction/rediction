@@ -1,0 +1,18 @@
+ruby:
+  provide :header_title, "言葉詳細"
+  provide :return_link, request.referer
+
+h4
+  | 言葉
+p
+  | ID :
+  = @word.id
+p
+  | 意味 :
+  = @word.name
+p
+  | フリガナ :
+  = @word.phonetic
+p
+  | 定義 :
+  = @word.description
