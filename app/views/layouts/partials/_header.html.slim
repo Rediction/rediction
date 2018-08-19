@@ -1,0 +1,22 @@
+header#header
+  h1.title
+    = header_title
+
+hr
+
+- unless hide_nav
+  nav#nav
+    ul
+      li
+        = link_to index_latest_order_words_path do
+          | (アイコン)
+          | タイムライン
+      li
+        = link_to "" do
+          | (アイコン)
+          | 検索
+      li
+        = link_to user_mypage_path do
+          | (アイコン)
+          | マイページ
+hr

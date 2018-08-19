@@ -1,0 +1,15 @@
+{
+  "defaultSeverity": "error",
+  "extends": ["tslint:latest", "tslint-config-prettier"],
+  "jsRules": {},
+  "rules": {
+    "object-literal-sort-keys": false, /* オブジェクトのキーの順序は気にしない */
+    "no-implicit-dependencies": [true, "dev"], /* peerDependencies の代わりに devDependencies をみるように変更 */
+    "interface-name": [true, "never-prefix"], /* Interface の接頭辞に I をつけるのは少数派なため変更 */
+    "member-access": [true, "no-public"], /* public メソッドはデフォルトなので許可する */
+    "no-empty-interface": false, /* 空でもインターフェース定義しておいた方が、あとあと楽。 */
+    "no-submodule-imports": false, /* ライブラリの仕様上必要になる時がある */
+    "no-unused-variable": [true, {"ignore-pattern": "^_"}] /* 未使用のインポート、変数、関数、およびプライベートクラスのメンバーを禁止します */
+  },
+  "rulesDirectory": []
+}
