@@ -6,7 +6,6 @@ describe ProvisionalUsersController, type: :controller do
   describe "GET #new" do
     subject { get :new }
     before { subject }
-
     context "平常時アクセスの場合" do
       it "HTTP 200 OK", :aggregate_failures do
         expect(response).to have_http_status 200
@@ -37,7 +36,6 @@ describe ProvisionalUsersController, type: :controller do
         expect(flash[:error]).to eq "仮会員登録に失敗しました。"
         expect(response).to render_template :new
       end
-
     end
   end
 end
