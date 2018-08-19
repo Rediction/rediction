@@ -3,7 +3,7 @@ require "rails_helper"
 describe ProvisionalUsersController, type: :controller do
   let(:provisional_user_params) { attributes_for(:provisional_user) }
 
-  describe "GET #new", type: :doing do
+  describe "GET #new" do
     subject { get :new }
     before { subject }
 
@@ -16,7 +16,7 @@ describe ProvisionalUsersController, type: :controller do
   end
 
   describe "POST #create" do
-    context "@provisional_userが保存に成功した場合", type: :doing do
+    context "@provisional_userが保存に成功した場合" do
       subject { post :create, params: { provisional_user: provisional_user_params } }
 
       it "レコードが生成されること", :aggregate_failures do
@@ -25,7 +25,7 @@ describe ProvisionalUsersController, type: :controller do
       end
     end
 
-    context "@provisional_userの保存に失敗した場合", type: :doing do
+    context "@provisional_userの保存に失敗した場合" do
       subject{ post :create, params: { provisional_user: { email: email, password: password, verification_token: verification_token } } }
       let(:email) { provisional_user_params[:email] }
       let(:password) { provisional_user_params[:password] }

@@ -4,7 +4,7 @@ RSpec.describe ProvisionalUser, type: :model do
   let(:verification_token) { provisional_user.verification_token }
   let(:provisional_user) { create(:provisional_user) }
 
-  describe "Instanceメソッド", type: :doing do
+  describe "Instanceメソッド" do
     describe "save_with_verification_token" do
 
       context "登録処理に成功した場合" do
@@ -27,7 +27,7 @@ RSpec.describe ProvisionalUser, type: :model do
     end
   end
 
-  describe "classメソッド", type: :doing do
+  describe "classメソッド" do
     let(:token) { SecureRandom.uuid }
 
     describe "generate_token" do
