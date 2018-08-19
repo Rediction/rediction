@@ -1,0 +1,14 @@
+h3
+  | Words一覧のナビゲーション
+
+ul
+  li
+    = link_to_unless_current "マイタイムライン", index_scoped_favorite_words_words_path
+  li
+    = link_to_unless_current "全ユーザータイムライン", index_latest_order_words_path
+  li
+    = link_to_unless_current "フォローしてる人のハイライト", index_scoped_follow_users_words_path
+  li
+    = link_to_unless_current "全ユーザーハイライト", index_random_order_words_path
+
+hr
