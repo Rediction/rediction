@@ -1,6 +1,7 @@
 header#header
-  h1.title
-    = header_title
+  - if header_title.present?
+    h1.title
+      = header_title
 
 hr
 
@@ -12,7 +13,7 @@ hr
           | (アイコン)
           | タイムライン
       li
-        = link_to "" do
+        = link_to search_words_path do
           | (アイコン)
           | 検索
       li
