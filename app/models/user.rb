@@ -24,6 +24,7 @@ class User < ApplicationRecord
   has_many :resignation_request_cancels, class_name: "User::Resignation::RequestCancel"
   has_many :user_auth_logs, dependent: :destroy
   has_many :words, dependent: :destroy
+  has_many :follow_relation, dependent: :destroy
 
   enum freezed: {freezed: true, unfreezed: false}
   enum resigned: {resigned: true, unresigned: false}
