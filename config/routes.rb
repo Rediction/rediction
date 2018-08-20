@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   root to: "root#index"
 
   resources :words, only: %i[new create show destroy], concerns: :words_index
+  resources :users, only: %i[show]
 
   # 仮会員に送られるメールのURLから遷移する際、getメソッドしか使えないため明示的にgetメソッドにしている
   get "users/create", to: "users#create"

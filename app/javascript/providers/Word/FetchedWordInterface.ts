@@ -1,5 +1,6 @@
 interface FetchedWord {
   id: number;
+  user_id: number;
   name: string;
   phonetic: string;
   description: string;

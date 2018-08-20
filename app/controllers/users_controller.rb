@@ -1,6 +1,11 @@
 class UsersController < ApplicationController
   skip_before_action :authenticate, only: %i[create]
 
+  # 他ユーザーの詳細ページ
+  def show
+    @user = User.find(params[:id])
+  end
+
   # 会員登録の処理を行うメソッド
   def create
     # TODO(shuji ota):時間制限の処理を追加する

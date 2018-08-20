@@ -1,0 +1,38 @@
+ruby:
+  provide :header_title, "他ユーザープロフィール"
+  provide :javascript_pack_path, "users/show"
+  provide :return_link, request.referer
+
+p
+  = @user.profile.full_name
+
+dl
+  dt
+    = UserProfile.human_attribute_name(:job)
+  dd
+    = @user.profile.job
+
+  dt
+    | 年齢
+  dd
+    = @user.profile.job
+
+  dt
+    = UserProfile.human_attribute_name(:birth_on)
+  dd
+    = ja_full_date @user.profile.birth_on
+
+
+| リンク(準備中)
+
+br
+
+= link_to "WORDS", ""
+
+br
+
+= link_to "REDICTOR", ""
+
+hr
+
+#words-list data-current-user-id=current_user.id data-user-id=@user.id
