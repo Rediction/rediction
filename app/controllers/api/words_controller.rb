@@ -4,7 +4,8 @@ class Api::WordsController < Api::SecureApplicationController
 
   # 最新順のWords一覧
   def index_latest_order
-    @words = Word.find_latest_records(limit: FETCH_COUNT, max_fetched_id: params[:last_fetched_word_id])
+    @words =
+      words_includes_favorite.find_latest_records(limit: FETCH_COUNT, max_fetched_id: params[:last_fetched_word_id])
   end
 
   # ランダム並んだWords一覧
@@ -21,7 +22,8 @@ class Api::WordsController < Api::SecureApplicationController
     @random_fetched_token = Word::RandomFetchedToken.first_or_create_unique_token(params[:token])
 
     # まだ取得していないwordsをランダム取得
-    @words = Word.find_random_by_fetched_token(token: @random_fetched_token.token, limit: FETCH_COUNT)
+    @words =
+      words_includes_favorite.find_random_by_fetched_token(token: @random_fetched_token.token, limit: FETCH_COUNT)
 
     # 取得したwordsをトークンに紐づけて登録
     Word::RandomFetchedRecord.bulk_insert_by_words_and_token_id(token_id: @random_fetched_token.id, words: @words)
@@ -32,7 +34,8 @@ class Api::WordsController < Api::SecureApplicationController
     # TODO (Shokei Takanashi)
     # お気に入り登録中のWordのみに絞り込むように改修する。
     # 現状はindex_latest_orderアクションと同様の処理。
-    @words = Word.find_latest_records(limit: FETCH_COUNT, max_fetched_id: params[:last_fetched_favorite_id])
+    @words =
+      words_includes_favorite.find_latest_records(limit: FETCH_COUNT, max_fetched_id: params[:last_fetched_favorite_id])
   end
 
   # フォローしたユーザーのWords一覧
@@ -40,21 +43,35 @@ class Api::WordsController < Api::SecureApplicationController
     # TODO (Shokei Takanashi)
     # フォローしたユーザーのWordのみに絞り込むように改修する。
     # 現状はindex_latest_orderアクションと同様の処理。
-    @words = Word.find_latest_records(limit: FETCH_COUNT, max_fetched_id: params[:last_fetched_word_id])
+    @words =
+      words_includes_favorite.find_latest_records(limit: FETCH_COUNT, max_fetched_id: params[:last_fetched_word_id])
   end
 
   # ログイン中のユーザーのWords一覧
   def index_scoped_user
-    @words = Word.find_latest_records(limit: FETCH_COUNT, max_fetched_id: params[:last_fetched_word_id])
-                 .where(user_id: params[:user_id])
+    @words =
+      words_includes_favorite.find_latest_records(limit: FETCH_COUNT, max_fetched_id: params[:last_fetched_word_id])
+                             .where(user_id: params[:user_id])
   end
 
   # 検索結果一覧
   def search
-    @words = Word.find_latest_records(limit: FETCH_COUNT, max_fetched_id: params[:last_fetched_word_id])
+    @words =
+      words_includes_favorite.find_latest_records(limit: FETCH_COUNT, max_fetched_id: params[:last_fetched_word_id])
 
     # 検索条件を追加
     @words = @words.where("name LIKE ?", "%#{params[:search_word]}%")
                    .or(@words.where("phonetic LIKE ?", "%#{params[:search_word]}%"))
+  end
+
+  private
+
+  # 該当ユーザーのお気に入りをincludesしたWordのオブジェクト
+  #
+  # TODO (Shokei Takanashi)
+  # 該当するユーザーが取得した言葉をお気に入り登録してるかを取得するために行っている処理だが、
+  # 他により良い方法があったら改修する。
+  def words_includes_favorite
+     Word.includes_favorite_by_user_id(params[:user_id])
   end
 end
