@@ -1,17 +1,30 @@
+# == Schema Information
+#
+# Table name: provisional_users # 仮ユーザー情報
+#
+#  id                 :bigint(8)        not null, primary key
+#  email              :string(255)      not null              # メールアドレス
+#  password_digest    :string(255)      not null              # パスワード
+#  verification_token :string(255)      not null              # 検証用トークン
+#  created_at         :datetime         not null
+#
+
 require "rails_helper"
 
 RSpec.describe ProvisionalUser, type: :model do
-  let(:verification_token) { provisional_user.verification_token }
-  let(:provisional_user) { create(:provisional_user) }
+  let(:provisional_user) { attributes_for(:provisional_user) }
 
   describe "Instanceメソッド" do
-    describe "save_with_verification_token" do
+    describe "#save_with_verification_token" do
+      subject { provisional_user.save_with_verification_token }
+      let(:provisional_user) { build(:provisional_user, verification_token: "") }
+      let(:verification_token) { ProvisionalUser.generate_token }
+      let(:token) { provisional_user[:verification_token] }
 
       context "登録処理に成功した場合" do
-        subject { provisional_user.save_with_verification_token }
-
         it "uniqueなトークンがあること" do
-          expect(verification_token).to be_present
+          subject
+          expect(verification_token).not_to eq token
         end
 
         it "レコードが生成されること" do
@@ -20,6 +33,7 @@ RSpec.describe ProvisionalUser, type: :model do
       end
 
       context "登録処理に失敗する場合" do
+      let(:provisional_user) { build(:provisional_user, email: "") }
         it "レコードが生成されないこと" do
           expect{ subject }.to change(ProvisionalUser, :count).by(0)
         end
@@ -28,12 +42,13 @@ RSpec.describe ProvisionalUser, type: :model do
   end
 
   describe "classメソッド" do
-    let(:token) { SecureRandom.uuid }
-
     describe "generate_token" do
+      subject{ ProvisionalUser.generate_token }
+      let(:token) { provisional_user[:verification_token] }
+
       context "トークンがuniqueである場合" do
         it "uniqueなトークンが生成されること" do
-          expect(token).not_to eq(verification_token)
+          expect(subject).not_to eq token
         end
       end
     end
