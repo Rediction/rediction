@@ -3,4 +3,35 @@
     | 言葉一覧
 
   .panel-body
-    | 未実装
+    = render partial: "admin/partials/paginate_notation", locals: { items: @words }
+
+    .mobile-table-frame
+      table.table.table-striped
+        thead
+          tr
+            th
+              | ID
+            th
+              = Word.human_attribute_name(:name)
+            th
+              = Word.human_attribute_name(:phonetic)
+            th
+              | 投稿日
+            th
+              | #
+        tbody
+          - @words.each do |word|
+            tr
+              td
+                = word.id
+              td
+                = word.name
+              td
+                = word.phonetic
+              td
+                = ja_full_datetime word.created_at
+              td
+                = link_to "詳細ページ", admin_word_path(word)
+
+    .text-center
+      = paginate @words

@@ -17,5 +17,11 @@ FactoryBot.define do
     password "password"
     freezed :unfreezed
     resigned :unresigned
+
+    factory :user_with_profile do
+      after :create do |user|
+        create :user_profile, user: user
+      end
+    end
   end
 end

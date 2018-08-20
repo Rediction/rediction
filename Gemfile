@@ -51,6 +51,12 @@ gem "omniauth-google-oauth2"
 gem "rollbar"
 # enumでi18nを利用できるようにするもの
 gem "enum_help"
+# Decoratorを利用できるようにするもの
+gem "active_decorator"
+# CSSやJSをまとめてくれるモジュールハンドラー。ES6やReact, Vueを使えるようにするもの。
+gem "webpacker"
+# activerecordでバルクインサートを利用できるようにするもの
+gem "activerecord-import"
 
 ## 管理画面用
 # BootstrapをImportして利用できるようにするもの
@@ -77,10 +83,12 @@ group :development, :test do
   gem "rails-controller-testing"
   # テスト結果を整形できたりするCI用のもの
   gem "rspec_junit_formatter"
+  # JSONのフォーマット検証を感知的にできるようにするもの(主にAPI用)
+  gem "json_spec"
   # デバック用 binding.pry で止めれる
-  gem 'pry-rails'
-  gem 'pry-byebug'
-  gem 'pry-doc'
+  gem "pry-rails"
+  gem "pry-byebug"
+  gem "pry-doc"
 end
 
 group :development do

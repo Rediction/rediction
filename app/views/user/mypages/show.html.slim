@@ -1,0 +1,37 @@
+ruby:
+  provide :header_title, "マイページ"
+  provide :javascript_pack_path, "user/mypages/show"
+
+p
+  = current_user.profile.full_name
+
+dl
+  dt
+    = UserProfile.human_attribute_name(:job)
+  dd
+    = current_user.profile.job
+
+  dt
+    | 年齢
+  dd
+    = current_user.profile.job
+
+  dt
+    = UserProfile.human_attribute_name(:birth_on)
+  dd
+    = ja_full_date current_user.profile.birth_on
+
+
+| リンク(準備中)
+
+br
+
+= link_to "WORDS", ""
+
+br
+
+= link_to "REDICTOR", ""
+
+hr
+
+#words-list data-current-user-id=current_user.id

@@ -1,20 +1,37 @@
 doctype html
 html
   head
+    meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no"
     title Rediction
     = csrf_meta_tags
     = csp_meta_tag
+    = stylesheet_link_tag 'https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.css'
     = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track": "reload"
     = javascript_include_tag "application", "data-turbolinks-track": "reload"
 
     = render partial: "layouts/partials/google_analytics"
     = render partial: "layouts/partials/rollbar_js"
   body
+    / ヘッダー
+    - if logged_in?
+      = render partial: "layouts/partials/header", \
+        locals: { \
+          header_title: yield(:header_title), \
+          hide_nav: yield(:hide_nav) == "1", \
+          return_link: yield(:return_link) \
+        }
+
     - flash.each do |type, message|
       #flash-msg.flash class="flash-#{type}"
         = message
+
     - if logged_in?
       = link_to "ログアウト", logout_path, method: :delete
+
     br
-    = link_to "homeにもどる", root_path
+
     = yield
+
+    / webpack管理下のJavaScriptのパス
+    - if yield(:javascript_pack_path).present?
+      = javascript_pack_tag yield(:javascript_pack_path)
