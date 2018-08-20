@@ -21,7 +21,7 @@ describe ProvisionalUsersController, type: :controller do
       it "レコードが生成されること", :aggregate_failures do
         expect{ subject }.to change(ProvisionalUser, :count).by(1)
         expect(response).to have_http_status 200
-        expect(response).to render_template "provisional_users/create"
+        expect(response).to render_template "create"
       end
     end
 
