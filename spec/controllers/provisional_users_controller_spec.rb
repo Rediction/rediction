@@ -1,7 +1,6 @@
 require "rails_helper"
 
 describe ProvisionalUsersController, type: :controller do
-
   describe "GET #new" do
     subject { get :new }
     before { subject }
