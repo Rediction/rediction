@@ -71,7 +71,7 @@ class WordCard extends React.Component<Props, State> {
 
           <i
             className={word.is_favorite ? "fas fa-star" : "far fa-star"}
-            onClick={(e) => this.toggleFavoriteStatus(e)}
+            onClick={e => this.toggleFavoriteStatus(e)}
           />
         </div>
       </Card>

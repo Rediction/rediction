@@ -6,7 +6,7 @@ interface FavoriteHandlerInterface extends BaseFetcherInterface {
 
 class FavoriteHandler extends BaseFetcher implements FavoriteHandlerInterface {
   constructor(wordId: string, userId: string) {
-    super(`/words/${wordId}/users/${userId}/favorite`)
+    super(`/words/${wordId}/users/${userId}/favorite`);
   }
 
   // お気に入りステータスを更新(現状のステータスと反対のステータスに更新する)
@@ -21,8 +21,7 @@ class FavoriteHandler extends BaseFetcher implements FavoriteHandlerInterface {
 
     // 言葉リストを取得
     const responseData = await this.patch();
-    console.log(responseData);
-    const isFavorite: boolean = responseData["is_favorite"];
+    const isFavorite: boolean = responseData.is_favorite;
 
     // リクエスト終了
     this.endRequest();
