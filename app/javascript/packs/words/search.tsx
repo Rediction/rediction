@@ -1,3 +1,4 @@
+import $ from "jquery";
 import * as React from "react";
 import ReactDOM from "react-dom";
 import SearchedWordsCardList from "../../components/organisms/SearchedWordsCardList";
@@ -7,11 +8,15 @@ const targetIdAttr = "words-list";
 const searchFieldIdAttr = "search-field";
 const searchBtnIdAttr = "search-btn";
 
+// ログイン中のユーザーのID
+const currentUserId = $(`#${targetIdAttr}`).data("current-user-id");
+
 ReactDOM.render(
   <SearchedWordsCardList
     targetIdAttr={targetIdAttr}
     searchFieldIdAttr={searchFieldIdAttr}
     searchBtnIdAttr={searchBtnIdAttr}
+    userId={currentUserId}
   />,
   document.getElementById(targetIdAttr)
 );

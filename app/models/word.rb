@@ -34,13 +34,29 @@ class Word < ApplicationRecord
         .limit(limit)
     end
 
+    def includes_favorite_by_user_id(user_id)
+      includes(:favorites).where(favorites: {user_id: [nil, user_id]})
+    end
+
     # 最新のレコードを取得
     # 第二引数(max_fetched_id)で取得する最大のIDを指定可能。
     def find_latest_records(limit: 10, max_fetched_id: nil)
       words = includes(user: :profile).order(id: :desc).limit(limit)
 
       # 最後に取得したIDがparamsに含まれている場合、それより前のIDを取得するように条件を追加
-      words = words.where("id < ?", max_fetched_id) if max_fetched_id.present?
+      words = words.where("words.id < ?", max_fetched_id) if max_fetched_id.present?
+
+      words
+    end
+
+    # お気に入り登録されている言葉のみに絞り込む
+    def find_favorites_records(limit: 10, max_fetched_id: nil, user_id:)
+      words = joins(:favorites).where(favorites: {user_id: user_id})
+                               .includes(user: :profile)
+                               .order("favorites.id DESC")
+                               .limit(limit)
+
+      words = words.where("favorites.id < ?", max_fetched_id) if max_fetched_id.present?
 
       words
     end

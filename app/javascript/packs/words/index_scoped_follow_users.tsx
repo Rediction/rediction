@@ -1,3 +1,4 @@
+import $ from "jquery";
 import * as React from "react";
 import ReactDOM from "react-dom";
 import WordsCardList from "../../components/organisms/WordsCardList";
@@ -7,14 +8,20 @@ import ScopedFollowUsersFetcher from "../../providers/Word/ScopedFollowUsersFetc
 // Word一覧を表示する対象のID
 const targetIdAttr = "words-list";
 
+// ログイン中のユーザーのID
+const currentUserId = $(`#${targetIdAttr}`).data("current-user-id");
+
 // Word一覧をAPI経由で取得するクラスのインスタンス
 // フォロー中のユーザーが投稿したWordのみを取得する。
-const scopedFollowUsersFetcher: WordFetcherInterface = new ScopedFollowUsersFetcher();
+const scopedFollowUsersFetcher: WordFetcherInterface = new ScopedFollowUsersFetcher(
+  currentUserId
+);
 
 ReactDOM.render(
   <WordsCardList
     wordFethcer={scopedFollowUsersFetcher}
     targetIdAttr={targetIdAttr}
+    userId={currentUserId}
   />,
   document.getElementById(targetIdAttr)
 );

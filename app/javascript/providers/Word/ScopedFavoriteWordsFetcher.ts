@@ -5,9 +5,9 @@ class ScopedFavoriteWordsFetcher extends BaseFetcher
   // 取得した言葉のうち、最古のID
   private oldestFetchedId: number = 0;
 
-  constructor() {
+  constructor(userId: string) {
     // APIのパスを設定
-    super("/words/index_scoped_favorite_words");
+    super(`/words/index_scoped_favorite_words?user_id=${userId}`);
   }
 
   // 言葉を取得
@@ -23,7 +23,7 @@ class ScopedFavoriteWordsFetcher extends BaseFetcher
     // 取得した最古の言葉IDが格納済みの場合は、パラメータとして設定
     const parameter =
       this.oldestFetchedId !== 0
-        ? `?last_fetched_favorite_id=${this.oldestFetchedId}`
+        ? `&last_fetched_favorite_id=${this.oldestFetchedId}`
         : "";
 
     // 言葉リストを取得

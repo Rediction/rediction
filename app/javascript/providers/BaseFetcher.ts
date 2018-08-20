@@ -1,7 +1,7 @@
 import ApiClient from "../providers/ApiClient";
 import FetchedWordInterface from "./Word/FetchedWordInterface";
 
-interface BaseFetcherInterface {
+export interface BaseFetcherInterface {
   isRequesting(): boolean;
   startRequest(): any;
   endRequest(): any;
@@ -41,6 +41,19 @@ class BaseFetcher implements BaseFetcherInterface {
   async fetch(parameter: string = "") {
     try {
       const response = await ApiClient.get(this.apiPath + parameter);
+      return response.data;
+    } catch (e) {
+      throw e;
+    }
+    return {};
+  }
+
+  async patch(patchData: any = {}, parameter: string = "") {
+    try {
+      const response = await ApiClient.patch(
+        this.apiPath + parameter,
+        patchData
+      );
       return response.data;
     } catch (e) {
       throw e;

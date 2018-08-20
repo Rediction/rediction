@@ -14,9 +14,9 @@ class WordsSearchFetcher extends BaseFetcher
   private oldestFetchedId: number = 0;
   private searchWord: string = "";
 
-  constructor() {
+  constructor(userId: string) {
     // APIのパスを設定
-    super("/words/search");
+    super(`/words/search?user_id=${userId}`);
   }
 
   setSearchWord(searchWord: string) {
@@ -48,7 +48,7 @@ class WordsSearchFetcher extends BaseFetcher
 
     // 取得した最古の言葉IDが格納済みの場合は、パラメータとして設定
     const parameter: string =
-      `?search_word=${this.searchWord}` +
+      `&search_word=${this.searchWord}` +
       (this.oldestFetchedId !== 0
         ? `&last_fetched_word_id=${this.oldestFetchedId}`
         : "");
