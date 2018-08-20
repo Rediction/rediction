@@ -1,0 +1,13 @@
+h1
+  | 新しいパスワードを入力してください。
+
+= form_for @password_reissue_form, url: user_password_reissue_path(token: @password_reissue_form.token), method: :post do |f|
+  = f.label :password
+  = f.password_field :password
+
+  = f.label :password
+  = f.password_field :password_confirmation
+
+  = f.hidden_field :token
+
+  = f.submit "パスワードを登録してログインする", data: { disable_with: "送信中..." }

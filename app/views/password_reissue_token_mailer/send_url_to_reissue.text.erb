@@ -1,0 +1,3 @@
+以下のURLをクリックして新しいパスワードを入力してください。
+(以下のURLの有効期限は<%= User::PasswordReissueToken::EXPIRED_MINITUES %>分です。)
+<%= new_user_password_reissue_url(token: @password_reissue_token.token) %>
