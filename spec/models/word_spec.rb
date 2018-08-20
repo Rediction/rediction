@@ -16,10 +16,11 @@ RSpec.describe Word, type: :model do
   include_context 'Changesテーブルを有する場合', Word
 
   describe "Classメソッド" do
-    describe "find_random_by_fetched_token" do
+    let(:limit) { 10 }
+
+    describe ".find_random_by_fetched_token" do
       subject { Word.find_random_by_fetched_token(token: token, limit: limit) }
       let(:token) { "xxxxxxxxxxxxx" }
-      let(:limit) { 10 }
 
       context "トークンが空の場合" do
         before { create_list(:word, limit) }
@@ -44,10 +45,9 @@ RSpec.describe Word, type: :model do
       end
     end
 
-    describe "find_latest_records" do
+    describe ".find_latest_records" do
       subject { Word.find_latest_records(limit: limit, max_fetched_id: max_fetched_id) }
       let(:max_fetched_id) { nil }
-      let(:limit) { 10 }
 
       context "正常時の場合" do
         before { create_list(:word, limit) }
@@ -72,6 +72,56 @@ RSpec.describe Word, type: :model do
 
         it "max_fetched_idより前のIDのみが取得されること" do
           expect(subject.map(&:id)).not_to include max_fetched_id
+        end
+      end
+    end
+
+    describe ".find_favorites_records" do
+      subject{ Word.find_favorites_records(limit: limit, max_fetched_id: max_fetched_id, user_id: user.id) }
+      before { create_list(:word, limit) }
+      let(:max_fetched_id) { nil }
+      let(:user) { create(:user) }
+
+      context "お気に入り登録されているwordが存在しない場合" do
+        it "レコードが取得できないこと" do
+          expect(subject.count).to eq 0
+        end
+      end
+
+      context "お気に入り登録されているwordが存在する場合" do
+        before { create(:favorite, user: user, word: word) }
+        let(:word) { Word.first }
+
+        it "お気に入り登録されているwordのみが取得されること", :aggregation_failures do
+          expect(subject.count).to eq 1
+          is_expected.to include word
+        end
+      end
+
+      context "IDのDESC順で取得されること" do
+        before do
+          Word.last(3).each do |word|
+            create(:favorite, user: user, word: word)
+          end
+        end
+
+        it "お気に入り登録されているwordのみが取得されること", :aggregation_failures do
+          ids = subject.map(&:id)
+          expect(ids).to eq(ids.sort { |a, b| b <=> a })
+          expect(ids.count).to eq 3
+        end
+      end
+
+      context "max_fetched_idが指定されている場合" do
+        before do
+          Word.last(3).each do |word|
+            create(:favorite, user: user, word: word)
+          end
+        end
+        let(:max_fetched_id) { Favorite.last.id }
+
+        it "max_fetched_idより前のIDのみが取得されること", :aggregation_failures do
+          expect(subject.count).to eq 2
         end
       end
     end
