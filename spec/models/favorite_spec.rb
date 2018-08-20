@@ -15,14 +15,14 @@ RSpec.describe Favorite, type: :model do
 
   describe "Classメソッド" do
     describe ".toggle_status!" do
-      subject { Favorite.toggle_status(word_id: word_id, user_id: user_id) }
+      subject { Favorite.toggle_status!(word_id: word_id, user_id: user_id) }
       let(:user_id) { user.id }
       let(:word_id) { word.id }
       let(:user) { create(:user) }
       let(:word) { create(:word) }
 
       context "user_idとword_idに該当するレコードが登録されている場合" do
-        let(:favorite) { Favorite.create_with_changes!(word_id: word_id, user_id: user_id) }
+        let(:favorite) { create(:favorite, word_id: word_id, user_id: user_id) }
         before { favorite }
 
         it "レコードが削除されること" do
@@ -52,7 +52,7 @@ RSpec.describe Favorite, type: :model do
 
         it "changesテーブルのeventがcreateとして登録されること" do
           expect{ subject }.to change(FavoriteChange, :count).by(1)
-          expect(FavoriteChange.last&.favorite_id).to eq Favorite.last
+          expect(FavoriteChange.last&.favorite_id).to eq Favorite.last.id
           expect(FavoriteChange.last&.event).to eq "create"
         end
       end
