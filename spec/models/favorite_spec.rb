@@ -1,11 +1,21 @@
+# == Schema Information
+#
+# Table name: favorites # お気に入り
+#
+#  id         :bigint(8)        not null, primary key
+#  user_id    :bigint(8)        not null              # ユーザーID(FK)
+#  word_id    :bigint(8)        not null              # 言葉ID(FK)
+#  created_at :datetime         not null
+#
+
 require "rails_helper"
 
 RSpec.describe Favorite, type: :model do
   include_context 'Changesテーブルを有する場合', Favorite
 
-  describe "Classメソッド"
-    describe ".toggleStatus!" do
-      subject { Favorite.toggleStatus(word_id: word_id, user_id: user_id) }
+  describe "Classメソッド" do
+    describe ".toggle_status!" do
+      subject { Favorite.toggle_status(word_id: word_id, user_id: user_id) }
       let(:user_id) { user.id }
       let(:word_id) { word.id }
       let(:user) { create(:user) }

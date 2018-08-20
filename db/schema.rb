@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_18_131516) do
+ActiveRecord::Schema.define(version: 2018_08_20_142242) do
 
   create_table "admin_users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", comment: "管理者ユーザー", force: :cascade do |t|
     t.string "email", null: false, comment: "メールアドレス"
@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 2018_08_18_131516) do
   end
 
   create_table "favorite_changes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", comment: "お気に入りが外された時の履歴", force: :cascade do |t|
+    t.bigint "favorite_id", null: false, comment: "お気に入りID"
     t.bigint "user_id", null: false, comment: "ユーザーID"
     t.bigint "word_id", null: false, comment: "言葉ID"
     t.string "event", null: false, comment: "イベント"

@@ -14,7 +14,7 @@ class Favorite < ApplicationRecord
   class << self
     # 言葉のお気に入り登録を切り替える処理
     # お気に入り登録中の場合は解除し、未登録の場合は新しく登録
-    def toggleStatus!(word_id:, user_id:)
+    def toggle_status!(word_id:, user_id:)
       favorite = where(user_id: user_id, word_id: word_id)
 
       if favorite.present?
