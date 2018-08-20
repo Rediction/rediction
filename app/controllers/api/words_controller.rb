@@ -31,11 +31,11 @@ class Api::WordsController < Api::SecureApplicationController
 
   # お気に入り登録されたWords一覧
   def index_scoped_favorite_words
-    # TODO (Shokei Takanashi)
-    # お気に入り登録中のWordのみに絞り込むように改修する。
-    # 現状はindex_latest_orderアクションと同様の処理。
-    @words =
-      words_includes_favorite.find_latest_records(limit: FETCH_COUNT, max_fetched_id: params[:last_fetched_favorite_id])
+    @words = words_includes_favorite.find_favorites_records(
+      limit: FETCH_COUNT,
+      max_fetched_id: params[:last_fetched_word_id],
+      user_id: params[:user_id],
+    )
   end
 
   # フォローしたユーザーのWords一覧
@@ -72,6 +72,6 @@ class Api::WordsController < Api::SecureApplicationController
   # 該当するユーザーが取得した言葉をお気に入り登録してるかを取得するために行っている処理だが、
   # 他により良い方法があったら改修する。
   def words_includes_favorite
-     Word.includes_favorite_by_user_id(params[:user_id])
+    Word.includes_favorite_by_user_id(params[:user_id])
   end
 end
