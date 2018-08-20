@@ -10,4 +10,6 @@
 #
 
 class FavoriteChange < ApplicationRecord
+  include CreatableFromOriginal
+  ORIGINAL_FOREIGN_KEY = :favorite_id
 end

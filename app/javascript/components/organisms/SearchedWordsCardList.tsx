@@ -10,6 +10,7 @@ interface Props {
   targetIdAttr: string; // 一覧を表示する対象のID
   searchFieldIdAttr: string; // 検索用の入力フォームのID
   searchBtnIdAttr: string; // 検索用のボタンのID
+  userId: string;
 }
 
 interface State {
@@ -19,7 +20,9 @@ interface State {
 }
 
 class SearchedWordsCardList extends React.Component<Props, State> {
-  private wordSearchFetcher: WordSearchFetcher = new WordSearchFetcher();
+  private wordSearchFetcher: WordSearchFetcher = new WordSearchFetcher(
+    this.props.userId
+  );
   private scrollHandler: ScrollHandler = new ScrollHandler();
 
   constructor(props: Props) {
@@ -88,6 +91,7 @@ class SearchedWordsCardList extends React.Component<Props, State> {
   }
 
   render() {
+    const { userId } = this.props;
     const { words, loading } = this.state;
 
     if (loading && words.length === 0) {
@@ -97,7 +101,12 @@ class SearchedWordsCardList extends React.Component<Props, State> {
     return (
       <div style={styles.container}>
         {words.map((word: FetchedWordInterface) => (
-          <WordCard key={word.id} word={word} intervalSpace="13" />
+          <WordCard
+            key={word.id}
+            word={word}
+            userId={userId}
+            intervalSpace="13"
+          />
         ))}
         {loading ? <ActivityIndicator size="middle" /> : null}
       </div>

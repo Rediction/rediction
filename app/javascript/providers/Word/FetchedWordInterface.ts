@@ -3,6 +3,7 @@ interface FetchedWord {
   name: string;
   phonetic: string;
   description: string;
+  is_favorite: boolean;
   profile: Profile;
 }
 

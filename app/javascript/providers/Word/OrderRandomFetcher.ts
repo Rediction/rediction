@@ -4,9 +4,9 @@ class WordsOrderRandomFetcher extends BaseFetcher
   implements WordFetcherInterface {
   private token: string = "";
 
-  constructor() {
+  constructor(userId: string) {
     // APIのパスを設定
-    super("/words/index_random_order");
+    super(`/words/index_random_order?user_id=${userId}`);
   }
 
   // 言葉を取得
@@ -20,7 +20,7 @@ class WordsOrderRandomFetcher extends BaseFetcher
     this.startRequest();
 
     // 取得した最古の言葉IDが格納済みの場合は、パラメータとして設定
-    const parameter = this.token ? `?token=${this.token}` : "";
+    const parameter = this.token ? `&token=${this.token}` : "";
 
     // 言葉リストを取得
     const { words, token } = await this.fetch(parameter);

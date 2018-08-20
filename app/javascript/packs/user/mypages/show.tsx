@@ -18,6 +18,10 @@ const scopedUserFetcher: WordFetcherInterface = new ScopedUserFetcher(
 );
 
 ReactDOM.render(
-  <WordsCardList wordFethcer={scopedUserFetcher} targetIdAttr={targetIdAttr} />,
+  <WordsCardList
+    wordFethcer={scopedUserFetcher}
+    targetIdAttr={targetIdAttr}
+    userId={currentUserId}
+  />,
   document.getElementById(targetIdAttr)
 );

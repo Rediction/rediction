@@ -7,7 +7,11 @@ interface Props {
 
 const Card: React.SFC<Props> = ({ link, children }) => {
   if (link) {
-    return <a href={link} style={styles.card}>{children}</a>;
+    return (
+      <a href={link} style={styles.card}>
+        {children}
+      </a>
+    );
   } else {
     return <div style={styles.card}>{children}</div>;
   }
