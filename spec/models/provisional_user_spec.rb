@@ -17,7 +17,7 @@ RSpec.describe ProvisionalUser, type: :model do
   describe "Instanceメソッド" do
     describe "#save_with_verification_token" do
       subject { provisional_user.save_with_verification_token }
-      let(:provisional_user) { build(:provisional_user, verification_token: "") }
+      let(:provisional_user) { build(:provisional_user, verification_token: nil ) }
       let(:verification_token) { ProvisionalUser.generate_token }
       let(:token) { provisional_user.verification_token }
 
@@ -34,6 +34,7 @@ RSpec.describe ProvisionalUser, type: :model do
 
       context "登録処理に失敗する場合" do
         let(:provisional_user) { build(:provisional_user, email: "") }
+
         it "レコードが生成されないこと" do
           expect{ subject }.to change(ProvisionalUser, :count).by(0)
         end
@@ -44,7 +45,7 @@ RSpec.describe ProvisionalUser, type: :model do
   describe "classメソッド" do
     describe "generate_token" do
       subject{ ProvisionalUser.generate_token }
-      let(:provisional_user) { build(:provisional_user, verification_token: "") }
+      let(:provisional_user) { build(:provisional_user, verification_token: nil ) }
       let(:token) { provisional_user.verification_token }
 
       context "トークンがuniqueである場合" do
