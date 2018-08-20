@@ -1,0 +1,35 @@
+/** font-family **/
+$baseFontFamily: Trebuchet MS,Arial,Helvetica,ヒラギノ角ゴ Pro W3,Hiragino Kaku Gothic Pro,メイリオ,Meiryo,ＭＳ\ Ｐゴシック,MS PGothic,sans-serif;
+
+/** 色 **/
+/* 基本色 */
+$black: #000000;
+$white: #ffffff;
+
+/* 特殊色 */
+$baseBlack: #333333;
+$primaryColor: #34B5E2;
+$secondaryColor: #FAAA20;
+
+/* Flashカラー */
+// $flashSuccessColor: #0000ff;
+// $flashErrorColor: #ff0000;
+
+/* form色 */
+$placeholderColor: #C4C4C4;
+$formBorderColor: #E5E5E5;
+
+
+/** 大きさ **/
+/* 高さ */
+$mobileHeaderHeight: 6vh;
+$mobileNavHeight: 4vh;
+
+/** z-index **/
+$headerZIndex: 3000;
+
+
+/** レスポンシブ **/
+// 対応デバイスが複数種類になった場合は、ブレイクポイントを増やす。
+$smallScreen: 768px;
+$breakpoints-up: ('s': "(min-width: #{$smallScreen})");
