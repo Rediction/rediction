@@ -44,6 +44,7 @@ RSpec.describe ProvisionalUser, type: :model do
   describe "classメソッド" do
     describe "generate_token" do
       subject{ ProvisionalUser.generate_token }
+      let(:provisional_user) { build(:provisional_user, verification_token: "") }
       let(:token) { provisional_user.verification_token }
 
       context "トークンがuniqueである場合" do
