@@ -22,8 +22,11 @@ dl
   dd
     = ja_full_date @user.profile.birth_on
 
-
-| リンク(準備中)
+p#toggle-follow-btn style="text-align: right;cursor: pointer;"
+  - if current_user.followed_user?(@user)
+    | フォロー中
+  - else
+    | フォロー
 
 br
 
