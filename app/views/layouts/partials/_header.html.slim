@@ -1,28 +1,22 @@
-header#header
+header#header.header
   / 戻るボタン
   - if return_link.present?
-    = link_to "戻る", return_link
+    = link_to "戻る", return_link, class: "return-btn"
 
   / Headerタイトル
   - if header_title.present?
-    h1.title
+    h1.header-title
       = header_title
 
-hr
-
 - unless hide_nav
-  nav#nav
-    ul
-      li
-        = link_to index_latest_order_words_path do
-          | (アイコン)
-          | タイムライン
-      li
-        = link_to search_words_path do
-          | (アイコン)
-          | 検索
-      li
-        = link_to user_mypage_path do
-          | (アイコン)
-          | マイページ
-hr
+  nav#nav.nav
+    = link_to index_latest_order_words_path, class: "nav-link" do
+      | タイムライン
+
+    = link_to search_words_path, class: "nav-link" do
+      | 検索
+
+    = link_to user_mypage_path, class: "nav-link" do
+      | マイページ
+
+.mobile-header-space

@@ -58,7 +58,7 @@ class WordsSearchFetcher extends BaseFetcher
 
     // 言葉を１つ以上取得できた場合は、最古のIDを更新
     if (words.length > 0) {
-      this.oldestFetchedId = words.pop().id;
+      this.oldestFetchedId = words[words.length - 1].id;
     }
 
     // リクエスト終了

@@ -1,0 +1,5 @@
+h1
+  | プロフィール編集ページ
+
+= render partial: "user_profiles/form",
+  locals: { profile: @profile, destination: user_profile_path, method: :patch }

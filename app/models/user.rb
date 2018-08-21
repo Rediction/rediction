@@ -25,6 +25,7 @@ class User < ApplicationRecord
   has_many :user_auth_logs, dependent: :destroy
   has_many :words, dependent: :destroy
   has_many :password_reissue_tokens, dependent: :destroy
+  has_many :follow_relations, dependent: :destroy
 
   enum freezed: {freezed: true, unfreezed: false}
   enum resigned: {resigned: true, unresigned: false}

@@ -1,0 +1,66 @@
+@import "./variables";
+
+//**
+//* ヘッダー
+header.header {
+  z-index: $headerZIndex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: $mobileHeaderHeight;
+  background: $primaryColor;
+
+  h1.header-title {
+    color: $white;
+  }
+
+  a.return-btn {
+    color: $white;
+  }
+}
+
+
+//**
+//* ヘッダー下のナビゲーション
+nav.nav {
+  z-index: $headerZIndex;
+  position: fixed;
+  top: $mobileHeaderHeight;
+  left: 0;
+  right: 0;
+  height: $mobileNavHeight;
+  background: $white;
+  display: flex;
+  box-shadow: 0 4px 8px rgba($black, .15);
+
+  a.nav-link {
+    flex: 1;
+    text-align: center;
+  }
+}
+
+
+//**
+//* Mobileで上部にFixしてるHeaderのスペースを埋める部品
+.mobile-header-space {
+  height: $mobileHeaderHeight + $mobileNavHeight;
+}
+
+
+//**
+//* 投稿ボタン
+a.post-new-word-btn {
+  position: fixed;
+  right: 15px;
+  bottom: 15px;
+  background: $secondaryColor;
+  border-radius: 50%;
+  color: $white;
+  height: 50px;
+  width: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 8px rgba($black, .15);
+}

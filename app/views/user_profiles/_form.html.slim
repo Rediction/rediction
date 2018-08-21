@@ -1,0 +1,26 @@
+= form_for profile, method: method, url: destination do |f|
+  .form-group
+    = f.label :last_name
+    = f.text_field :last_name, placeholder: true, required: true
+
+  .form-group
+    = f.label :first_name
+    = f.text_field :first_name, placeholder: true, required: true
+
+  .form-group
+    = f.label :last_name_kana
+    = f.text_field :last_name_kana, placeholder: true, required: true
+
+  .form-group
+    = f.label :first_name
+    = f.text_field :first_name_kana, placeholder: true, required: true
+  .form-group
+    = f.label :birth_on
+    = f.date_select :birth_on, use_month_numbers: :true, required: true,
+                     start_year: UserProfile::MAXIMUM_AGE.years.ago.year,
+                     end_year: UserProfile::MINIMUM_AGE.years.ago.year
+  .form-group
+    = f.label :job
+    = f.text_field :job, placeholder: true, required: true
+
+  = f.submit "完了", data: { disable_with: "送信中..." }
