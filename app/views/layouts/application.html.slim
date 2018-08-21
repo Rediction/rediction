@@ -32,12 +32,11 @@ html
       #flash-msg.flash class="flash-#{type}"
         = message
 
-    - if logged_in?
-      = link_to "ログアウト", logout_path, method: :delete
-
-    br
-
     = yield
+
+    - unless yield(:hide_post_new_word_btn) == "1"
+      = link_to new_word_path, class: "post-new-word-btn" do
+        | 投稿
 
     / webpack管理下のJavaScriptのパス
     - if yield(:javascript_pack_path).present?

@@ -1,0 +1,101 @@
+@import "./variables";
+@import "./mixins";
+
+/**
+ * このファイルのスタイルはあくまでBASEのスタイルなので、基本的にはいじらない。
+ * HeaderやFooterなどの共通部品のスタイルは./_common.scssの方に記述すること。
+ */
+
+/** APP基本スタイル **/
+
+* {
+  box-sizing: border-box;
+  border-collapse: collapse;
+}
+
+body {
+  font-size: 16px;
+  height: 100vh;
+}
+
+h1, h2, h3, h4, h5, h6,
+div, span, p, a, li, th, td {
+  color: $baseBlack;
+  font-family: $baseFontFamily;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: none;
+  }
+
+  &:active {
+    text-decoration: none;
+  }
+
+  &:focus {
+    outline: none;
+    text-decoration: none;
+  }
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+input {
+  // IOSだと標準のレイアウトの影響でデザインが崩れることがあるので、明示的にデザインをリセットしている。
+  &[type=text], &[type=email], &[type=password], &[type=number], &[type=submit] {
+    -webkit-appearance: none;
+  }
+}
+
+textarea {
+  // IOSだと標準のレイアウトの影響でデザインが崩れることがあるので、明示的にデザインをリセットしている。
+  -webkit-appearance: none;
+}
+
+button {
+  border-style: none;
+}
+
+form, input, select, textarea, button {
+  &:focus {
+    outline: none;
+  }
+}
+
+body {
+  -webkit-tap-highlight-color:rgba($white, 0);
+}
+
+/* 各ベンダープレフィックスが取れた標準版！！(http://caniuse.com/#search=placeholder-shown) */
+:placeholder-shown {
+  color: $placeholderColor;
+}
+
+/* Google Chrome, Safari, Opera 15+, Android, iOS */
+::-webkit-input-placeholder {
+  color: $placeholderColor;
+}
+
+/* Firefox 18- */
+:-moz-placeholder {
+  color: $placeholderColor;
+  opacity: 1;
+}
+
+/* Firefox 19+ */
+::-moz-placeholder {
+  color: $placeholderColor;
+  opacity: 1;
+}
+
+/* IE 10+ */
+:-ms-input-placeholder {
+  color: $placeholderColor;
+}
