@@ -1,9 +1,38 @@
+# TODO(Shokei Takanashi) : 最低限の型チェックしかテストしていないので、条件分岐などを考慮したテストも追記する。
 require "rails_helper"
 
 describe Api::User::FollowRelationsController, type: :request do
   include_context "APIを認証済み状態にする"
 
-   describe "PATCH #update" do
+  let(:fetch_count) { Api::User::FollowRelationsController::FETCH_COUNT }
+
+  describe "GET #index" do
+    subject { get api_user_follow_relations_path(following_user_id: followed_user_id, last_fetched_word_id: last_fetched_word_id) }
+    let(:followed_user_id) { following_user.id }
+    let(:following_user) { create(:user_with_profile) }
+    let(:last_fetched_word_id) { 1 }
+
+    context "平常時アクセスの場合" do
+      before do
+        fetch_count.times do
+          followed_user = create(:user_with_profile)
+          create(:user_follow_relation, following_user: following_user, followed_user: followed_user)
+        end
+      end
+
+      it "返り値のKeyの値が適切であること", :aggregate_failures do
+        is_expected.to eq 200
+        expect(response.body).to have_json_type(Array).at_path("follow_relations")
+      end
+
+      it "ページネーションの規定値分の値が取れること" do
+        is_expected.to eq 200
+        expect(JSON.parse(response.body)["follow_relations"].count).to eq fetch_count
+      end
+    end
+  end
+
+  describe "PATCH #update" do
     subject { patch api_user_follow_relation_path(following_user_id: following_user_id, followed_user_id: followed_user_id) }
     let(:followed_user_id) { following_user.id }
     let(:following_user_id) { followed_user.id }
@@ -47,5 +76,5 @@ describe Api::User::FollowRelationsController, type: :request do
         expect(User::FollowRelationChange.last&.event).to eq "create"
       end
     end
-   end
+  end
 end
