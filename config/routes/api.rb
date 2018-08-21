@@ -12,4 +12,10 @@ namespace :api, defaults: {format: :json} do
   namespace :user do
     resource :follow_relation, only: %i[update]
   end
+
+  resources :users, only: %i[] do
+    scope module: :users do
+      resources :follow_relations, only: %i[index]
+    end
+  end
 end

@@ -26,6 +26,7 @@ Rails.application.routes.draw do
   resources :users, only: %i[show] do
     scope module: :users do
       resources :favorites, only: %i[index]
+      resources :follow_relations, only: %i[index]
     end
   end
 
