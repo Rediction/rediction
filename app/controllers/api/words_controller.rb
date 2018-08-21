@@ -33,7 +33,7 @@ class Api::WordsController < Api::SecureApplicationController
   def index_scoped_favorite_words
     @words = words_includes_favorite.find_favorites_records(
       limit: FETCH_COUNT,
-      max_fetched_id: params[:last_fetched_word_id],
+      max_fetched_id: params[:last_fetched_favorite_id],
       user_id: params[:user_id],
     )
   end
