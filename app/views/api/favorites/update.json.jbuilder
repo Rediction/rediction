@@ -1,1 +1,1 @@
-json.is_favorite @favorite.present?
+json.favorite_id @favorite&.id
