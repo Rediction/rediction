@@ -3,6 +3,9 @@ class UsersController < ApplicationController
 
   # 他ユーザーの詳細ページ
   def show
+    # ログイン中のユーザーと同じidが指定されている場合はマイページにリダイレクト
+    return redirect_to user_mypage_path if current_user.id == params[:id].to_i
+
     @user = User.find(params[:id])
   end
 
