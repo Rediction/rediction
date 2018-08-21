@@ -26,6 +26,7 @@ class User < ApplicationRecord
   has_many :words, dependent: :destroy
   has_many :password_reissue_tokens, dependent: :destroy
   has_many :follow_relations, dependent: :destroy, foreign_key: :following_user_id
+  has_many :followed_relations, dependent: :destroy, class_name: "User::FollowRelation", foreign_key: :followed_user_id
 
   enum freezed: {freezed: true, unfreezed: false}
   enum resigned: {resigned: true, unresigned: false}
