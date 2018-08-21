@@ -9,7 +9,7 @@
 #
 
 FactoryBot.define do
-  factory :user_follow_relation do
+  factory :user_follow_relation, class: User::FollowRelation do
     association :following_user, factory: :user
     association :followed_user, factory: :user
   end

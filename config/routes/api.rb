@@ -8,4 +8,8 @@ namespace :api, defaults: {format: :json} do
       resource :favorite, only: %i[update]
     end
   end
+
+  namespace :user do
+    resource :follow_relation, only: %i[update]
+  end
 end
