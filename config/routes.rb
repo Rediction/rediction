@@ -24,7 +24,7 @@ Rails.application.routes.draw do
   resources :words, only: %i[new create show destroy], concerns: :words_index
 
   resources :users, only: %i[show] do
-    namespace :users, path: nil do
+    scope module: :users do
       resources :favorites, only: %i[index]
     end
   end
