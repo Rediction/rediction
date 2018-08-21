@@ -1,4 +1,4 @@
-# TODO(Shokei Takanashi) : 最低限の方チェックしかテストしていないので、条件分岐などを考慮したテストも追記する。
+# TODO(Shokei Takanashi) : 最低限の型チェックしかテストしていないので、条件分岐などを考慮したテストも追記する。
 require "rails_helper"
 
 describe Api::WordsController, type: :request do

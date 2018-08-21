@@ -3,6 +3,10 @@ json.words(words) do |word|
   json.favorite_id word.favorites.first&.id
 
   json.profile do
-    json.partial! "api/partials/user/profile", locals: {profile: word.user.profile}
+    if word.user.profile.present?
+      json.partial! "api/partials/user/profile", locals: {profile: word.user.profile}
+    else
+      json.profile nil
+    end
   end
 end

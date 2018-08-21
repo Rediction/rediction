@@ -1,7 +1,5 @@
-json.follow_relations(@follow_relations) do |follow_relation|
-  json.user do
-    json.partial! "api/partials/user", locals: {user: follow_relation.followed_user}
-  end
+json.users(@follow_relations) do |follow_relation|
+  json.partial! "api/partials/user", locals: {user: follow_relation.followed_user}
 
   json.profile do
     if follow_relation.followed_user.profile.present?

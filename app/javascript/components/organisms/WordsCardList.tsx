@@ -27,14 +27,6 @@ class WordsCardList extends React.Component<Props, State> {
     this.refetchWords = this.refetchWords.bind(this);
   }
 
-  handleWords(words: FetchedWordInterface[]) {
-    this.setState({ words: this.state.words.concat(words) });
-  }
-
-  handleLoading(loading: boolean) {
-    this.setState({ loading });
-  }
-
   componentDidMount() {
     const { targetIdAttr } = this.props;
 
@@ -45,6 +37,14 @@ class WordsCardList extends React.Component<Props, State> {
       targetIdAttr,
       this.refetchWords
     );
+  }
+
+  handleWords(words: FetchedWordInterface[]) {
+    this.setState({ words: this.state.words.concat(words) });
+  }
+
+  handleLoading(loading: boolean) {
+    this.setState({ loading });
   }
 
   // 言葉を取得
