@@ -24,6 +24,8 @@ class User < ApplicationRecord
   has_many :resignation_request_cancels, class_name: "User::Resignation::RequestCancel"
   has_many :user_auth_logs, dependent: :destroy
   has_many :words, dependent: :destroy
+  has_many :password_reissue_tokens, dependent: :destroy
+  has_many :follow_relations, dependent: :destroy
 
   enum freezed: {freezed: true, unfreezed: false}
   enum resigned: {resigned: true, unresigned: false}
@@ -31,7 +33,7 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: true, email: true
 
   # TODO(shuji ota):形式チェックのvalidationを追加する
-  validates :password_digest, presence: true
+  validates :password, length: (8..32), presence: true, unless: :password_digest
 
   # 稼働中のアカウント(未凍結 & 退会していない)
   scope :active, -> { unfreezed.unresigned }

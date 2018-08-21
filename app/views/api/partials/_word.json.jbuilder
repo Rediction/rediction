@@ -1,1 +1,1 @@
-json.extract! word, :id, :name, :phonetic, :description
+json.extract! word, :id, :user_id, :name, :phonetic, :description

@@ -28,6 +28,15 @@ class WordCard extends React.Component<Props, State> {
     this.state = { word };
   }
 
+  // ユーザー詳細に遷移する処理
+  navigateUserDetail(e: any) {
+    e.stopPropagation();
+    e.preventDefault();
+
+    const { word } = this.state;
+    location.href = `/users/${word.user_id}`;
+  }
+
   // お気に入りステータスを更新(現状のステータスと反対のステータスに更新する)
   async toggleFavoriteStatus(e: any) {
     e.stopPropagation();
@@ -60,14 +69,16 @@ class WordCard extends React.Component<Props, State> {
           <p>フリガナ : {word.phonetic}</p>
           <p>定義 : {word.description}</p>
 
-          <h4>プロフィール</h4>
-          <p>氏名 : {word.profile.first_name + word.profile.last_name}</p>
-          <p>
-            フリガナ :{" "}
-            {word.profile.first_name_kana + word.profile.last_name_kana}
-          </p>
-          <p>生年月日 : {word.profile.birth_on}</p>
-          <p>職業 : {word.profile.job}</p>
+          <div onClick={e => this.navigateUserDetail(e)}>
+            <h4>プロフィール</h4>
+            <p>氏名 : {word.profile.first_name + word.profile.last_name}</p>
+            <p>
+              フリガナ :{" "}
+              {word.profile.first_name_kana + word.profile.last_name_kana}
+            </p>
+            <p>生年月日 : {word.profile.birth_on}</p>
+            <p>職業 : {word.profile.job}</p>
+          </div>
 
           <i
             className={word.is_favorite ? "fas fa-star" : "far fa-star"}

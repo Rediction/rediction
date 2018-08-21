@@ -10,8 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_20_142242) do
 
+ActiveRecord::Schema.define(version: 2018_08_20_201652) do
   create_table "admin_users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", comment: "管理者ユーザー", force: :cascade do |t|
     t.string "email", null: false, comment: "メールアドレス"
     t.string "uid", comment: "OAuth用のユニークID"
@@ -68,11 +68,50 @@ ActiveRecord::Schema.define(version: 2018_08_20_142242) do
     t.datetime "created_at", null: false
   end
 
+  create_table "user_follow_relation_changes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", comment: "ユーザーのフォロー関係の履歴", force: :cascade do |t|
+    t.bigint "user_follow_relation_id", null: false, comment: "フォロー関係ID"
+    t.bigint "following_user_id", null: false, comment: "フォローしているユーザーID"
+    t.bigint "followed_user_id", null: false, comment: "フォローされているユーザーID"
+    t.string "event", null: false, comment: "レコード登録時のイベント"
+    t.datetime "created_at", null: false
+    t.index ["followed_user_id"], name: "index_user_follow_relation_changes_on_followed_user_id"
+    t.index ["following_user_id"], name: "index_user_follow_relation_changes_on_following_user_id"
+  end
+
+  create_table "user_follow_relations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", comment: "ユーザーのフォロー関係", force: :cascade do |t|
+    t.bigint "following_user_id", null: false, comment: "フォローしているユーザーID"
+    t.bigint "followed_user_id", null: false, comment: "フォローされているユーザーID"
+    t.datetime "created_at", null: false
+    t.index ["followed_user_id"], name: "index_user_follow_relations_on_followed_user_id"
+    t.index ["following_user_id"], name: "index_user_follow_relations_on_following_user_id"
+  end
+
   create_table "user_freezed_reasons", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", comment: "ユーザーのアカウント凍結記録", force: :cascade do |t|
     t.bigint "user_id", null: false, comment: "ユーザーID(FK)"
     t.string "description", null: false, comment: "凍結理由"
     t.datetime "created_at", null: false
     t.index ["user_id"], name: "index_user_freezed_reasons_on_user_id"
+  end
+
+  create_table "user_password_reissue_token_changes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", comment: "ユーザー用のパスワード再発行用トークンの履歴", force: :cascade do |t|
+    t.bigint "user_password_reissue_token_id", null: false, comment: "再発行用トークンID"
+    t.bigint "user_id", null: false, comment: "ユーザーID(FK)"
+    t.string "email", null: false, comment: "メールアドレス"
+    t.string "token", null: false, comment: "トークン"
+    t.boolean "consumed", default: false, null: false, comment: "利用済み"
+    t.string "event", null: false, comment: "イベント"
+    t.datetime "created_at", null: false
+    t.index ["user_id"], name: "index_user_password_reissue_token_changes_on_user_id"
+  end
+
+  create_table "user_password_reissue_tokens", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", comment: "ユーザー用のパスワード再発行用トークン", force: :cascade do |t|
+    t.bigint "user_id", null: false, comment: "ユーザーID(FK)"
+    t.string "email", null: false, comment: "メールアドレス"
+    t.string "token", null: false, comment: "トークン"
+    t.boolean "consumed", default: false, null: false, comment: "利用済み"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_user_password_reissue_tokens_on_user_id"
   end
 
   create_table "user_profile_changes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", comment: "ユーザープロフィール更新履歴", force: :cascade do |t|
@@ -170,7 +209,12 @@ ActiveRecord::Schema.define(version: 2018_08_20_142242) do
   add_foreign_key "provisional_user_completed_logs", "provisional_users"
   add_foreign_key "provisional_user_completed_logs", "users"
   add_foreign_key "user_auth_logs", "users"
+  add_foreign_key "user_follow_relation_changes", "users", column: "followed_user_id"
+  add_foreign_key "user_follow_relation_changes", "users", column: "following_user_id"
+  add_foreign_key "user_follow_relations", "users", column: "followed_user_id"
+  add_foreign_key "user_follow_relations", "users", column: "following_user_id"
   add_foreign_key "user_freezed_reasons", "users"
+  add_foreign_key "user_password_reissue_tokens", "users"
   add_foreign_key "user_profiles", "users"
   add_foreign_key "user_unfreezed_reasons", "users"
   add_foreign_key "word_random_fetched_records", "word_random_fetched_tokens", column: "token_id"
