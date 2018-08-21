@@ -42,16 +42,17 @@ class WordCard extends React.Component<Props, State> {
     e.stopPropagation();
     e.preventDefault();
 
-    const isFavorite:
+    const favoriteId:
+      | number
       | boolean
       | null = await this.favoriteHandler.toggleFavoriteStatus();
 
-    // booleanではなくnullが返された時は、処理を中断
-    if (isFavorite === null) {
+    // falseが返された時は処理を中断
+    if (favoriteId === false) {
       return;
     }
 
-    this.setState({ word: { ...this.state.word, is_favorite: isFavorite } });
+    this.setState({ word: { ...this.state.word, favorite_id: favoriteId } });
   }
 
   render() {
@@ -81,7 +82,7 @@ class WordCard extends React.Component<Props, State> {
           </div>
 
           <i
-            className={word.is_favorite ? "fas fa-star" : "far fa-star"}
+            className={word.favorite_id ? "fas fa-star" : "far fa-star"}
             onClick={e => this.toggleFavoriteStatus(e)}
           />
         </div>
