@@ -25,7 +25,7 @@ class User < ApplicationRecord
   has_many :user_auth_logs, dependent: :destroy
   has_many :words, dependent: :destroy
   has_many :password_reissue_tokens, dependent: :destroy
-  has_many :follow_relations, dependent: :destroy
+  has_many :follow_relations, dependent: :destroy, foreign_key: :following_user_id
 
   enum freezed: {freezed: true, unfreezed: false}
   enum resigned: {resigned: true, unresigned: false}
@@ -37,6 +37,11 @@ class User < ApplicationRecord
 
   # 稼働中のアカウント(未凍結 & 退会していない)
   scope :active, -> { unfreezed.unresigned }
+
+  # ユーザー(引数)がフォロー中のユーザーかどうかを判定
+  def followed_user?(user)
+    follow_relations.exists?(followed_user_id: user.id)
+  end
 
   class << self
     # 会員登録を完了させるメソッド
