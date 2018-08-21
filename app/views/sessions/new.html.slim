@@ -8,3 +8,5 @@ h1
   = f.password_field :password, placeholder: true, required: true
 
   = f.submit "ログイン", data: { disable_with: "送信中..." }
+
+  = link_to "パスワードをお忘れの方はこちら", new_user_password_reissue_token_path

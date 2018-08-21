@@ -1,0 +1,5 @@
+= form_for @password_reissue_token, url: user_password_reissue_token_path, method: :post do |f|
+  = f.label :email
+  = f.email_field :email, required: true
+
+  = f.submit "パスワードを再発行する", data: { disable_with: "送信中..." }

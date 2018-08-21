@@ -35,6 +35,8 @@ Rails.application.routes.draw do
 
   namespace :user do
     resource :mypage, only: %i[show]
+    resource :password_reissue_token, only: %i[new create]
+    resource :password_reissue, only: %i[new create]
   end
 
   # letter_openerのgemを利用するroutingで開発中にrailsから送信されたメールを確認するためのもの
