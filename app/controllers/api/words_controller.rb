@@ -40,11 +40,10 @@ class Api::WordsController < Api::SecureApplicationController
 
   # フォローしたユーザーのWords一覧
   def index_scoped_follow_users
-    # TODO (Shokei Takanashi)
-    # フォローしたユーザーのWordのみに絞り込むように改修する。
-    # 現状はindex_latest_orderアクションと同様の処理。
     @words =
       words_includes_favorite.find_latest_records(limit: FETCH_COUNT, max_fetched_id: params[:last_fetched_word_id])
+                             .includes(user: :followed_relations)
+                             .where(user_follow_relations: {following_user_id: params[:user_id]})
   end
 
   # ログイン中のユーザーのWords一覧
