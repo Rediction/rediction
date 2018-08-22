@@ -30,6 +30,9 @@ Rails.application.routes.draw do
     end
   end
 
+  # お問い合わせフォームの実装
+  resource :contact, only: %i[show]
+
   # 仮会員に送られるメールのURLから遷移する際、getメソッドしか使えないため明示的にgetメソッドにしている
   get "users/create", to: "users#create"
   resource :provisional_users, only: %i[new create]
@@ -40,6 +43,7 @@ Rails.application.routes.draw do
   resource :logout, controller: :sessions, only: %i[destroy]
 
   namespace :user do
+    resource :email, only: %i[edit update]
     resource :mypage, only: %i[show]
     resource :password_reissue_token, only: %i[new create]
     resource :password_reissue, only: %i[new create]
