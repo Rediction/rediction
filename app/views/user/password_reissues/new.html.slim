@@ -1,13 +1,27 @@
-h1
+ruby:
+  provide :header_title, "パスワード再設定"
+  provide :template_stylesheet_path, "user/password_reissues/new"
+  provide :container_type, "form"
+
+p.page-description
   | 新しいパスワードを入力してください。
 
-= form_for @password_reissue_form, url: user_password_reissue_path(token: @password_reissue_form.token), method: :post do |f|
-  = f.label :password
-  = f.password_field :password
+= form_for @password_reissue_form, url: user_password_reissue_path(token: @password_reissue_form.token), method: :post, html: { class: "base-form" } do |f|
+  .form-group
+    .label-field
+      = f.label :password
 
-  = f.label :password
-  = f.password_field :password_confirmation
+    .input-field
+      = f.password_field :password
+
+  .form-group
+    .label-field
+      = f.label :password_confirmation
+
+    .input-field
+      = f.password_field :password_confirmation
 
   = f.hidden_field :token
 
-  = f.submit "パスワードを登録してログインする", data: { disable_with: "送信中..." }
+  .submit-btn
+    = f.submit "パスワードを更新する", data: { disable_with: "送信中..." }

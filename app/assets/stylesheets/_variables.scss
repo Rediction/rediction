@@ -7,19 +7,24 @@ $black: #000000;
 $white: #ffffff;
 
 /* 特殊色 */
-$baseBlack: #333333;
+$baseBlack: #363636;
 $primaryColor: #34B5E2;
 $secondaryColor: #FAAA20;
 $navUnactiveColor: #C4C4C4;
 
 /* Flashカラー */
-// $flashSuccessColor: #0000ff;
-// $flashErrorColor: #ff0000;
+$flashSuccessColor: $secondaryColor;
+$flashErrorColor: #FF4C2A;
 
 /* form色 */
 $placeholderColor: #C4C4C4;
 $formBorderColor: #E5E5E5;
+$disabledSubmitBtnColor: #C4C4C4;
+
 $baseHrLineColor: #C4C4C4;
+$followToggleBtnColor: #C4C4C4;
+$wordSubTextColor: #A0A0A0;
+$wordTrashIconColor: #C4C4C4;
 
 /** 大きさ **/
 /* 高さ */
@@ -28,6 +33,7 @@ $mobileNavHeight: 7.5vh;
 
 /** z-index **/
 $headerZIndex: 3000;
+$navZIndex: 3001;
 $wordChangeModeMenuZIndex: 6000;
 $configureMenuZIndex: 6000;
 

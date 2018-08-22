@@ -43,6 +43,11 @@ class WordCard extends React.Component<Props, State> {
     e.stopPropagation();
     e.preventDefault();
 
+    // API通信が完了する前に見た目上だけ切り替える。
+    this.setState({
+      word: { ...this.state.word, favorite_id: !this.state.word.favorite_id }
+    });
+
     const favoriteId:
       | number
       | boolean
@@ -100,7 +105,8 @@ const styles = {
   },
   wordDescription: {
     fontSize: "14px",
-    lineHeight: "24px"
+    lineHeight: "24px",
+    whiteSpace: "pre-wrap"
   },
   footer: {
     marginTop: "9px",

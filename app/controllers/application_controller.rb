@@ -27,6 +27,11 @@ class ApplicationController < ActionController::Base
     session[:user_id] = nil
   end
 
+  # 認証ユーザーのベースページへのリダイレクト
+  def redirect_authed_user_base_page
+    redirect_to index_scoped_favorite_words_words_path
+  end
+
   private
 
     # ログイン中のユーザーのインスタンスを生成するメソッド(稼働中のもの)

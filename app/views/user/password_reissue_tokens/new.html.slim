@@ -1,5 +1,20 @@
-= form_for @password_reissue_token, url: user_password_reissue_token_path, method: :post do |f|
-  = f.label :email
-  = f.email_field :email, required: true
+ruby:
+  provide :header_title, "パスワード再設定"
+  provide :template_stylesheet_path, "user/password_reissue_tokens/new"
+  provide :container_type, "form"
 
-  = f.submit "パスワードを再発行する", data: { disable_with: "送信中..." }
+p.page-description
+  | パスワード再設定のメールを送信します。
+  br
+  | 届いたメールのURLからパスワードの再設定ができます。
+
+= form_for @password_reissue_token, url: user_password_reissue_token_path, method: :post, html: { class: "base-form" } do |f|
+  .form-group
+    .label-field
+      = f.label :email
+
+    .input-field
+      = f.email_field :email, required: true
+
+  .submit-btn
+    = f.submit "パスワードを再発行する", data: { disable_with: "送信中..." }

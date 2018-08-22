@@ -17,7 +17,9 @@ header#header.header
     - if header_right_element.present?
       = header_right_element
 
-- unless hide_nav
+.mobile-header-space
+
+- if logged_in? && !hide_nav
   nav#nav.nav
     = link_to index_latest_order_words_path, class: "nav-link #{active_nav_index == '0' ? 'active' : ''}" do
       .nav-link-text
@@ -34,4 +36,4 @@ header#header.header
         | マイページ
       i.fas.fa-user-alt
 
-.mobile-header-space
+  .mobile-nav-space

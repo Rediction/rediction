@@ -1,4 +1,5 @@
 @import "./variables";
+@import "./mixins";
 
 //**
 //* ヘッダー
@@ -14,6 +15,7 @@ header.header {
   align-items: center;
   justify-content: space-between;
   padding: 0 5vw;
+  box-shadow: 0 4px 6px rgba($black, .1);
 
   h1.header-title {
     color: $white;
@@ -31,7 +33,7 @@ header.header {
 //**
 //* ヘッダー下のナビゲーション
 nav.nav {
-  z-index: $headerZIndex;
+  z-index: $navZIndex;
   position: fixed;
   top: $mobileHeaderHeight;
   left: 0;
@@ -68,12 +70,18 @@ nav.nav {
 
 
 .flash {
-  &-success {
+  cursor: pointer;
+  text-align: center;
+  padding: 12px 0;
+  color: $white;
+  font-size: 14px;
 
+  &-success {
+    background: $flashSuccessColor;
   }
 
   &-error {
-
+    background: $flashErrorColor;
   }
 }
 
@@ -85,10 +93,13 @@ nav.nav {
 
   &-base {
     width: 90vw;
+    @include mq-up() { width: 700px }
   }
 
   &-form {
+    margin-top: 36px;
     width: 78vw;
+    @include mq-up() { width: 500px }
   }
 }
 
@@ -96,9 +107,15 @@ nav.nav {
 //**
 //* Mobileで上部にFixしてるHeaderのスペースを埋める部品
 .mobile-header-space {
-  height: $mobileHeaderHeight + $mobileNavHeight;
+  height: $mobileHeaderHeight;
 }
 
+
+//**
+//* Mobileで上部にFixしてるNavのスペースを埋める部品
+.mobile-nav-space {
+  height: $mobileNavHeight;
+}
 
 //**
 //* 投稿ボタン

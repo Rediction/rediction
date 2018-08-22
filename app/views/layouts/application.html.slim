@@ -23,25 +23,27 @@ html
     = render partial: "layouts/partials/rollbar_js"
   body
     / ヘッダー
-    - if logged_in?
-      = render partial: "layouts/partials/header", \
-        locals: { \
-          header_title: yield(:header_title), \
-          header_center_element: yield(:header_center_element), \
-          hide_nav: yield(:hide_nav) == "1", \
-          active_nav_index: yield(:active_nav_index), \
-          return_link: yield(:return_link), \
-          header_right_element: yield(:header_right_element) \
-        }
+    = render partial: "layouts/partials/header", \
+      locals: { \
+        header_title: yield(:header_title), \
+        header_center_element: yield(:header_center_element), \
+        hide_nav: yield(:hide_nav) == "1", \
+        active_nav_index: yield(:active_nav_index), \
+        return_link: yield(:return_link), \
+        header_right_element: yield(:header_right_element) \
+      }
 
     - flash.each do |type, message|
-      #flash-msg.flash class="flash-#{type}"
+      #flash-msg.flash class="flash-#{type}" onclick="this.remove()"
         = message
 
-    div.container class=(yield(:container_type).present? ? "container-#{yield(:container_type)}" : "")
+    /
+      container用のCSSはcommon.scssに定義されている。
+      container_typeでは、baseまたはformが入る。
+    .container class=(yield(:container_type).present? ? "container-#{yield(:container_type)}" : "")
       = yield
 
-    - unless yield(:hide_post_new_word_btn) == "1"
+    - if logged_in? && yield(:hide_post_new_word_btn) != "1"
       = link_to new_word_path, class: "post-new-word-btn" do
         = image_tag "plus.svg", class: "post-new-word-btn-icon sub-icon"
         = image_tag "pen-nib.svg", class: "post-new-word-btn-icon main-icon"

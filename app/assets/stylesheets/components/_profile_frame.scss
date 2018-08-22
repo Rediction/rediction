@@ -8,14 +8,11 @@
 
   .toggle-follow-btn {
     cursor: pointer;
-    display: inline-block;
-    position: absolute;
-    top: 7px;
-    right: 0;
+    text-align: center;
 
     &.following {
       .following-label {
-        display: block;
+        display: inline-block;
       }
 
       .no-following-label {
@@ -25,14 +22,16 @@
 
     .following-label, .no-following-label {
       font-size: 9px;
-      padding: 6px 8px;
+      margin-top: 15px;
+      padding: 7px 10px;
       border-radius: 4px;
+      display: inline-block;
     }
 
     .following-label {
       display: none;
-      border: 1px solid silver;
-      color: silver;
+      border: 1px solid $followToggleBtnColor;
+      color: $followToggleBtnColor;
     }
 
     .no-following-label {

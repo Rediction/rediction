@@ -69,7 +69,7 @@ class WordsCardList extends React.Component<Props, State> {
     if (loading && words.length === 0) {
       return (
         <div style={styles.container}>
-          <ActivityIndicator size="middle" alignCenter />
+          <ActivityIndicator size="small" />
         </div>
       );
     }
@@ -84,7 +84,7 @@ class WordsCardList extends React.Component<Props, State> {
             intervalSpace="13"
           />
         ))}
-        {loading ? <ActivityIndicator size="middle" alignCenter /> : null}
+        {loading ? <ActivityIndicator size="small" /> : null}
       </div>
     );
   }

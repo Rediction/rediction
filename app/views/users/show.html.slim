@@ -7,12 +7,6 @@ ruby:
   provide :return_link, request.referer
 
 .profile-frame
-  div#toggle-follow-btn.toggle-follow-btn class=(@user.followed_user?(@user) ? "following" : "")
-    p.following-label
-      | フォロー解除
-    p.no-following-label
-      | フォローする
-
   .profile-base
     h2.profile-full-name
       = @user.profile.full_name
@@ -47,6 +41,12 @@ ruby:
       p.profile-belongsings-label
         | フォロー
 
+  #toggle-follow-btn.toggle-follow-btn class=(current_user.followed_user?(@user) ? "following" : "")
+    p.following-label
+      | フォロー解除
+    p.no-following-label
+      | フォローする
+
 hr.base-hr-line
 
-#words-list data-current-user-id=@user.id data-user-id=@user.id
+#words-list data-current-user-id=current_user.id data-user-id=@user.id

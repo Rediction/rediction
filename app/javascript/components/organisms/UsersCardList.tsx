@@ -68,7 +68,11 @@ class UsersCardList extends React.Component<Props, State> {
     const { users, loading } = this.state;
 
     if (loading && users.length === 0) {
-      return <ActivityIndicator size="middle" alignCenter />;
+      return (
+        <div style={styles.container}>
+          <ActivityIndicator size="small" />
+        </div>
+      );
     }
 
     return (
@@ -76,7 +80,7 @@ class UsersCardList extends React.Component<Props, State> {
         {users.map((user: FollowedUser) => (
           <UserCard key={user.id} user={user} intervalSpace="13" />
         ))}
-        {loading ? <ActivityIndicator size="middle" alignCenter /> : null}
+        {loading ? <ActivityIndicator size="small" /> : null}
       </div>
     );
   }

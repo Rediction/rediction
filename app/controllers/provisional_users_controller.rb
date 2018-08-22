@@ -1,5 +1,6 @@
 class ProvisionalUsersController < ApplicationController
   skip_before_action :authenticate, only: %i[new create]
+  before_action :check_auth_status, only: %i[new create]
 
   def new
     @provisional_user = ProvisionalUser.new
@@ -19,7 +20,11 @@ class ProvisionalUsersController < ApplicationController
 
   private
 
-    def provisional_user_params
-      params.require(:provisional_user).permit(:email, :password)
-    end
+  def check_auth_status
+    redirect_authed_user_base_page if logged_in?
+  end
+
+  def provisional_user_params
+    params.require(:provisional_user).permit(:email, :password)
+  end
 end

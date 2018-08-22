@@ -7,3 +7,5 @@ json.extract! profile,
   :first_name_kana,
   :birth_on,
   :job
+
+json.age profile.age
