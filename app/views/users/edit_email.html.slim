@@ -1,0 +1,11 @@
+h1
+  | メールアドレス編集ページ
+p
+  | 変更後のアドレスを以下に入力してください。
+
+= form_for @current_user, url: users_update_email_path, method: :patch do |f|
+  .form-group
+    = f.label :email
+    = f.email_field :email, placeholder: true, required: true
+
+  = f.submit "完了", data: { disable_with: "送信中..." }

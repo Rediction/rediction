@@ -22,7 +22,7 @@ class SessionsController < ApplicationController
       log_in(user)
 
       # TODO(shuji ota):投稿一覧画面に遷移先を変更する
-      redirect_to new_user_profiles_path, flash: { success: "ログインに成功しました。" }
+      redirect_to index_latest_order_words_path, flash: { success: "ログインに成功しました。" }
     else
       # TODO(shuji ota):パスワードを規定数間違えた時にuserをfreezeさせるようにする
       flash.now[:error] = "パスワードが間違っています。"

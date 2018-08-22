@@ -44,6 +44,11 @@ class User < ApplicationRecord
     follow_relations.exists?(followed_user_id: user.id)
   end
 
+  #メールアドレスが変更前のものと同じか確かめるメソッド
+  def same_email?(email)
+    User.exists?(email: email)
+  end
+
   class << self
     # 会員登録を完了させるメソッド
     def complete_member_registration!(provisional_user)
