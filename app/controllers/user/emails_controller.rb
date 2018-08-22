@@ -3,8 +3,7 @@ class User::EmailsController < ApplicationController
   end
 
   def update
-
-    if current_user.same_email?(user_email_params[:email])
+    if current_user.email == user_email_params[:email]
       flash.now[:error] = "このメールアドレスはすでに登録済みのメールアドレスです。"
       return render "edit"
     end
