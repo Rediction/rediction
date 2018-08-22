@@ -30,7 +30,7 @@ Rails.application.routes.draw do
   end
 
   # お問い合わせフォームの実装
-  get "contact", to: "contact#index"
+  resource :contact, only: %i[show]
 
   # 仮会員に送られるメールのURLから遷移する際、getメソッドしか使えないため明示的にgetメソッドにしている
   get "users/create", to: "users#create"
