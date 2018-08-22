@@ -3,7 +3,7 @@ h1
 p
   | 変更後のアドレスを以下に入力してください。
 
-= form_for @current_user, url: update_email_users_path, method: :patch do |f|
+= form_for current_user, url: user_email_path, method: :patch do |f|
   .form-group
     = f.label :email
     = f.email_field :email, placeholder: true, required: true

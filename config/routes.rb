@@ -23,13 +23,6 @@ Rails.application.routes.draw do
 
   resources :words, only: %i[new create show destroy], concerns: :words_index
 
-  resource :users, only: %i[] do
-    collection do
-      get "edit_email"
-      patch "update_email"
-    end
-  end
-
   resources :users, only: %i[show] do
     scope module: :users do
       resources :favorites, only: %i[index]
@@ -47,6 +40,7 @@ Rails.application.routes.draw do
   resource :logout, controller: :sessions, only: %i[destroy]
 
   namespace :user do
+    resource :email, only: %i[edit update]
     resource :mypage, only: %i[show]
     resource :password_reissue_token, only: %i[new create]
     resource :password_reissue, only: %i[new create]

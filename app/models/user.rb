@@ -44,7 +44,7 @@ class User < ApplicationRecord
     follow_relations.exists?(followed_user_id: user.id)
   end
 
-  #メールアドレスが変更前のものと同じか確かめるメソッド
+  #現在登録中のメールアドレスと一致するかどうかを判定するメソッド
   def same_email?(email)
     User.exists?(email: email)
   end

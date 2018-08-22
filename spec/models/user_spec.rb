@@ -36,5 +36,31 @@ RSpec.describe User, type: :model do
         end
       end
     end
+
+    describe "#same_email?" do
+      subject { current_user.same_email?(user_email_params) }
+      let(:user_email_params) { current_user.email }
+      let(:current_user) { create(:user) }
+      let(:email) { user.email }
+      let(:user) { create(:user) }
+
+      context "メールアドレスが登録済みの場合" do
+        let(:email) { current_user.email }
+
+        it "trueが返されること" do
+          expect(email).to eq user_email_params
+          is_expected.to eq true
+        end
+      end
+
+      context "メールアドレスが登録済みでない場合" do
+      let(:user_email_params) { "hogehoge@gamil.com" }
+
+        it "falseが返されること" do
+          expect(email).not_to eq user_email_params
+          is_expected.to eq false
+        end
+      end
+    end
   end
 end

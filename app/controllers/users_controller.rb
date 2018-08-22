@@ -40,31 +40,4 @@ class UsersController < ApplicationController
     # 本会員登録に失敗した場合、会員登録画面へ画面を遷移させる
     redirect_to new_provisional_users_path, flash: { error: "登録に失敗しました。もう一度やり直してください。"}
   end
-
-  # メールアドレス更新フォームを用意するもの
-  def edit_email
-    current_user
-  end
-
-  #メールアドレスを更新するメソッド
-  def update_email
-    current_user
-
-    if current_user.same_email?(user_email_params[:email])
-      flash.now[:error] = "以前使用していたメールアドレスは使用できません。"
-      return render "edit_email"
-    end
-
-    current_user.update_with_changes!(user_email_params)
-    redirect_to user_mypage_path, flash: { success: "メールアドレスを更新しました。" }
-  rescue ActiveRecord::RecordInvalid
-    flash.now[:error] = "メールアドレスの更新に失敗しました。"
-    render "edit_email"
-  end
-
-  private
-
-    def user_email_params
-      params.require(:user).permit(:email)
-    end
 end
