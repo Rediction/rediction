@@ -7,20 +7,23 @@ ja:
         email: "メールアドレス"
         password: "パスワード"
       user_profile:
+        full_name: "氏名"
         last_name: "苗字"
+        full_name_kana: フリガナ
         last_name_kana: "フリガナ(苗字)"
         first_name: "名前"
         first_name_kana: "フリガナ(名前)"
         birth_on: "生年月日"
         job: "職業"
+        age: "年齢"
   helpers:
     placeholder:
       provisional_user:
         email: "sample@example.com"
         password: "✳︎✳︎✳︎✳︎✳︎✳︎✳︎✳︎"
       user_profile:
-        last_name: "山田"
-        last_name_kana: "ヤマダ"
-        first_name: "太郎"
-        first_name_kana: "タロウ"
-        job: "会社員"
+        last_name: "姓"
+        last_name_kana: "セイ"
+        first_name: "名"
+        first_name_kana: "メイ"
+        job: "例）システムエンジニア"

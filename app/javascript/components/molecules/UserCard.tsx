@@ -1,6 +1,6 @@
 import * as React from "react";
-import Card from "../atoms/Card";
 import { FollowedUser } from "../../providers/FollowedUserFetcher";
+import Card from "../atoms/Card";
 
 interface Props {
   user: FollowedUser;

@@ -1,5 +1,7 @@
 import * as React from "react";
-import FollowedUserFetcher, { FollowedUser } from "../../providers/FollowedUserFetcher";
+import FollowedUserFetcher, {
+  FollowedUser
+} from "../../providers/FollowedUserFetcher";
 import ScrollHandler from "../../providers/ScrollHandler";
 import ActivityIndicator from "../atoms/ActivityIndicator";
 import UserCard from "../molecules/UserCard";
@@ -66,7 +68,7 @@ class UsersCardList extends React.Component<Props, State> {
     const { users, loading } = this.state;
 
     if (loading && users.length === 0) {
-      return <ActivityIndicator size="middle" />;
+      return <ActivityIndicator size="middle" alignCenter />;
     }
 
     return (
@@ -74,7 +76,7 @@ class UsersCardList extends React.Component<Props, State> {
         {users.map((user: FollowedUser) => (
           <UserCard key={user.id} user={user} intervalSpace="13" />
         ))}
-        {loading ? <ActivityIndicator size="middle" /> : null}
+        {loading ? <ActivityIndicator size="middle" alignCenter /> : null}
       </div>
     );
   }
@@ -82,7 +84,7 @@ class UsersCardList extends React.Component<Props, State> {
 
 const styles = {
   container: {
-    margin: "0 18px"
+    margin: "21px 0"
   }
 };
 

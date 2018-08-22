@@ -1,0 +1,25 @@
+@import "../variables";
+
+.search-form {
+  position: relative;
+
+  input.search-form-field {
+    display: inline-block;
+    width: 75vw;
+    border-style: none;
+    border-radius: 14px;
+    height: $mobileHeaderHeight * 0.57;
+    padding: 5px 40px 5px 15px;
+  }
+
+  button.search-form-btn {
+    font-size: 18px;
+    width: 40px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    background: inherit;
+    color: $primaryColor;
+  }
+}

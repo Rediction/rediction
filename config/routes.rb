@@ -43,6 +43,7 @@ Rails.application.routes.draw do
   resource :logout, controller: :sessions, only: %i[destroy]
 
   namespace :user do
+    resource :email, only: %i[edit update]
     resource :mypage, only: %i[show]
     resource :password_reissue_token, only: %i[new create]
     resource :password_reissue, only: %i[new create]

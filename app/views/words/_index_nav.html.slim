@@ -1,14 +1,11 @@
-h3
-  | Words一覧のナビゲーション
+- content_for :header_right_element
+  i#word-change-mode-menu-btn.far.fa-clock.word-change-mode-menu-btn
 
-ul
-  li
-    = link_to_unless_current "マイタイムライン", index_scoped_favorite_words_words_path
-  li
-    = link_to_unless_current "全ユーザータイムライン", index_latest_order_words_path
-  li
-    = link_to_unless_current "フォローしてる人のハイライト", index_scoped_follow_users_words_path
-  li
-    = link_to_unless_current "全ユーザーハイライト", index_random_order_words_path
+#word-change-mode-menu.word-change-mode-menu
+  = link_to "マイタイムライン", index_scoped_favorite_words_words_path, class: "change-mode-menu-link"
 
-hr
+  = link_to "全ユーザータイムライン", index_latest_order_words_path, class: "change-mode-menu-link"
+
+  = link_to "フォローしてる人のハイライト", index_scoped_follow_users_words_path, class: "change-mode-menu-link"
+
+  = link_to "全ユーザーハイライト", index_random_order_words_path, class: "change-mode-menu-link"

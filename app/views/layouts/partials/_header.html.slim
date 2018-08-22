@@ -1,22 +1,37 @@
 header#header.header
-  / 戻るボタン
-  - if return_link.present?
-    = link_to "戻る", return_link, class: "return-btn"
+  div
+    - if return_link.present?
+      / 戻るボタン
+      = link_to return_link, class: "return-btn" do
+        i.fas.fa-arrow-left
 
-  / Headerタイトル
-  - if header_title.present?
-    h1.header-title
-      = header_title
+  div
+    / Headerタイトル
+    - if header_title.present?
+      h1.header-title
+        = header_title
+    - elsif header_center_element.present?
+      = header_center_element
+
+  div
+    - if header_right_element.present?
+      = header_right_element
 
 - unless hide_nav
   nav#nav.nav
-    = link_to index_latest_order_words_path, class: "nav-link" do
-      | タイムライン
+    = link_to index_latest_order_words_path, class: "nav-link #{active_nav_index == '0' ? 'active' : ''}" do
+      .nav-link-text
+        | 辞書
+      i.fas.fa-book-open
 
-    = link_to search_words_path, class: "nav-link" do
-      | 検索
+    = link_to search_words_path, class: "nav-link #{active_nav_index == '1' ? 'active' : ''}" do
+      .nav-link-text
+        | 検索
+      i.fas.fa-search
 
-    = link_to user_mypage_path, class: "nav-link" do
-      | マイページ
+    = link_to user_mypage_path, class: "nav-link #{active_nav_index == '2' ? 'active' : ''}" do
+      .nav-link-text
+        | マイページ
+      i.fas.fa-user-alt
 
 .mobile-header-space

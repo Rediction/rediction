@@ -8,6 +8,6 @@ ja:
   helpers:
     placeholder:
       word:
-        name: 名前
-        phonetic: ふりがな
-        description: 説明
+        name: 例）家族
+        phonetic: 例）かぞく
+        description: あなたにとって「家族」とは？

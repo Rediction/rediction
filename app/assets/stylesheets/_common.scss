@@ -10,13 +10,20 @@ header.header {
   right: 0;
   height: $mobileHeaderHeight;
   background: $primaryColor;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 5vw;
 
   h1.header-title {
     color: $white;
+    text-align: center;
+    font-size: 18px;
   }
 
   a.return-btn {
     color: $white;
+    font-size: 21px;
   }
 }
 
@@ -32,11 +39,56 @@ nav.nav {
   height: $mobileNavHeight;
   background: $white;
   display: flex;
-  box-shadow: 0 4px 8px rgba($black, .15);
+  box-shadow: 0 4px 6px rgba($black, .1);
 
   a.nav-link {
     flex: 1;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: $navUnactiveColor;
+    height: 100%;
+
+    &.active {
+      color: $secondaryColor;
+    }
+
+    .nav-link-text {
+      font-size: 9px;
+      margin-bottom: 2px;
+      color: inherit;
+    }
+
+    i {
+      font-size: 24px;
+    }
+  }
+}
+
+
+.flash {
+  &-success {
+
+  }
+
+  &-error {
+
+  }
+}
+
+
+//**
+//* template部分を囲うContainer
+.container {
+  margin: 0 auto;
+
+  &-base {
+    width: 90vw;
+  }
+
+  &-form {
+    width: 78vw;
   }
 }
 
@@ -52,15 +104,29 @@ nav.nav {
 //* 投稿ボタン
 a.post-new-word-btn {
   position: fixed;
-  right: 15px;
-  bottom: 15px;
+  right: 10px;
+  bottom: 10px;
   background: $secondaryColor;
   border-radius: 50%;
-  color: $white;
-  height: 50px;
-  width: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 8px rgba($black, .15);
+  height: 54px;
+  width: 54px;
+  box-shadow: 0 4px 8px rgba($black, .2);
+
+  .post-new-word-btn-icon {
+    position: absolute;
+    color: $white;
+
+    &.sub-icon {
+      width: 15px;
+      top: 9px;
+      left: 9px;
+      font-size: 15px;
+    }
+
+    &.main-icon {
+      width: 32px;
+      right: 6px;
+      bottom: 6px;
+    }
+  }
 }

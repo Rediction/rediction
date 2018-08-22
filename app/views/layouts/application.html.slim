@@ -16,6 +16,9 @@ html
     = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track": "reload"
     = javascript_include_tag "application", "data-turbolinks-track": "reload"
 
+    - if yield(:template_stylesheet_path).present?
+      = stylesheet_link_tag "templates/#{yield(:template_stylesheet_path)}.css"
+
     = render partial: "layouts/partials/google_analytics"
     = render partial: "layouts/partials/rollbar_js"
   body
@@ -24,19 +27,24 @@ html
       = render partial: "layouts/partials/header", \
         locals: { \
           header_title: yield(:header_title), \
+          header_center_element: yield(:header_center_element), \
           hide_nav: yield(:hide_nav) == "1", \
-          return_link: yield(:return_link) \
+          active_nav_index: yield(:active_nav_index), \
+          return_link: yield(:return_link), \
+          header_right_element: yield(:header_right_element) \
         }
 
     - flash.each do |type, message|
       #flash-msg.flash class="flash-#{type}"
         = message
 
-    = yield
+    div.container class=(yield(:container_type).present? ? "container-#{yield(:container_type)}" : "")
+      = yield
 
     - unless yield(:hide_post_new_word_btn) == "1"
       = link_to new_word_path, class: "post-new-word-btn" do
-        | 投稿
+        = image_tag "plus.svg", class: "post-new-word-btn-icon sub-icon"
+        = image_tag "pen-nib.svg", class: "post-new-word-btn-icon main-icon"
 
     / webpack管理下のJavaScriptのパス
     - if yield(:javascript_pack_path).present?

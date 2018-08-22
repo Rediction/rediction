@@ -1,0 +1,84 @@
+@import "../variables";
+
+.profile-frame {
+  position: relative;
+  margin: 2vh auto 0;
+  width: 90vw;
+  margin-bottom: 20px;
+
+  .toggle-follow-btn {
+    cursor: pointer;
+    display: inline-block;
+    position: absolute;
+    top: 7px;
+    right: 0;
+
+    &.following {
+      .following-label {
+        display: block;
+      }
+
+      .no-following-label {
+        display: none;
+      }
+    }
+
+    .following-label, .no-following-label {
+      font-size: 9px;
+      padding: 6px 8px;
+      border-radius: 4px;
+    }
+
+    .following-label {
+      display: none;
+      border: 1px solid silver;
+      color: silver;
+    }
+
+    .no-following-label {
+      border: 1px solid $primaryColor;
+      color: $primaryColor;
+    }
+  }
+
+  .profile-base {
+    text-align: center;
+    margin-bottom: 18px;
+
+    h2.profile-full-name {
+      font-size: 18px;
+      margin-bottom: 17px;
+    }
+
+    p.profile-sub-data {
+      font-size: 13px;
+      margin-bottom: 12px;
+    }
+  }
+
+  .profile-belongings {
+    display: flex;
+    align-items: center;
+
+    a.profile-belongings-link {
+      flex: 1;
+      text-align: center;
+
+      h3.profile-belongings-title {
+        font-size: 9px;
+        text-decoration: underline;
+        margin-bottom: 5px;
+      }
+
+      .profile-belongings-icon {
+        color: $secondaryColor;
+        font-size: 54px;
+      }
+
+      p.profile-belongsings-label {
+        text-align: right;
+        font-size: 9px;
+      }
+    }
+  }
+}

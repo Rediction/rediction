@@ -13,7 +13,7 @@ class User::PasswordReissueTokensController < ApplicationController
     # パスワード再設定用のトークンをつけたURLを送信
     PasswordReissueTokenMailer.send_url_to_reissue(@password_reissue_token).deliver_now
   rescue ActiveRecord::RecordInvalid
-    flash.now[:error] = "仮会員登録に失敗しました。"
+    flash.now[:error] = "もう一度やり直してください。"
     render "new"
   end
 

@@ -1,49 +1,59 @@
 ruby:
   provide :header_title, "マイページ"
   provide :javascript_pack_path, "user/mypages/show"
+  provide :template_stylesheet_path, "user/mypages/show"
+  provide :active_nav_index, '2'
+  provide :container_type, "base"
 
-p
-  = current_user.profile.full_name
+- content_for :header_right_element do
+  i#configure-menu-btn.configure-menu-btn.fas.fa-bars
 
-dl
-  dt
-    = UserProfile.human_attribute_name(:job)
-  dd
-    = current_user.profile.job
+#configure-menu.configure-menu
+  #configure-menu-overlay.configure-menu-overlay
+  .configure-menu-inner
+    = link_to "プロフィール編集", edit_user_profile_path, class: "configure-menu-link"
 
-  dt
-    | 年齢
-  dd
-    = current_user.profile.job
+    = link_to "メールアドレス編集", edit_user_email_path, class: "configure-menu-link"
 
-  dt
-    = UserProfile.human_attribute_name(:birth_on)
-  dd
-    = ja_full_date current_user.profile.birth_on
+    = link_to "お問い合わせ", contact_path, class: "configure-menu-link"
 
+    = link_to "ログアウト", logout_path, method: :delete, class: "configure-menu-link"
 
-| リンク(準備中)
+.profile-frame
+  .profile-base
+    h2.profile-full-name
+      = current_user.profile.full_name
 
-br
+    p.profile-job.profile-sub-data
+      = UserProfile.human_attribute_name(:job)
+      |：
+      = current_user.profile.job
+    p.profile-age.profile-sub-data
+      = UserProfile.human_attribute_name(:age)
+      |：
+      = current_user.profile.age
+      | 歳
 
-= link_to "WORDS", user_favorites_path(user_id: current_user.id)
+    p.profile-birth-on.profile-sub-data
+      = UserProfile.human_attribute_name(:birth_on)
+      |：
+      = ja_full_date current_user.profile.birth_on
 
-br
+  .profile-belongings
+    = link_to user_favorites_path(user_id: current_user.id), class: "profile-belongings-link" do
+      h3.profile-belongings-title
+        | WORDS
+      i.fas.fa-book.profile-belongings-icon
+      p.profile-belongsings-label
+        | お気に入り
 
-= link_to "REDICTOR", user_follow_relations_path(user_id: current_user.id)
+    = link_to user_follow_relations_path(user_id: current_user.id), class: "profile-belongings-link" do
+      h3.profile-belongings-title
+        | REDICTOR
+      i.fas.fa-book.profile-belongings-icon
+      p.profile-belongsings-label
+        | フォロー
 
-br
-
-= link_to "ログアウト", logout_path, method: :delete
-
-hr
-
-= link_to "プロフィール編集", edit_user_profile_path
-
-hr
-
-= link_to "お問い合わせ", contact_path
-
-hr
+hr.base-hr-line
 
 #words-list data-current-user-id=current_user.id

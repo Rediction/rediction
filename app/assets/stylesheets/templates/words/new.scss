@@ -1,0 +1,12 @@
+@import "../../variables";
+@import "../../components/base_form";
+
+// 言葉の投稿ページ専用のパーツなので、componentsには切り出していない。
+.new-word-form-submit-button {
+  background: $secondaryColor;
+  border-radius: 25px;
+  color: $white;
+  font-size: 17px;
+  padding: 5px 17px;
+  box-shadow: 0 4px 8px rgba($black, .15);
+}

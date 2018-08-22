@@ -1,11 +1,30 @@
-= form_for @word, url: words_path, method: :post do |f|
-  = f.label :name
-  = f.text_field :name, placeholder: true, required: true
+ruby:
+  provide :return_link, request.referer
+  provide :hide_nav, "1"
+  provide :hide_post_new_word_btn, "1"
+  provide :javascript_pack_path, "words/new"
+  provide :template_stylesheet_path, "words/new"
+  provide :container_type, "form"
 
-  = f.label :phonetic
-  = f.text_field :phonetic, placeholder: true, required: true
+- content_for :header_right_element do
+  button#new-word-form-submit-button.new-word-form-submit-button
+    | リディクト
 
-  = f.label :description
-  = f.text_field :description, placeholder: true, required: true
+= form_for @word, url: words_path, method: :post, html: { id: "new-word-form", class: "base-form" } do |f|
+  .form-group
+    .label-field
+      = f.label :name
+    .input-field
+      = f.text_field :name, placeholder: true, required: true
 
-  = f.submit "投稿する", data: { disable_with: "投稿中" }
+  .form-group
+    .label-field
+      = f.label :phonetic
+    .input-field
+      = f.text_field :phonetic, placeholder: true, required: true
+
+  .form-group
+    .label-field
+      = f.label :description
+    .input-field
+      = f.text_area :description, placeholder: true, required: true, rows: 5

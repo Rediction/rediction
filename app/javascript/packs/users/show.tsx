@@ -41,9 +41,9 @@ const toggleFollowStatus = async () => {
   // TODO(Shokei Takanashi)
   // JS側にテキストを持たないでいいように、デザイン実装時にクラスの切り替えで表示を切り替えられるように修正する。
   if (followId) {
-    $("#toggle-follow-btn").text("フォロー中");
+    $("#toggle-follow-btn").addClass("following");
   } else {
-    $("#toggle-follow-btn").text("フォロー");
+    $("#toggle-follow-btn").removeClass("following");
   }
 };
 

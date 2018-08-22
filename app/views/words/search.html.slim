@@ -1,9 +1,13 @@
 ruby:
-  provide :header_title, "検索"
   provide :javascript_pack_path, "words/search"
+  provide :template_stylesheet_path, "words/search"
+  provide :active_nav_index, '1'
+  provide :container_type, "base"
 
-input type="text" id="search-field"
-button id="search-btn"
-  | 検索
+- content_for :header_center_element do
+  .search-form
+    input#search-field.search-form-field type="text"
+    button#search-btn.search-form-btn
+      i.fas.fa-search
 
 #words-list
