@@ -17,7 +17,7 @@ describe User::EmailsController, type: :controller do
     end
   end
 
-  describe "PATCH #update" do
+  describe "PATCH #update", type: :doing do
     subject { patch :update, params: { user: user_email_params} }
     let(:user_email_params) { {email: current_user.email } }
     let(:email) { user.email }
@@ -27,9 +27,18 @@ describe User::EmailsController, type: :controller do
       let(:email) { current_user.email }
 
       it "レコードが更新されず、editにrenderすること", :aggregate_failures  do
-        expect(email).to eq user_email_params[:email]
         expect{ subject }.to change(UserChange, :count).by(0)
-        expect(flash[:error]).to eq "このメールアドレスはすでに登録済みのメールアドレスです。"
+        expect(flash[:error]).to eq "このメールアドレスは現在登録中のメールアドレスです。"
+        expect(response).to render_template :edit
+      end
+    end
+
+    context "メールアドレスが不正な場合" do
+      let(:user_email_params) { {email: "" } }
+
+      it "レコードが更新されず、editにrenderすること", :aggregate_failures  do
+        expect{ subject }.to change(UserChange, :count).by(0)
+        expect(flash[:error]).to eq "メールアドレスの更新に失敗しました。"
         expect(response).to render_template :edit
       end
     end
@@ -45,7 +54,6 @@ describe User::EmailsController, type: :controller do
       end
 
       it "eventがupdateのChangesテーブルのレコードが登録されていること", :aggregate_failures do
-        expect(email).not_to eq user_email_params[:email]
         expect{ subject }.to change(UserChange, :count).by(1)
         expect(UserChange.last.event).to eq "update"
         expect(UserChange.last.user_id).to eq current_user.id
