@@ -23,8 +23,12 @@ Rails.application.routes.draw do
 
   resources :words, only: %i[new create show destroy], concerns: :words_index
 
-  get "users/edit_email", to: "users#edit_email"
-  patch "users/update_email", to: "users#update_email"
+  resource :users, only: %i[] do
+    collection do
+      get "edit_email"
+      patch "update_email"
+    end
+  end
 
   resources :users, only: %i[show] do
     scope module: :users do
