@@ -27,6 +27,7 @@ class User < ApplicationRecord
   has_many :password_reissue_tokens, dependent: :destroy
   has_many :follow_relations, dependent: :destroy, foreign_key: :following_user_id
   has_many :followed_relations, dependent: :destroy, class_name: "User::FollowRelation", foreign_key: :followed_user_id
+  has_many :favorites, dependent: :destroy
 
   enum freezed: {freezed: true, unfreezed: false}
   enum resigned: {resigned: true, unresigned: false}
@@ -38,6 +39,11 @@ class User < ApplicationRecord
 
   # 稼働中のアカウント(未凍結 & 退会していない)
   scope :active, -> { unfreezed.unresigned }
+
+  # 言葉(引数)がお気に入り登録中の言葉かどうかを判定
+  def favorite_word?(word)
+    favorites.exists?(word_id: word.id)
+  end
 
   # ユーザー(引数)がフォロー中のユーザーかどうかを判定
   def followed_user?(user)

@@ -1,0 +1,78 @@
+@import "../variables";
+
+form.base-form {
+
+  .form-group {
+    margin-bottom: 35px;
+
+    > .label-field {
+      font-size: 13px;
+      margin-bottom: 8px;
+    }
+
+    > .input-field {
+      font-size: 14px;
+
+      input, textarea, select {
+        background: $white;
+        border: 1px solid $formBorderColor;
+        border-radius: 6px;
+      }
+
+      input, textarea {
+        width: 100%;
+        padding: 10px 17px;
+      }
+
+      select {
+        padding: 8px 10px;
+      }
+
+      &-split {
+        display: flex;
+
+        input, textarea {
+          &:nth-of-type(n + 2) {
+            margin-left: 7vw;
+          }
+        }
+      }
+
+      .birth-on-field {
+        display: flex;
+        align-items: flex-end;
+
+        > * {
+          flex: 1;
+        }
+
+        > p {
+          text-align: center;
+        }
+      }
+    }
+  }
+
+  > .submit-btn {
+    > input[type="submit"] {
+      cursor: pointer;
+      font-size: 17px;
+      padding: 12px 0;
+      background: $secondaryColor;
+      color: $white;
+      width: 100%;
+      border-style: none;
+      border-radius: 25px;
+      box-shadow: 0 4px 8px rgba($black, .2);
+
+      &:active {
+        box-shadow: none;
+      }
+
+      &[disabled] {
+        box-shadow: none;
+        background: $disabledSubmitBtnColor;
+      }
+    }
+  }
+}

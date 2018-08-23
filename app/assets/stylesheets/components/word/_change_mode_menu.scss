@@ -1,0 +1,50 @@
+@import "../../variables";
+
+.word-change-mode-menu-btn {
+  cursor: pointer;
+  color: $white;
+  font-size: 24px;
+}
+
+.word-change-mode-menu {
+  cursor: pointer;
+  background: rgba($white, .7);
+  position: fixed;
+  top: $mobileHeaderHeight;
+  left: 100%;
+  bottom: 0;
+  opacity: 0;
+  width: 100vw;
+  z-index: $wordChangeModeMenuZIndex;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding-right: 3.2vw;
+  transition: opacity .2s ease, left 0s ease .2s;
+
+  &.active {
+    left: 0;
+    opacity: 1;
+    transition: opacity .2s;
+  }
+
+  a.change-mode-menu-link {
+    margin-top: 30px;
+    background: $primaryColor;
+    display: inline-block;
+    color: $white;
+    height: 48px;
+    width: 229px;
+    border-radius: 24px;
+    color: $white;
+    box-shadow: 0 4px 8px rgba($black, .2);
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:active {
+      box-shadow: none;
+    }
+  }
+}

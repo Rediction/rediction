@@ -18,8 +18,10 @@ class User::FollowRelation < ApplicationRecord
     # 最新のレコードを取得
     # 第三引数(max_fetched_id)で取得する最大のIDを指定可能。
     def find_latest_relations_by_following_user_id(limit: 10, following_user_id:, max_fetched_id: nil)
-      follow_relations =
-        includes(followed_user: :profile).where(following_user_id: following_user_id).order(id: :desc).limit(limit)
+      follow_relations = includes(followed_user: [:profile, :words])
+        .where(following_user_id: following_user_id)
+        .order(id: :desc)
+        .limit(limit)
 
       # 最後に取得したIDがparamsに含まれている場合、それより前のIDを取得するように条件を追加
       if max_fetched_id.present?

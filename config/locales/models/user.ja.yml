@@ -9,8 +9,7 @@ ja:
   helpers:
     placeholder:
       user:
-        email: sample@example.com
-        password: ✳︎✳︎✳︎✳︎✳︎✳︎✳︎✳︎
+        email: rediction@example.com
   enums:
     user:
       freezed:

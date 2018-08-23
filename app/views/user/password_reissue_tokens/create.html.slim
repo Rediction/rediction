@@ -1,3 +1,10 @@
-h1
-  | メールが送信されましたので、ご確認ください。
-= link_to "homeにもどる", root_path
+ruby:
+  provide :template_stylesheet_path, "user/password_reissue_tokens/create"
+
+.created-message
+  p.text
+    | メールが送信されました。
+    br
+    | 添付されているURLを確認してください。
+
+  = link_to "homeにもどる", root_path, class: "text created-message-link"

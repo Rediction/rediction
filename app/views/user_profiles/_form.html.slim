@@ -1,26 +1,33 @@
-= form_for profile, method: method, url: destination do |f|
+= form_for profile, method: method, url: destination, html: { class: "base-form" } do |f|
   .form-group
-    = f.label :last_name
-    = f.text_field :last_name, placeholder: true, required: true
+    .label-field
+      = f.label :full_name
+
+    .input-field.input-field-split
+      = f.text_field :last_name, placeholder: true, required: true
+      = f.text_field :first_name, placeholder: true, required: true
 
   .form-group
-    = f.label :first_name
-    = f.text_field :first_name, placeholder: true, required: true
+    .label-field
+      = f.label :full_name_kana
+
+    .input-field.input-field-split
+      = f.text_field :last_name_kana, placeholder: true, required: true
+      = f.text_field :first_name_kana, placeholder: true, required: true
 
   .form-group
-    = f.label :last_name_kana
-    = f.text_field :last_name_kana, placeholder: true, required: true
+    .label-field
+      = f.label :birth_on
+
+    .input-field
+      = birth_date_selector f
 
   .form-group
-    = f.label :first_name
-    = f.text_field :first_name_kana, placeholder: true, required: true
-  .form-group
-    = f.label :birth_on
-    = f.date_select :birth_on, use_month_numbers: :true, required: true,
-                     start_year: UserProfile::MAXIMUM_AGE.years.ago.year,
-                     end_year: UserProfile::MINIMUM_AGE.years.ago.year
-  .form-group
-    = f.label :job
-    = f.text_field :job, placeholder: true, required: true
+    .label-field
+      = f.label :job
 
-  = f.submit "完了", data: { disable_with: "送信中..." }
+    .input-field
+      = f.text_field :job, placeholder: true, required: true
+
+  .submit-btn
+    = f.submit "完了", data: { disable_with: "送信中..." }

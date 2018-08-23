@@ -1,41 +1,52 @@
 ruby:
-  provide :header_title, "他ユーザープロフィール"
+  provide :header_title, "ユーザープロフィール"
   provide :javascript_pack_path, "users/show"
+  provide :template_stylesheet_path, "users/show"
+  provide :return_link, request.referer
+  provide :container_type, "base"
   provide :return_link, request.referer
 
-p
-  = @user.profile.full_name
+.profile-frame
+  .profile-base
+    h2.profile-full-name
+      = @user.profile.full_name
 
-dl
-  dt
-    = UserProfile.human_attribute_name(:job)
-  dd
-    = @user.profile.job
+    p.profile-job.profile-sub-data
+      = UserProfile.human_attribute_name(:job)
+      |：
+      = @user.profile.job
+    p.profile-age.profile-sub-data
+      = UserProfile.human_attribute_name(:age)
+      |：
+      = @user.profile.age
+      | 歳
 
-  dt
-    | 年齢
-  dd
-    = @user.profile.job
+    p.profile-birth-on.profile-sub-data
+      = UserProfile.human_attribute_name(:birth_on)
+      |：
+      = ja_full_date @user.profile.birth_on
 
-  dt
-    = UserProfile.human_attribute_name(:birth_on)
-  dd
-    = ja_full_date @user.profile.birth_on
+  .profile-belongings
+    = link_to user_favorites_path(user_id: @user.id), class: "profile-belongings-link" do
+      h3.profile-belongings-title
+        | WORDS
+      i.fas.fa-book.profile-belongings-icon
+      p.profile-belongsings-label
+        | お気に入り
 
-p#toggle-follow-btn style="text-align: right;cursor: pointer;"
-  - if current_user.followed_user?(@user)
-    | フォロー中
-  - else
-    | フォロー
+    = link_to user_follow_relations_path(user_id: @user.id), class: "profile-belongings-link" do
+      h3.profile-belongings-title
+        | REDICTOR
+      i.fas.fa-book.profile-belongings-icon
+      p.profile-belongsings-label
+        | フォロー
 
-br
+  #toggle-follow-btn.toggle-follow-btn class=(current_user.followed_user?(@user) ? "following" : "")
+    p.following-label
+      | フォロー解除
+    p.no-following-label
+      | フォローする
 
-= link_to "WORDS", user_favorites_path(user_id: @user.id)
-
-br
-
-= link_to "REDICTOR", user_follow_relations_path(user_id: @user.id)
-
-hr
+hr.base-hr-line
 
 #words-list data-current-user-id=current_user.id data-user-id=@user.id

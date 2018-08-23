@@ -3,6 +3,7 @@ import BaseFetcher, { BaseFetcherInterface } from "./BaseFetcher";
 export interface FollowedUser {
   id: number;
   email: string;
+  latest_word_ja_created_at: string;
   profile: Profile;
 }
 
@@ -15,6 +16,7 @@ interface Profile {
   first_name_kana: string;
   birth_on: string;
   job: string;
+  age: number;
 }
 
 interface FollowedUserFetcherrInterface extends BaseFetcherInterface {

@@ -25,3 +25,8 @@ ReactDOM.render(
   />,
   document.getElementById(targetIdAttr)
 );
+
+// マイページの設定メニューの表示・非表示イベントを設定
+$(document).on("click", "#configure-menu-btn, #configure-menu-overlay", () => {
+  $("#configure-menu").toggleClass("active");
+});

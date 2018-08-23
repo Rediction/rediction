@@ -1,0 +1,64 @@
+@import "../variables";
+
+.configure-menu-btn {
+  cursor: pointer;
+  font-size: 24px;
+  color: $white;
+}
+
+.configure-menu {
+  position: fixed;
+  top: $mobileHeaderHeight;
+  right: -100vw;
+  bottom: 0;
+  width: 100vw;
+  z-index: $configureMenuZIndex;
+  opacity: 0;
+  transition: right 0s ease .2s, opacity 0s ease .2s;
+
+  &.active {
+    right: 0;
+    opacity: 1;
+    transition: none;
+
+    .configure-menu-overlay {
+      opacity: 1;
+      transition: opacity .2s;
+    }
+
+    .configure-menu-inner {
+      right: 0;
+      transition: right .2s;
+    }
+  }
+
+  .configure-menu-overlay {
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba($black, .1);
+    opacity: 0;
+    overflow-y: auto;
+    transition: opacity .2s;
+  }
+
+  .configure-menu-inner {
+    position: absolute;
+    top: 0;
+    right: -100vw;
+    bottom: 0;
+    width: 88vw;
+    background: $white;
+    box-shadow: -4px 0 4px rgba($black, .15);
+    transition: right .2s;
+
+    a.configure-menu-link {
+      display: block;
+      padding: 20px 0 20px 30px;
+      border-bottom: 1px solid #f2f2f2;
+    }
+  }
+}

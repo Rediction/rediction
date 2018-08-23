@@ -1,6 +1,7 @@
 import * as React from "react";
 import FavoriteHandler from "../../providers/FavoriteHandler";
 import FetchedWordInterface from "../../providers/Word/FetchedWordInterface";
+import Color from "../../styles/Color";
 import Card from "../atoms/Card";
 
 interface Props {
@@ -42,6 +43,11 @@ class WordCard extends React.Component<Props, State> {
     e.stopPropagation();
     e.preventDefault();
 
+    // API通信が完了する前に見た目上だけ切り替える。
+    this.setState({
+      word: { ...this.state.word, favorite_id: !this.state.word.favorite_id }
+    });
+
     const favoriteId:
       | number
       | boolean
@@ -64,27 +70,25 @@ class WordCard extends React.Component<Props, State> {
         <div
           style={{ ...styles.container, marginBottom: `${intervalSpace}px` }}
         >
-          <h4>言葉</h4>
-          <p>ID : {word.id}</p>
-          <p>意味 : {word.name}</p>
-          <p>フリガナ : {word.phonetic}</p>
-          <p>定義 : {word.description}</p>
+          <h3 style={styles.wordName}>{word.name}</h3>
+          <p style={styles.wordDescription}>{word.description}</p>
 
-          <div onClick={e => this.navigateUserDetail(e)}>
-            <h4>プロフィール</h4>
-            <p>氏名 : {word.profile.first_name + word.profile.last_name}</p>
-            <p>
-              フリガナ :{" "}
-              {word.profile.first_name_kana + word.profile.last_name_kana}
+          <div style={styles.footer}>
+            <p style={styles.profile} onClick={e => this.navigateUserDetail(e)}>
+              {word.profile.first_name + word.profile.last_name}/
+              {word.profile.job}
             </p>
-            <p>生年月日 : {word.profile.birth_on}</p>
-            <p>職業 : {word.profile.job}</p>
-          </div>
 
-          <i
-            className={word.favorite_id ? "fas fa-star" : "far fa-star"}
-            onClick={e => this.toggleFavoriteStatus(e)}
-          />
+            <img
+              style={styles.favoriteIcon}
+              src={
+                word.favorite_id
+                  ? require("../../images/favorite/favoriteIcon.svg")
+                  : require("../../images/favorite/unfavoriteIcon.svg")
+              }
+              onClick={e => this.toggleFavoriteStatus(e)}
+            />
+          </div>
         </div>
       </Card>
     );
@@ -94,6 +98,32 @@ class WordCard extends React.Component<Props, State> {
 const styles = {
   container: {
     padding: "17px 22px 11px 10px"
+  },
+  wordName: {
+    fontSize: "18px",
+    marginBottom: "12px"
+  },
+  wordDescription: {
+    fontSize: "14px",
+    lineHeight: "24px",
+    whiteSpace: "pre-wrap"
+  },
+  footer: {
+    marginTop: "9px",
+    paddingTop: "13px",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    borderTop: `1px solid ${Color.Elm.Card.FOOTER_BORDER_GRAY}`
+  },
+  profile: {
+    height: "100%",
+    fontSize: "9px",
+    color: Color.Elm.Card.THIN_GRAY
+  },
+  favoriteIcon: {
+    width: "19px",
+    color: Color.Site.SECONDARY
   }
 };
 

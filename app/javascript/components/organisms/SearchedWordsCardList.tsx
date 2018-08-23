@@ -95,7 +95,11 @@ class SearchedWordsCardList extends React.Component<Props, State> {
     const { words, loading } = this.state;
 
     if (loading && words.length === 0) {
-      return <ActivityIndicator size="middle" />;
+      return (
+        <div style={styles.container}>
+          <ActivityIndicator size="small" />
+        </div>
+      );
     }
 
     return (
@@ -108,7 +112,7 @@ class SearchedWordsCardList extends React.Component<Props, State> {
             intervalSpace="13"
           />
         ))}
-        {loading ? <ActivityIndicator size="middle" /> : null}
+        {loading ? <ActivityIndicator size="small" /> : null}
       </div>
     );
   }
@@ -116,7 +120,7 @@ class SearchedWordsCardList extends React.Component<Props, State> {
 
 const styles = {
   container: {
-    margin: "0 18px"
+    margin: "21px 0"
   }
 };
 

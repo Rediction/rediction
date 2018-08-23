@@ -36,14 +36,17 @@ const followHandler: FollowHandler = new FollowHandler(currentUserId, userId);
 // Reactで生成している範囲外のDOMに対する操作なので、JQueryでイベントをつけているが、
 // 全体をReactに変更していく段階で、このイベント処理もReactで行うようにする。
 const toggleFollowStatus = async () => {
+  // API通信が完了する前に見た目上だけ切り替える。
+  $("#toggle-follow-btn").toggleClass("following");
+
   const followId = await followHandler.toggleFollowStatus();
 
   // TODO(Shokei Takanashi)
   // JS側にテキストを持たないでいいように、デザイン実装時にクラスの切り替えで表示を切り替えられるように修正する。
   if (followId) {
-    $("#toggle-follow-btn").text("フォロー中");
+    $("#toggle-follow-btn").addClass("following");
   } else {
-    $("#toggle-follow-btn").text("フォロー");
+    $("#toggle-follow-btn").removeClass("following");
   }
 };
 

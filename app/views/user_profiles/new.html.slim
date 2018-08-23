@@ -1,9 +1,14 @@
-h1
-  | 会員登録ページ
-br
-= link_to "homeにもどる", root_path
-h2
-  | 本会員登録が完了しました。プロフィールを入力しよう！
+ruby:
+  provide :header_title, "プロフィール作成"
+  provide :return_link, user_mypage_path
+  provide :hide_post_new_word_btn, "1"
+  provide :template_stylesheet_path, "user_profiles/new"
+  provide :container_type, "form"
+
+p.page-description
+  | 本登録が完了しました。
+  br
+  | プロフィールを作成してください。
 
 = render partial: "user_profiles/form",
   locals:  { profile: @profile, destination: user_profile_path, method: :post }
