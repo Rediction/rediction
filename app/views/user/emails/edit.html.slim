@@ -1,11 +1,21 @@
-h1
-  | メールアドレス編集ページ
-p
-  | 変更後のアドレスを以下に入力してください。
+ruby:
+  provide :header_title, "メールアドレス編集"
+  provide :return_link, user_mypage_path
+  provide :hide_post_new_word_btn, "1"
+  provide :template_stylesheet_path, "user/emails/edit"
+  provide :active_nav_index, "2"
+  provide :container_type, "form"
 
-= form_for current_user, url: user_email_path, method: :patch do |f|
+p.page-description
+  | 新しいメールアドレスを入力してください。
+
+= form_for current_user, url: user_email_path, method: :patch, html: { class: "base-form" } do |f|
   .form-group
-    = f.label :email
-    = f.email_field :email, placeholder: true, required: true
+    .label-field
+      = f.label :email
 
-  = f.submit "完了", data: { disable_with: "送信中..." }
+    .input-field
+      = f.email_field :email, placeholder: true, required: true
+
+  .submit-btn
+    = f.submit "登録", data: { disable_with: "送信中..." }

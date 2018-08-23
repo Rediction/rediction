@@ -1,5 +1,6 @@
 class User::PasswordReissueTokensController < ApplicationController
   skip_before_action :authenticate, only: %i[new create]
+  before_action :check_auth_status, only: %i[new create]
 
   def new
     @password_reissue_token = User::PasswordReissueToken.new
@@ -18,6 +19,10 @@ class User::PasswordReissueTokensController < ApplicationController
   end
 
   private
+
+  def check_auth_status
+    redirect_authed_user_base_page if logged_in?
+  end
 
   def password_reissue_token_params
     params.require(:user_password_reissue_token).permit(:email)

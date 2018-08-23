@@ -6,10 +6,15 @@ interface Props {
 
 const ActivityIndicator: React.SFC<Props> = ({ size }) => {
   const width: string =
-    size === "small" ? "30" : size === "middle" ? "60" : "90";
+    size === "small" ? "25" : size === "middle" ? "32" : "48";
 
   return (
-    <img src={require("../../images/gif/activeIndicator.gif")} width={width} />
+    <div style={{ textAlign: "center" }}>
+      <img
+        src={require("../../images/gif/activeIndicator.gif")}
+        width={width}
+      />
+    </div>
   );
 };
 

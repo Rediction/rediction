@@ -1,12 +1,26 @@
-h1
-  | ログイン
-= form_for @user, url: login_path do |f|
-  = f.label :email
-  = f.email_field :email, placeholder: true, required: true
+ruby:
+  provide :header_title, "ログイン"
+  provide :hide_nav, "1"
+  provide :hide_post_new_word_btn, "1"
+  provide :template_stylesheet_path, "sessions/new"
+  provide :container_type, "form"
 
-  = f.label :password
-  = f.password_field :password, placeholder: true, required: true
+= form_for @user, url: login_path, html: { class: "base-form" } do |f|
+  .form-group
+    .label-field
+      = f.label :email
 
-  = f.submit "ログイン", data: { disable_with: "送信中..." }
+    .input-field
+      = f.email_field :email, placeholder: true, required: true
 
-  = link_to "パスワードをお忘れの方はこちら", new_user_password_reissue_token_path
+  .form-group
+    .label-field
+      = f.label :password
+
+    .input-field
+      = f.password_field :password, required: true
+
+  .submit-btn
+    = f.submit "ログイン", data: { disable_with: "送信中..." }
+
+  = link_to "パスワードを忘れた方はこちら", new_user_password_reissue_token_path, class: "bottom-link"

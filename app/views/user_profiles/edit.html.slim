@@ -1,5 +1,15 @@
-h1
-  | プロフィール編集ページ
+ruby:
+  provide :header_title, "プロフィール編集"
+  provide :return_link, user_mypage_path
+  provide :hide_post_new_word_btn, "1"
+  provide :template_stylesheet_path, "user_profiles/edit"
+  provide :active_nav_index, "2"
+  provide :container_type, "form"
+
+p.page-description
+  | 本登録が完了しました。
+  br
+  | プロフィールを作成してください。
 
 = render partial: "user_profiles/form",
   locals: { profile: @profile, destination: user_profile_path, method: :patch }

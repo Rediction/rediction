@@ -1,18 +1,41 @@
 ruby:
-  provide :header_title, "言葉詳細"
+  provide :header_title, "言葉"
   provide :return_link, request.referer
+  provide :javascript_pack_path, "words/show"
+  provide :template_stylesheet_path, "words/show"
+  provide :active_nav_index, "0"
 
-h4
-  | 言葉
-p
-  | ID :
-  = @word.id
-p
-  | 意味 :
-  = @word.name
-p
-  | フリガナ :
-  = @word.phonetic
-p
-  | 定義 :
-  = @word.description
+#show-word.show-word data-current-user-id=current_user.id data-word-id=@word.id
+  .show-word-main
+    h2.show-word-main-title
+      = @word.name
+
+    p.show-word-main-description
+      = br @word.description
+
+  .show-word-sub
+    div
+      .show-word-sub-data
+        .show-word-sub-data-label
+          | 投稿日時：
+        .show-word-sub-data-content
+          p
+            = ja_full_datetime @word.created_at
+
+      .show-word-sub-data
+        .show-word-sub-data-label
+          | 投稿者：
+        .show-word-sub-data-content
+          p
+            = @word.user.profile.age
+          p
+            = @word.user.profile.full_name
+          p
+            = @word.user.profile.job
+
+    - if current_user.id == @word.user_id
+      i.fas.fa-trash-alt.show-word-sub-trash-icon
+    - else
+      #show-word-sub-favorite.show-word-sub-favorite class=(current_user.favorite_word?(@word) ? "active" : "")
+        = image_tag "favorite/favoriteIcon.svg", class: "show-word-sub-favorite-icon favorite"
+        = image_tag "favorite/unfavoriteIcon.svg", class: "show-word-sub-favorite-icon unfavorite"

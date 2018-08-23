@@ -1,4 +1,12 @@
-h1
-  | こちらからお問い合わせください。
+ruby:
+  provide :header_title, "お問い合わせ"
+  provide :return_link, user_mypage_path
+  provide :hide_post_new_word_btn, "1"
+  provide :template_stylesheet_path, "contacts/show"
+  provide :active_nav_index, "2"
 
-= mail_to "shujiota723@gmail.com", "こちらからメールが開きます。", encode: :hex, subject: "お問い合わせ"
+.contact
+  p.text
+    | こちらからお問い合わせください。
+
+  = mail_to "shujiota723@gmail.com", "メールが開きます", encode: :hex, subject: "お問い合わせ", class: "text mail-link"

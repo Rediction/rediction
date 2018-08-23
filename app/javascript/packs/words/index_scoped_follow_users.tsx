@@ -4,6 +4,7 @@ import ReactDOM from "react-dom";
 import WordsCardList from "../../components/organisms/WordsCardList";
 import { WordFetcherInterface } from "../../providers/BaseFetcher";
 import ScopedFollowUsersFetcher from "../../providers/Word/ScopedFollowUsersFetcher";
+import { setWordChangeModeMenuAction } from "./_index_nav";
 
 // Word一覧を表示する対象のID
 const targetIdAttr = "words-list";
@@ -25,3 +26,6 @@ ReactDOM.render(
   />,
   document.getElementById(targetIdAttr)
 );
+
+// Word一覧切り替え用メニューの表示・非表示イベントを設定
+setWordChangeModeMenuAction();
