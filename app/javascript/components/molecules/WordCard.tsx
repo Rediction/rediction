@@ -71,7 +71,9 @@ class WordCard extends React.Component<Props, State> {
           style={{ ...styles.container, marginBottom: `${intervalSpace}px` }}
         >
           <h3 style={styles.wordName}>{word.name}</h3>
-          <p style={styles.wordDescription}>{word.description}</p>
+          <p style={{ ...styles.wordDescription, whiteSpace: "pre-wrap" }}>
+            {word.description}
+          </p>
 
           <div style={styles.footer}>
             <p style={styles.profile} onClick={e => this.navigateUserDetail(e)}>
@@ -105,8 +107,7 @@ const styles = {
   },
   wordDescription: {
     fontSize: "14px",
-    lineHeight: "24px",
-    whiteSpace: "pre-wrap"
+    lineHeight: "24px"
   },
   footer: {
     marginTop: "9px",
