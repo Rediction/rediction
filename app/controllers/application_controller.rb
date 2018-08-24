@@ -19,7 +19,11 @@ class ApplicationController < ActionController::Base
 
   # ユーザー認証を行うメソッド
   def authenticate
+    # 未ログイン時はログイン画面へリダイレクト
     redirect_to new_login_path, flash: { error: "ログインしてください。"} unless logged_in?
+
+    # プロフィール登録が必要な場合は、プロフィール登録画面へリダイレクト
+    redirect_to new_user_profile_path if require_redirecting_to_new_profile?
   end
 
   # sessionのuser_idを削除するメソッド
@@ -37,6 +41,13 @@ class ApplicationController < ActionController::Base
     # ログイン中のユーザーのインスタンスを生成するメソッド(稼働中のもの)
     def current_user
       @current_user ||= User.active.find_by(id: session[:user_id])
+    end
+
+    # プロフィール登録画面へのリダイレクトが必要かどうかの判定
+    # プロフィール未登録 && プロフィール登録ページにいない場合
+    def require_redirecting_to_new_profile?
+      current_user.profile.blank? && \
+        !(controller_name == "user_profiles" && (action_name == "new" || action_name == "create"))
     end
 
     # Basic認証
