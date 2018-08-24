@@ -23,7 +23,7 @@ html
       .main-content
         - flash.each do |type, message|
           .flash class="flash-#{type}" onclick="this.remove()"
-            = message
+            = br message
 
         .main-content-inner
           = yield
