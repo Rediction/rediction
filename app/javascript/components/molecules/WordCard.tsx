@@ -102,7 +102,8 @@ const styles = {
     padding: "17px 22px 11px 10px"
   },
   wordName: {
-    fontSize: "18px",
+    fontSize: "15px",
+    fontWeight: "bold",
     marginBottom: "12px"
   },
   wordDescription: {
