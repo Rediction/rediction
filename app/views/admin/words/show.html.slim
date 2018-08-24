@@ -1,7 +1,7 @@
 .panel.panel-default
   .panel-heading
     = link_to "言葉一覧", admin_words_path
-    | &nbsp;> 言葉一覧
+    | &nbsp;> 言葉詳細
 
   .panel-body
     h3
@@ -40,7 +40,7 @@
     h3
       | 定義
     p
-      = @word.description
+      = br @word.description
 
     .text-right
       = link_to "投稿を削除する", admin_word_path(@word), class: "text-danger", method: :delete, data: {confirm: "本当に削除しますか？"}

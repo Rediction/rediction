@@ -11,10 +11,11 @@ $baseBlack: #363636;
 $primaryColor: #34B5E2;
 $secondaryColor: #FAAA20;
 $navUnactiveColor: #C4C4C4;
+$errorColor: #FF4C2A;
 
 /* Flashカラー */
 $flashSuccessColor: $secondaryColor;
-$flashErrorColor: #FF4C2A;
+$flashErrorColor: $errorColor;
 
 /* form色 */
 $placeholderColor: #C4C4C4;

@@ -18,9 +18,9 @@ class Word < ApplicationRecord
   has_many :favorites, dependent: :destroy
 
   validates :user_id, presence: true
-  validates :name, presence: true
-  validates :phonetic, presence: true
-  validates :description, presence: true
+  validates :name, presence: true, length: {maximum: 20}
+  validates :phonetic, presence: true, length: {maximum: 50}
+  validates :description, presence: true, length: {maximum: 140}
 
   class << self
     # word_random_fetched_recordsのトークンを元に、取得済みのwordsを除隊してランダムで規定数取得

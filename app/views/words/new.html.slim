@@ -10,7 +10,7 @@ ruby:
   button#new-word-form-submit-button.new-word-form-submit-button
     | リディクト
 
-= form_for @word, url: words_path, method: :post, html: { id: "new-word-form", class: "base-form" } do |f|
+= base_form_for @word, url: words_path, method: :post, html: { id: "new-word-form", class: "base-form" } do |f|
   .form-group
     .label-field
       = f.label :name

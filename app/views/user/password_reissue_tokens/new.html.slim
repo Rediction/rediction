@@ -8,7 +8,7 @@ p.page-description
   br
   | 届いたメールのURLからパスワードの再設定ができます。
 
-= form_for @password_reissue_token, url: user_password_reissue_token_path, method: :post, html: { class: "base-form" } do |f|
+= base_form_for @password_reissue_token, url: user_password_reissue_token_path, method: :post, html: { class: "base-form" } do |f|
   .form-group
     .label-field
       = f.label :email
