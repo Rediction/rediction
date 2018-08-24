@@ -1,11 +1,11 @@
 header#header.header
-  div
+  .header-side-element.header-left-element
     - if return_link.present?
       / 戻るボタン
       = link_to return_link, class: "return-btn" do
         i.fas.fa-arrow-left
 
-  div
+  .header-center-element
     / Headerタイトル
     - if header_title.present?
       h1.header-title
@@ -13,7 +13,7 @@ header#header.header
     - elsif header_center_element.present?
       = header_center_element
 
-  div
+  .header-side-element.header-right-element
     - if header_right_element.present?
       = header_right_element
 

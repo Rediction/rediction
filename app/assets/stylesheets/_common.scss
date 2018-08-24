@@ -14,8 +14,7 @@ header.header {
   background: $primaryColor;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 0 5vw;
+  justify-content: center;
   box-shadow: 0 4px 6px rgba($black, .1);
 
   h1.header-title {
@@ -27,6 +26,20 @@ header.header {
   a.return-btn {
     color: $white;
     font-size: 21px;
+  }
+
+  .header-side-element {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .header-left-element {
+    left: 5vw;
+  }
+
+  .header-right-element {
+    right: 5vw;
   }
 }
 
