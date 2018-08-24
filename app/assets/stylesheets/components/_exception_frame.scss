@@ -1,0 +1,16 @@
+.exception-frame {
+  width: 90%;
+  margin: 8vh auto;
+
+  h1.exception-title {
+    text-align: center;
+    font-size: 17px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+
+  p.exception-description {
+    font-size: 14px;
+    line-height: 24px;
+  }
+}
