@@ -1,0 +1,26 @@
+// かなり無茶苦茶なやり方なので、できればこのデザインを辞める方向で検討したい。
+// Androidだと、キーボードが表示された時に、キーボード外の高さを100%とするため、単純にabsoluteやfixで指定すると
+// うまくいかないので、min-heightを使って実装している。
+
+.bottom-link-frame {
+  position: absolute;
+  top:  0;
+  left: 0;
+  width: 0;
+  text-align: center;
+  min-height: 500px;
+  height: 100vh;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+
+  &-text {
+    position: absolute;
+    width: 100vw;
+    left: 50%;
+    bottom: 25px;
+    font-size: 10px;
+    text-decoration: underline;
+    z-index: 1;
+  }
+}

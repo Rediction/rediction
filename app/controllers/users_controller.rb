@@ -22,7 +22,7 @@ class UsersController < ApplicationController
 
     # 仮会員のemailが本会員として登録済みの場合は、ログイン画面へ遷移させる
     if provisional_user.signed_up_email?
-      flash[:error] = "このメールアドレスはすでに登録済みです。ログインしてください。"
+      flash[:error] = "このメールアドレスはすでに登録済みです。\nログインしてください。"
       return redirect_to new_login_path
     end
 
