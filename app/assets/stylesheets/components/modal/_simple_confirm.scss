@@ -1,0 +1,66 @@
+@import "../../variables";
+
+.modal-simple-confirm {
+  cursor: pointer;
+  position: fixed;
+  opacity: 0;
+  top: 0;
+  left: 100vw;
+  width: 100vw;
+  bottom: 0;
+  z-index: $modalZIndex;
+  background: rgba($white, .3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity .2s ease, left 0s ease .2s;
+
+  &.active {
+    left: 0;
+    opacity: 1;
+    transition: opacity .2s ease;
+
+    .modal-simple-confirm-cassette {
+      top: 0;
+      opacity: 1;
+      transition: top .2s ease, opacity .2s ease;
+    }
+  }
+
+  &-cassette {
+    cursor: default;
+    position: relative;
+    top: 20px;
+    opacity: .5;
+    background: $white;
+    min-width: 252px;
+    max-width: 95vw;
+    box-shadow: 0 4px 8px rgba($black, .15);
+    transition: top .2s ease, opacity .2s ease;
+
+    > p.confirm-description {
+      font-size: 12px;
+      line-height: 24px;
+      text-align: center;
+      padding: 35px 20px 30px;
+    }
+
+    > .confirm-btns {
+      display: flex;
+      border-top: 1px solid $confirmModalBorderColor;
+
+      > .confirm-btns-elm {
+        cursor: pointer;
+        flex: 1;
+        text-align: center;
+        font-size: 12px;
+        padding: 24px 0;
+        border-right: 1px solid $confirmModalBorderColor;
+
+        &:last-child {
+          border-style: none;
+        }
+      }
+    }
+  }
+}

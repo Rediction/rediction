@@ -26,6 +26,8 @@ $baseHrLineColor: #C4C4C4;
 $followToggleBtnColor: #C4C4C4;
 $wordSubTextColor: #A0A0A0;
 $wordTrashIconColor: #C4C4C4;
+$confirmModalBorderColor: #E5E5E5;
+
 
 /** 大きさ **/
 /* 高さ */
@@ -39,6 +41,7 @@ $headerZIndex: 3000;
 $navZIndex: 3001;
 $wordChangeModeMenuZIndex: 6000;
 $configureMenuZIndex: 6000;
+$modalZIndex: 4000;
 
 
 /** レスポンシブ **/

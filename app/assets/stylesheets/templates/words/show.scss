@@ -1,4 +1,5 @@
 @import "../../variables";
+@import "../../components/modal/simple_confirm";
 
 .show-word {
   width: 82%;
@@ -73,6 +74,7 @@
     }
 
     &-trash-icon {
+      cursor: pointer;
       color: $wordTrashIconColor;
       font-size: 24px;
     }

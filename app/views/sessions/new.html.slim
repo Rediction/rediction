@@ -23,4 +23,5 @@ ruby:
   .submit-btn
     = f.submit "ログイン", data: { disable_with: "送信中..." }
 
-  = link_to "パスワードを忘れた方はこちら", new_user_password_reissue_token_path, class: "bottom-link"
+.bottom-link-frame
+  = link_to "パスワードを忘れた方はこちら", new_user_password_reissue_token_path, class: "bottom-link-frame-text"
