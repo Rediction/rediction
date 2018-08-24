@@ -10,11 +10,11 @@ header.header {
   left: 0;
   right: 0;
   height: $mobileHeaderHeight;
+  min-height: $mobileMinHeaderHeight;
   background: $primaryColor;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 0 5vw;
+  justify-content: center;
   box-shadow: 0 4px 6px rgba($black, .1);
 
   h1.header-title {
@@ -27,6 +27,20 @@ header.header {
     color: $white;
     font-size: 21px;
   }
+
+  .header-side-element {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .header-left-element {
+    left: 5vw;
+  }
+
+  .header-right-element {
+    right: 5vw;
+  }
 }
 
 
@@ -34,11 +48,12 @@ header.header {
 //* ヘッダー下のナビゲーション
 nav.nav {
   z-index: $navZIndex;
-  position: fixed;
-  top: $mobileHeaderHeight;
+  position: absolute;
+  bottom: -100%;
   left: 0;
   right: 0;
   height: $mobileNavHeight;
+  min-height: $mobileMinNavHeight;
   background: $white;
   display: flex;
   box-shadow: 0 4px 6px rgba($black, .1);
@@ -108,6 +123,7 @@ nav.nav {
 //* Mobileで上部にFixしてるHeaderのスペースを埋める部品
 .mobile-header-space {
   height: $mobileHeaderHeight;
+  min-height: $mobileMinHeaderHeight;
 }
 
 
@@ -115,14 +131,15 @@ nav.nav {
 //* Mobileで上部にFixしてるNavのスペースを埋める部品
 .mobile-nav-space {
   height: $mobileNavHeight;
+  min-height: $mobileMinNavHeight;
 }
 
 //**
 //* 投稿ボタン
 a.post-new-word-btn {
   position: fixed;
-  right: 10px;
-  bottom: 10px;
+  right: 15px;
+  bottom: 15px;
   background: $secondaryColor;
   border-radius: 50%;
   height: 54px;

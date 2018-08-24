@@ -1,6 +1,6 @@
 module UserProfileDecorator
   def full_name(space = true)
-    first_name + (space ? " " : "") + last_name
+    last_name + (space ? " " : "") + first_name
   end
 
   def age

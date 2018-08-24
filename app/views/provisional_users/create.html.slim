@@ -1,3 +1,8 @@
-h1
-  | メールが送信されましたので、ご確認ください。
-= link_to "homeにもどる", root_path
+ruby:
+  provide :template_stylesheet_path, "provisional_users/create"
+
+.created-message
+  p.text
+    | メールが送信されましたので、ご確認ください。
+
+  = link_to "homeにもどる", root_path, class: "text created-message-link"

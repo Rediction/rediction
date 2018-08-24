@@ -1,11 +1,11 @@
 header#header.header
-  div
+  .header-side-element.header-left-element
     - if return_link.present?
       / 戻るボタン
       = link_to return_link, class: "return-btn" do
         i.fas.fa-arrow-left
 
-  div
+  .header-center-element
     / Headerタイトル
     - if header_title.present?
       h1.header-title
@@ -13,27 +13,28 @@ header#header.header
     - elsif header_center_element.present?
       = header_center_element
 
-  div
+  .header-side-element.header-right-element
     - if header_right_element.present?
       = header_right_element
+
+  - if logged_in? && !hide_nav
+    nav#nav.nav
+      = link_to index_latest_order_words_path, class: "nav-link #{active_nav_index == '0' ? 'active' : ''}" do
+        .nav-link-text
+          | 辞書
+        i.fas.fa-book-open
+
+      = link_to search_words_path, class: "nav-link #{active_nav_index == '1' ? 'active' : ''}" do
+        .nav-link-text
+          | 検索
+        i.fas.fa-search
+
+      = link_to user_mypage_path, class: "nav-link #{active_nav_index == '2' ? 'active' : ''}" do
+        .nav-link-text
+          | マイページ
+        i.fas.fa-user-alt
 
 .mobile-header-space
 
 - if logged_in? && !hide_nav
-  nav#nav.nav
-    = link_to index_latest_order_words_path, class: "nav-link #{active_nav_index == '0' ? 'active' : ''}" do
-      .nav-link-text
-        | 辞書
-      i.fas.fa-book-open
-
-    = link_to search_words_path, class: "nav-link #{active_nav_index == '1' ? 'active' : ''}" do
-      .nav-link-text
-        | 検索
-      i.fas.fa-search
-
-    = link_to user_mypage_path, class: "nav-link #{active_nav_index == '2' ? 'active' : ''}" do
-      .nav-link-text
-        | マイページ
-      i.fas.fa-user-alt
-
   .mobile-nav-space

@@ -12,7 +12,7 @@ const UserCard: React.SFC<Props> = ({ user, intervalSpace }) => {
     <Card link={`/users/${user.id}`}>
       <div style={{ ...styles.container, marginBottom: `${intervalSpace}px` }}>
         <h3 style={styles.userCardFullName}>
-          {user.profile.first_name + user.profile.last_name}
+          {user.profile.last_name + user.profile.first_name}
         </h3>
         <p style={styles.userCardSubText}>職業 : {user.profile.job}</p>
         <p style={styles.userCardSubText}>年齢 : {user.profile.age}歳</p>

@@ -6,7 +6,7 @@ ruby:
 p.page-description
   | 新しいパスワードを入力してください。
 
-= form_for @password_reissue_form, url: user_password_reissue_path(token: @password_reissue_form.token), method: :post, html: { class: "base-form" } do |f|
+= base_form_for @password_reissue_form, url: user_password_reissue_path(token: @password_reissue_form.token), method: :post, html: { class: "base-form" } do |f|
   .form-group
     .label-field
       = f.label :password
