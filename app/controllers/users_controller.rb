@@ -32,7 +32,7 @@ class UsersController < ApplicationController
     # ユーザーのログイン処理を行う
     log_in(user)
 
-    redirect_authed_user_base_page
+    redirect_to new_user_profile_path
   rescue ActiveRecord::RecordInvalid
     # 本会員登録に失敗した場合、会員登録画面へ画面を遷移させる
     redirect_to new_provisional_users_path, flash: { error: "登録に失敗しました。もう一度やり直してください。"}

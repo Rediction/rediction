@@ -8,7 +8,7 @@ module DateSelectHelper
       column: :birth_on,
       start_year: UserProfile::MAXIMUM_AGE.years.ago.year,
       end_year: UserProfile::MINIMUM_AGE.years.ago.year,
-      default: default_age.years.ago.year
+      default: default_age.years.ago
     )
 
     "<div class='birth-on-field'>#{select_field}</div>".html_safe
