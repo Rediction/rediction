@@ -31,3 +31,18 @@ const toggleFavoriteStatus = async () => {
 };
 
 $(document).on("click", "#show-word-sub-favorite", toggleFavoriteStatus);
+
+/*---- ここから、言葉削除用のモーダル処理 -----*/
+
+$(document).on("click", "#show-word-sub-trash-icon", () => {
+  $("#modal-simple-confirm").addClass("active");
+});
+
+$(document).on("click", "#close-modal", () => {
+  $("#modal-simple-confirm").removeClass("active");
+});
+
+$(document).on("click", "#modal-simple-confirm", e => {
+  if ($(e.target).closest("#modal-simple-confirm-cassette").length === 1) { return; }
+  $("#modal-simple-confirm").removeClass("active");
+});
