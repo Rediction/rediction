@@ -26,7 +26,8 @@ class WordsController < ApplicationController
   def create
     @word = current_user.words.build(word_params)
     @word.save_with_changes!
-    redirect_to index_latest_order_words_path, flash: { success: "投稿しました。" }
+
+    redirect_to user_mypage_path, flash: { success: "投稿しました。" }
   rescue ActiveRecord::RecordInvalid
     flash.now[:error]  = "投稿に失敗しました。"
     render :new
@@ -39,10 +40,11 @@ class WordsController < ApplicationController
   def destroy
     word = current_user.words.find(params[:id])
     word.destroy_with_changes!
-    redirect_to index_latest_order_words_path, flash: { success: "削除しました。" }
+
+    redirect_to user_mypage_path, flash: { success: "削除しました。" }
   rescue ActiveRecord::RecordInvalid
-    flash[:error] = "削除に失敗しました。"
-    redirect_to index_latest_order_words_path
+    flash.now[:error] = "削除に失敗しました。"
+    redirect_to word_path(params[:id])
   end
 
   private
