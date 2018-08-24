@@ -1,7 +1,6 @@
 @import "../variables";
 
 form.base-form {
-
   .form-group {
     margin-bottom: 35px;
 
@@ -12,6 +11,12 @@ form.base-form {
 
     > .input-field {
       font-size: 14px;
+
+      .field_with_errors {
+        input, textarea {
+          border: 1px solid $errorColor;
+        }
+      }
 
       input, textarea, select {
         background: $white;
@@ -26,6 +31,12 @@ form.base-form {
 
       select {
         padding: 8px 10px;
+      }
+
+      p.has-error {
+        margin-top: 8px;
+        font-size: 12px;
+        color: $errorColor;
       }
 
       &-split {

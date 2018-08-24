@@ -9,7 +9,7 @@ ruby:
 p.page-description
   | 新しいメールアドレスを入力してください。
 
-= form_for current_user, url: user_email_path, method: :patch, html: { class: "base-form" } do |f|
+= base_form_for current_user, url: user_email_path, method: :patch, html: { class: "base-form" } do |f|
   .form-group
     .label-field
       = f.label :email
