@@ -1,7 +1,11 @@
-h1
-  | ４０４ ページが見つかりません
+ruby:
+  provide :template_stylesheet_path, "exceptions/404"
 
-p
-  | あなたがアクセスしようとしているページは、ご覧になっていたページからのリンクが
-  br
-  | 無効になっているか、アドレス(URL)が間違っているため見つかりませんでした。
+.exception-frame
+  h1.exception-title
+    | ４０４ ページが見つかりません
+
+  p.exception-description
+    | あなたがアクセスしようとしているページは、ご覧になっていたページからのリンクが
+    br
+    | 無効になっているか、アドレス(URL)が間違っているため見つかりませんでした。

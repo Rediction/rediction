@@ -1,7 +1,11 @@
-h1
-  | ４０３ このページにはアクセスできません
+ruby:
+  provide :template_stylesheet_path, "exceptions/403"
 
-p
-  | あなたがアクセスしようとしているページは、閲覧できないページであるため
-  br
-  | リクエストされたページへのアクセスは禁止されています。
+.exception-frame
+  h1.exception-title
+    | ４０３ このページにはアクセスできません
+
+  p.exception-description
+    | あなたがアクセスしようとしているページは、閲覧できないページであるため
+    br
+    | リクエストされたページへのアクセスは禁止されています。

@@ -1,8 +1,11 @@
-h1
-  | ５０３ 現在メンテナンス中です
+ruby:
+  provide :template_stylesheet_path, "exceptions/503"
 
-p
-  | このサービスは、現在一時的なメンテナンスを行っています。
-  br
-  | お手数ですが、お時間を空けてから再度ご訪問いただけると幸いです。
+.exception-frame
+  h1.exception-title
+    | ５０３ 現在メンテナンス中です
 
+  p.exception-description
+    | このサービスは、現在一時的なメンテナンスを行っています。
+    br
+    | お手数ですが、お時間を空けてから再度ご訪問いただけると幸いです。
