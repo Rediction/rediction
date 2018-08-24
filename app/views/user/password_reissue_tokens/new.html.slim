@@ -18,3 +18,6 @@ p.page-description
 
   .submit-btn
     = f.submit "パスワードを再発行する", data: { disable_with: "送信中..." }
+
+.bottom-link-frame
+  = link_to "ログインはこちらから", login_path, class: "bottom-link-frame-text"
