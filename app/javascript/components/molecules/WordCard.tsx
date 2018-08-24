@@ -70,7 +70,9 @@ class WordCard extends React.Component<Props, State> {
         <div
           style={{ ...styles.container, marginBottom: `${intervalSpace}px` }}
         >
-          <h3 style={styles.wordName}>{word.name}</h3>
+          <h3 style={{ ...styles.wordName, fontWeight: "bold" }}>
+            {word.name}
+          </h3>
           <p style={{ ...styles.wordDescription, whiteSpace: "pre-wrap" }}>
             {word.description}
           </p>
@@ -103,7 +105,6 @@ const styles = {
   },
   wordName: {
     fontSize: "15px",
-    fontWeight: "bold",
     marginBottom: "12px"
   },
   wordDescription: {
