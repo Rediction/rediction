@@ -20,7 +20,7 @@ class ApplicationController < ActionController::Base
   # ユーザー認証を行うメソッド
   def authenticate
     # 未ログイン時はログイン画面へリダイレクト
-    redirect_to new_login_path, flash: { error: "ログインしてください。"} unless logged_in?
+    return redirect_to new_login_path, flash: { error: "ログインしてください。"} unless logged_in?
 
     # プロフィール登録が必要な場合は、プロフィール登録画面へリダイレクト
     redirect_to new_user_profile_path if require_redirecting_to_new_profile?
