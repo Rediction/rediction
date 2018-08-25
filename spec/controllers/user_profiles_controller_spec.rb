@@ -22,7 +22,6 @@ describe UserProfilesController, type: :controller do
       let(:user_profile_params) { attributes_for(:user_profile) }
 
       context "@profileの保存に成功した場合" do
-
         it "レコードが生成されること", :aggregate_failures do
           expect{ subject }.to change(UserProfile, :count).by(1).and change(UserProfileChange, :count).by(1)
           expect(response).to have_http_status 302
