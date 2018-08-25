@@ -16,7 +16,7 @@ describe UserProfilesController, type: :controller do
       end
     end
 
-    describe "POST #create", type: :doing do
+    describe "POST #create" do
       let(:user_profile_params) { attributes_for(:user_profile) }
 
       context "@profileの保存に成功した場合" do
