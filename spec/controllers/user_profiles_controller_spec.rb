@@ -16,8 +16,29 @@ describe UserProfilesController, type: :controller do
       end
     end
 
-    describe "POST #create" do
-      subject { post :create }
+    describe "POST #create", type: :doing do
+      let(:user_profile_params) { attributes_for(:user_profile) }
+
+      context "@profileの保存に成功した場合" do
+        subject { post :create, params: { user_profile: user_profile_params } }
+
+        it "レコードが生成されること", :aggregate_failures do
+          expect{ subject }.to change(UserProfile, :count).by(1)
+          expect(response).to have_http_status 302
+          expect(response).to redirect_to index_scoped_favorite_words_words_path
+        end
+      end
+
+      context "@profileの保存に失敗した場合" do
+        subject{ post :create, params: { user_profile: user_profile_params.merge(last_name: last_name) } }
+        let(:last_name) { "" }
+
+        it "レコードが生成されず、newテンプレートにrenderすること", :aggregate_failures do
+          expect{ subject }.to change(UserProfile, :count).by(0)
+          expect(flash[:error]).to eq "プロフィールの登録に失敗しました。"
+          expect(response).to render_template :new
+        end
+      end
     end
   end
 
