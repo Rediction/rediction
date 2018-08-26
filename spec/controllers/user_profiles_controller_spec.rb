@@ -16,7 +16,7 @@ describe UserProfilesController, type: :controller do
       end
     end
 
-    describe "POST #create", type: :doing do
+    describe "POST #create" do
       subject { post :create, params: { user_profile: user_profile } }
       let(:user_profile) { user_profile_params.merge(last_name: last_name)}
       let(:last_name) { user_profile_params[:last_name] }
