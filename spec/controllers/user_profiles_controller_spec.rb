@@ -16,14 +16,16 @@ describe UserProfilesController, type: :controller do
       end
     end
 
-    describe "POST #create" do
-      subject { post :create, params: { user_profile: user_profile_params.merge(last_name: last_name) } }
+    describe "POST #create", type: :doing do
+      subject { post :create, params: { user_profile: user_profile } }
+      let(:user_profile) { user_profile_params.merge(last_name: last_name)}
       let(:last_name) { user_profile_params[:last_name] }
       let(:user_profile_params) { attributes_for(:user_profile) }
 
       context "@profileの保存に成功した場合" do
         it "レコードが生成されること", :aggregate_failures do
           expect{ subject }.to change(UserProfile, :count).by(1).and change(UserProfileChange, :count).by(1)
+          expect(UserProfileChange.last&.event).to eq "create"
           expect(response).to have_http_status 302
           expect(response).to redirect_to index_scoped_favorite_words_words_path
         end
