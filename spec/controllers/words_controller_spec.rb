@@ -89,13 +89,15 @@ describe WordsController, type: :controller do
   end
 
   describe "POST #create" do
-    subject{ post :create, params: { word: word_params.merge(description: description) } }
-    let(:description) { word_params[:description] }
+    subject{ post :create, params: { word: word } }
+    let(:word) { word_params.merge(description: description) }
     let(:word_params) { attributes_for(:word) }
+    let(:description) { word_params[:description] }
 
     context "@wordの保存に成功した場合" do
       it "レコードが生成されること", :aggregate_failures do
         expect{ subject }.to change(Word, :count).by(1).and change(WordChange, :count).by(1)
+        expect(WordChange.last&.event).to eq "create"
         expect(response).to have_http_status 302
         expect(flash[:success]).to eq "投稿しました。"
         expect(response).to redirect_to user_mypage_path
