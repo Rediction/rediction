@@ -17,7 +17,7 @@ describe User::EmailsController, type: :controller do
     end
   end
 
-  describe "PATCH #update", type: :doing do
+  describe "PATCH #update" do
     subject { patch :update, params: { user: user_email_params} }
     let(:user_email_params) { {email: current_user.email } }
     let(:email) { user.email }
