@@ -35,6 +35,7 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: true, email: true
 
   # TODO(shuji ota):形式チェックのvalidationを追加する
+  # TODO(shuji ota): unless: :password_digestを消した時のエラーを解決する
   validates :password, length: (8..32), presence: true, confirmation: true, unless: :password_digest
   validates :password_confirmation, presence: true, on: :password_change, allow_nil: true
 
