@@ -4,7 +4,7 @@ describe User::PasswordsController, type: :controller do
   include_context 'current_userとしてログイン後にアクセスする'
 
   describe "GET #edit" do
-    subject { get :edit, params: { id: user.id } }
+    subject { get :edit }
     before { subject }
 
     context "平常時アクセスの場合" do

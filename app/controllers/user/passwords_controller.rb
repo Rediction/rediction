@@ -8,11 +8,6 @@ class User::PasswordsController < ApplicationController
       return render "edit"
     end
 
-    if params[:user][:current_password] == user_password_params[:password]
-      flash.now[:error] = "新しいパスワードには、現在登録中でないものを入力してください。"
-      return render "edit"
-    end
-
     current_user.update_with_changes!(user_password_params)
 
     redirect_to user_mypage_path, flash: { success: "パスワードを更新しました。" }
