@@ -3,7 +3,6 @@ class User::PasswordsController < ApplicationController
   end
 
   def update
-
     unless current_user.authenticate(user_password_params[:current_password])
       flash.now[:error] = "現在登録中のパスワードが間違っています。"
       return render "edit"
@@ -14,7 +13,8 @@ class User::PasswordsController < ApplicationController
       return render "edit"
     end
 
-    current_user.update_with_changes!(password: user_password_params[:password])
+    current_user.update_with_changes!(password: user_password_params[:password],
+                                      password_confirmation: user_password_params[:password_confirmation])
 
     redirect_to user_mypage_path, flash: { success: "パスワードを更新しました。" }
   rescue ActiveRecord::RecordInvalid

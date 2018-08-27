@@ -15,21 +15,21 @@ p.page-description
       = f.label :current_password
 
     .input-field
-      = f.password_field :current_password, placeholder: true, required: true
+      = f.password_field :current_password
 
   .form-group
     .label-field
       = f.label :password
 
     .input-field
-      = f.password_field :password, placeholder: true, required: true
+      = f.password_field :password
 
   .form-group
     .label-field
       = f.label :password_confirmation
 
     .input-field
-      = f.password_field :password_confirmation, placeholder: true, required: true
+      = f.password_field :password_confirmation
 
   .submit-btn
     = f.submit "パスワードを更新する", data: { disable_with: "送信中..." }
