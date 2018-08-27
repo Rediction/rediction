@@ -35,7 +35,7 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: true, email: true
 
   # TODO(shuji ota):形式チェックのvalidationを追加する
-  validates :password, length: (8..32), presence: true, unless: :password_digest
+  validates :password, length: (8..32), presence: true, confirmation: true
 
   # 稼働中のアカウント(未凍結 & 退会していない)
   scope :active, -> { unfreezed.unresigned }
