@@ -33,16 +33,6 @@ describe User::PasswordsController, type: :controller do
       end
     end
 
-    context "パスワードが変更前のものと同じ場合" do
-      let(:password) { current_user.password }
-
-      it "レコードが更新されず、editにrenderすること", :aggregate_failures  do
-        expect{ subject }.to change(UserChange, :count).by(0)
-        expect(flash[:error]).to eq "新しいパスワードには、現在登録中でないものを入力してください。"
-        expect(response).to render_template :edit
-      end
-    end
-
     context "正常に更新に成功した場合" do
       it "HTTP 302", :aggregate_failures do
         subject
