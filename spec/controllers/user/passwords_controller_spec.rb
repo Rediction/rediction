@@ -27,6 +27,7 @@ describe User::PasswordsController, type: :controller do
 
     context "ユーザーが現在登録中のパスワードを間違えた場合" do
       let(:current_password) { "" }
+
       it "レコードが更新されず、editにrenderすること", :aggregate_failures  do
         expect{ subject }.to change(UserChange, :count).by(0)
         expect(flash[:error]).to eq "現在登録中のパスワードが間違っています。"
