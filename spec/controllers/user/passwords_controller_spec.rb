@@ -3,7 +3,7 @@ require "rails_helper"
 describe User::PasswordsController, type: :controller do
   include_context 'current_userとしてログイン後にアクセスする'
 
-  describe "GET #edit", type: :doing do
+  describe "GET #edit" do
     subject { get :edit, params: { id: user.id } }
     before { subject }
 
@@ -17,7 +17,7 @@ describe User::PasswordsController, type: :controller do
     end
   end
 
-  describe "PATCH #update",type: :doing do
+  describe "PATCH #update" do
     subject { patch :update, params: { user: user_password_params } }
     let(:user_password_params) { {current_password: current_password, password: password, password_confirmation: password } }
     let(:current_password) { current_user.password }
