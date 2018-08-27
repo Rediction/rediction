@@ -14,7 +14,8 @@ class User::PasswordsController < ApplicationController
     end
 
     current_user.update_with_changes!(password: user_password_params[:password],
-                                      password_confirmation: user_password_params[:password_confirmation])
+                                      password_confirmation: user_password_params[:password_confirmation],
+                                      context: :password_change)
 
     redirect_to user_mypage_path, flash: { success: "パスワードを更新しました。" }
   rescue ActiveRecord::RecordInvalid
