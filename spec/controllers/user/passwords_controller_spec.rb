@@ -21,8 +21,6 @@ describe User::PasswordsController, type: :controller do
     subject { patch :update, params: { user: user_password_params } }
     let(:user_password_params) { {current_password: current_password, password: password, password_confirmation: password } }
     let(:current_password) { current_user.password }
-    let(:user_password) { user.password }
-    let(:user) { create(:user) }
     let(:password) { "12345678" }
 
     context "ユーザーが現在登録中のパスワードを間違えた場合" do
