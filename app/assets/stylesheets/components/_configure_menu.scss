@@ -14,7 +14,7 @@
   width: 100vw;
   z-index: $configureMenuZIndex;
   opacity: 0;
-  transition: right 0s ease .2s, opacity 0s ease .2s;
+  transition: right 0s ease .25s, opacity 0s ease .25s;
 
   &.active {
     right: 0;
@@ -23,12 +23,12 @@
 
     .configure-menu-overlay {
       opacity: 1;
-      transition: opacity .2s;
+      transition: opacity .25s;
     }
 
     .configure-menu-inner {
       right: 0;
-      transition: right .2s;
+      transition: right .25s;
     }
   }
 
@@ -42,7 +42,7 @@
     background: rgba($black, .1);
     opacity: 0;
     overflow-y: auto;
-    transition: opacity .2s;
+    transition: opacity .25s;
   }
 
   .configure-menu-inner {
@@ -53,7 +53,7 @@
     width: 88vw;
     background: $white;
     box-shadow: -4px 0 4px rgba($black, .15);
-    transition: right .2s;
+    transition: right .25s;
 
     a.configure-menu-link {
       display: block;

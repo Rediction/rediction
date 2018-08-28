@@ -20,12 +20,12 @@
   flex-direction: column;
   align-items: flex-end;
   padding-right: 3.2vw;
-  transition: opacity .2s ease, left 0s ease .2s;
+  transition: opacity .25s ease, left 0s ease .25s;
 
   &.active {
     left: 0;
     opacity: 1;
-    transition: opacity .2s;
+    transition: opacity .25s;
   }
 
   a.change-mode-menu-link {

@@ -13,17 +13,17 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: opacity .2s ease, left 0s ease .2s;
+  transition: opacity .25s ease, left 0s ease .25s;
 
   &.active {
     left: 0;
     opacity: 1;
-    transition: opacity .2s ease;
+    transition: opacity .25s ease;
 
     .modal-simple-confirm-cassette {
       top: 0;
       opacity: 1;
-      transition: top .2s ease, opacity .2s ease;
+      transition: top .25s ease, opacity .25s ease;
     }
   }
 
@@ -37,7 +37,7 @@
     max-width: 95vw;
     border-radius: 6px;
     box-shadow: 0 4px 8px rgba($black, .15);
-    transition: top .2s ease, opacity .2s ease;
+    transition: top .25s ease, opacity .25s ease;
 
     > p.confirm-description {
       font-size: 12px;
