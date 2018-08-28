@@ -16,6 +16,10 @@ ja:
         birth_on: "生年月日"
         job: "職業"
         age: "年齢"
+      user:
+        current_password: "現在のパスワード"
+        password: "パスワード"
+        password_confirmation: "パスワード(確認用)"
   helpers:
     placeholder:
       provisional_user:

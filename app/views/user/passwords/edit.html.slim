@@ -1,0 +1,35 @@
+ruby:
+  provide :header_title, "パスワード編集"
+  provide :return_link, user_mypage_path
+  provide :hide_post_new_word_btn, "1"
+  provide :template_stylesheet_path, "user/passwords/edit"
+  provide :active_nav_index, "2"
+  provide :container_type, "form"
+
+p.page-description
+  | 新しいパスワードを入力してパスワードを変更してください。
+
+= base_form_for current_user, url: user_password_path, method: :patch, html: { class: "base-form" } do |f|
+  .form-group
+    .label-field
+      = f.label :current_password
+
+    .input-field
+      = f.password_field :current_password
+
+  .form-group
+    .label-field
+      = f.label :password
+
+    .input-field
+      = f.password_field :password
+
+  .form-group
+    .label-field
+      = f.label :password_confirmation
+
+    .input-field
+      = f.password_field :password_confirmation
+
+  .submit-btn
+    = f.submit "パスワードを更新する", data: { disable_with: "送信中..." }
