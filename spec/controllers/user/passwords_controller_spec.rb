@@ -1,15 +1,13 @@
 require "rails_helper"
 
-describe User::EmailsController, type: :controller do
+describe User::PasswordsController, type: :controller do
   include_context 'current_userとしてログイン後にアクセスする'
 
   describe "GET #edit" do
-    subject { get :edit, params: { id: user.id } }
+    subject { get :edit }
     before { subject }
 
     context "平常時アクセスの場合" do
-      let(:user) { current_user }
-
       it "HTTP 200 OK", :aggregate_failures do
         expect(response).to have_http_status 200
         expect(response).to render_template :edit
@@ -18,39 +16,27 @@ describe User::EmailsController, type: :controller do
   end
 
   describe "PATCH #update" do
-    subject { patch :update, params: { user: user_email_params} }
-    let(:user_email_params) { {email: current_user.email } }
-    let(:email) { user.email }
-    let(:user) { create(:user) }
+    subject { patch :update, params: { user: user_password_params } }
+    let(:user_password_params) { {current_password: current_password, password: password, password_confirmation: password } }
+    let(:current_password) { current_user.password }
+    let(:password) { "12345678" }
 
-    context "メールアドレスが変更前のものと同じ場合" do
-      let(:email) { current_user.email }
-
-      it "レコードが更新されず、editにrenderすること", :aggregate_failures  do
-        expect{ subject }.to change(UserChange, :count).by(0)
-        expect(flash[:error]).to eq "このメールアドレスは現在登録中のメールアドレスです。"
-        expect(response).to render_template :edit
-      end
-    end
-
-    context "メールアドレスが不正な場合" do
-      let(:user_email_params) { {email: "" } }
+    context "ユーザーが現在登録中のパスワードを間違えた場合" do
+      let(:current_password) { "" }
 
       it "レコードが更新されず、editにrenderすること", :aggregate_failures  do
         expect{ subject }.to change(UserChange, :count).by(0)
-        expect(flash[:error]).to eq "メールアドレスの更新に失敗しました。"
+        expect(flash[:error]).to eq "現在登録中のパスワードが間違っています。"
         expect(response).to render_template :edit
       end
     end
 
     context "正常に更新に成功した場合" do
-      let(:user_email_params) { {email: "goo@gmail.com" } }
-
       it "HTTP 302", :aggregate_failures do
         subject
         expect(response).to have_http_status 302
         expect(response).to redirect_to user_mypage_path
-        expect(flash[:success]).to eq "メールアドレスを更新しました。"
+        expect(flash[:success]).to eq "パスワードを更新しました。"
       end
 
       it "eventがupdateのChangesテーブルのレコードが登録されていること", :aggregate_failures do
