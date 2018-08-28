@@ -1,6 +1,6 @@
 class Api::Users::FollowRelationsController < Api::SecureApplicationController
   # 一回のアクセスで取得するレコードの数
-  FETCH_COUNT = 10
+  FETCH_COUNT = 20
 
   # フォローユーザー一覧を取得
   def index

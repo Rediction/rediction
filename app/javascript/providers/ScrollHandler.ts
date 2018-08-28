@@ -9,7 +9,7 @@ interface ScrollHandlerInterface {
 }
 
 class ScrollHandler implements ScrollHandlerInterface {
-  private activateThresholdPx: number = 50;
+  private activateThresholdPx: number = 250;
 
   // 対象部品の最下部から一定距離になった時にメソッドを実行する処理
   setActionWhenBottomOfElm(targetIdAttr: string, callBackMethod: any) {
