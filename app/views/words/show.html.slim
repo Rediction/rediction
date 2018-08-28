@@ -20,7 +20,7 @@ ruby:
           | 投稿日時：
         .show-word-sub-data-content
           p
-            = ja_full_datetime @word.created_at
+            = ja_middle_datetime @word.created_at
 
       = link_to user_path(@word.user), class: "show-word-sub-data" do
         .show-word-sub-data-label
