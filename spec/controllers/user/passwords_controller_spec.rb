@@ -8,7 +8,6 @@ describe User::PasswordsController, type: :controller do
     before { subject }
 
     context "平常時アクセスの場合" do
-
       it "HTTP 200 OK", :aggregate_failures do
         expect(response).to have_http_status 200
         expect(response).to render_template :edit
