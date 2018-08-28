@@ -43,6 +43,8 @@ $(document).on("click", "#close-modal", () => {
 });
 
 $(document).on("click", "#modal-simple-confirm", e => {
-  if ($(e.target).closest("#modal-simple-confirm-cassette").length === 1) { return; }
+  if ($(e.target).closest("#modal-simple-confirm-cassette").length === 1) {
+    return;
+  }
   $("#modal-simple-confirm").removeClass("active");
 });

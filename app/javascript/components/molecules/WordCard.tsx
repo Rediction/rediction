@@ -79,7 +79,7 @@ class WordCard extends React.Component<Props, State> {
 
           <div style={styles.footer}>
             <p style={styles.profile} onClick={e => this.navigateUserDetail(e)}>
-              {word.profile.first_name + word.profile.last_name}/
+              {word.profile.last_name + word.profile.first_name}/
               {word.profile.job}
             </p>
 
