@@ -2,8 +2,8 @@ ja:
   activerecord:
     attributes:
       word:
-        name: 名前
-        phonetic: ふりがな
+        name: 言葉
+        phonetic: ことば
         description: 説明
   helpers:
     placeholder:
