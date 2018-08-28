@@ -61,8 +61,10 @@ class SearchedWordsCardList extends React.Component<Props, State> {
 
     // Enterキーで検索する処理
     $(`#${searchFieldIdAttr}`).on("keypress", e => {
-      this.searchWords();
-      $(e.target).blur();
+      if (e.which === 13) {
+        this.searchWords();
+        $(e.target).blur();
+      }
     });
 
     // 無限スクロール用のイベントを設定
