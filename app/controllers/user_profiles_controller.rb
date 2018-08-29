@@ -10,7 +10,8 @@ class UserProfilesController < ApplicationController
     @profile = current_user.build_profile(user_profile_params)
     @profile.save_with_changes!
 
-    redirect_to index_scoped_favorite_words_words_path, flash: { success: "プロフィールを登録しました。" }
+    flash[:success] = "プロフィールを登録しました。"
+    redirect_authed_user_base_page
   rescue ActiveRecord::RecordInvalid
     flash.now[:error] = "プロフィールの登録に失敗しました。"
     render "new"

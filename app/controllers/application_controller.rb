@@ -33,7 +33,7 @@ class ApplicationController < ActionController::Base
 
   # 認証ユーザーのベースページへのリダイレクト
   def redirect_authed_user_base_page
-    redirect_to index_scoped_favorite_words_words_path
+    redirect_to index_scoped_follow_users_words_path
   end
 
   private

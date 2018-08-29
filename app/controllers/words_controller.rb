@@ -7,10 +7,6 @@ class WordsController < ApplicationController
   def index_random_order
   end
 
-  # お気に入り登録されたWords一覧
-  def index_scoped_favorite_words
-  end
-
   # フォローしたユーザーのWords一覧
   def index_scoped_follow_users
   end
