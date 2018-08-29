@@ -29,7 +29,7 @@ html
         header_center_element: yield(:header_center_element), \
         hide_nav: yield(:hide_nav) == "1", \
         active_nav_index: yield(:active_nav_index), \
-        return_link: yield(:return_link), \
+        visible_return_link: yield(:visible_return_link) == "1", \
         header_right_element: yield(:header_right_element) \
       }
 

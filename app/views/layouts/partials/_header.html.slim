@@ -1,9 +1,8 @@
 header#header.header
   .header-side-element.header-left-element
-    - if return_link.present?
+    - if visible_return_link
       / 戻るボタン
-      = link_to return_link, class: "return-btn" do
-        i.fas.fa-arrow-left
+      i.fas.fa-arrow-left.return-btn onclick="javascript:window.history.back(-1);return false;"
 
   .header-center-element
     / Headerタイトル
