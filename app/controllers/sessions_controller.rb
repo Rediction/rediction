@@ -22,7 +22,8 @@ class SessionsController < ApplicationController
     if user.authenticate(user_params[:password])
       log_in(user)
 
-      redirect_to index_scoped_favorite_words_words_path, flash: { success: "ログインしました。" }
+      flash[:success] = "ログインしました。"
+      redirect_authed_user_base_page
     else
       # TODO(shuji ota):パスワードを規定数間違えた時にuserをfreezeさせるようにする
       flash.now[:error] = "パスワードが間違っています。"
