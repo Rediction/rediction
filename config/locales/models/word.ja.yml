@@ -3,7 +3,7 @@ ja:
     attributes:
       word:
         name: 言葉
-        phonetic: ことば
+        phonetic: ふりがな
         description: 説明
   helpers:
     placeholder:
