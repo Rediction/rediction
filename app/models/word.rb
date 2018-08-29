@@ -34,10 +34,6 @@ class Word < ApplicationRecord
         .limit(limit)
     end
 
-    def includes_favorite_by_user_id(user_id)
-      includes(:favorites).where(favorites: {user_id: [nil, user_id]})
-    end
-
     # 最新のレコードを取得
     # 第二引数(max_fetched_id)で取得する最大のIDを指定可能。
     def find_latest_records(limit: 10, max_fetched_id: nil)
