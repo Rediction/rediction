@@ -1,1 +1,21 @@
 @import "../../components/page_description";
+
+.description-frame{
+  position: relative;
+  margin: 4vh auto 0;
+  width: 90%;
+  margin-bottom: 20px;
+
+  .description-box {
+    margin: 30px auto 10px auto;
+    text-align: center;
+    font-size: 13px;
+    line-height: 24px;
+    text-align: left;
+
+    .one-description{
+      padding-left: 15px;
+    }
+  }
+}
+
