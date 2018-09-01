@@ -2,9 +2,8 @@ ruby:
   provide :header_title, "ユーザープロフィール"
   provide :javascript_pack_path, "users/show"
   provide :template_stylesheet_path, "users/show"
-  provide :return_link, request.referer
+  provide :visible_return_link, "1"
   provide :container_type, "base"
-  provide :return_link, request.referer
 
 .profile-frame
   .profile-base

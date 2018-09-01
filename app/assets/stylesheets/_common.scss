@@ -23,7 +23,8 @@ header.header {
     font-size: 18px;
   }
 
-  a.return-btn {
+  .return-btn {
+    cursor: pointer;
     color: $white;
     font-size: 21px;
   }
