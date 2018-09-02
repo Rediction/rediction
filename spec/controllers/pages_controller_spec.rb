@@ -1,7 +1,6 @@
 require "rails_helper"
 
 describe PagesController, type: :controller do
-
   describe "GET #privacy_policy" do
     subject { get :privacy_policy }
     before { subject }
