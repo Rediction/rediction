@@ -1,7 +1,6 @@
 require "rails_helper"
 
 describe PagesController, type: :controller do
-  include_context "current_userとしてログイン後にアクセスする"
 
   describe "GET #privacy_policy" do
     subject { get :privacy_policy }
