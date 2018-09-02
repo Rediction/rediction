@@ -1,6 +1,16 @@
 @import "../variables";
 
-.description-frame{
-  margin: 4vh auto 20px;
-  width: 90%;
+.description-box {
+  margin: 30px 0px 10px;
+  font-size: 13px;
+  line-height: 24px;
+
+  .one-description {
+    padding-left: 15px;
+  }
+
+  .section-title {
+    margin-top: 20px;
+    font-weight: bold;
+  }
 }
