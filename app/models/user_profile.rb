@@ -37,7 +37,7 @@ class UserProfile < ApplicationRecord
 
   validates :birth_on, presence: true
   validates :job, presence: true, length: { maximum: 20 }
-  validate :check_birth_date
+  validate :check_birth_date, on: :create
 
   # 登録する年齢に制限を設けるメソッド
   def check_birth_date
