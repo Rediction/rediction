@@ -7,9 +7,7 @@ ruby:
   provide :container_type, "form"
 
 p.page-description
-  | 本登録が完了しました。
-  br
-  | プロフィールを作成してください。
+  | プロフィールを編集してください。
 
-= render partial: "user_profiles/form",
+= render partial: "user_profiles/edit_form",
   locals: { profile: @profile, destination: user_profile_path, method: :patch }
