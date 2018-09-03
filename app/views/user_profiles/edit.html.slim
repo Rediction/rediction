@@ -9,7 +9,7 @@ ruby:
 p.page-description
   | プロフィールを編集してください。
 
-= form_for @profile, method: "patch", url: user_profile_path, html: { class: "base-form" } do |f|
+= base_form_for @profile, method: "patch", url: user_profile_path, html: { class: "base-form" } do |f|
   .form-group
     .label-field
       = f.label :job
