@@ -32,6 +32,14 @@ Rails.application.routes.draw do
   # お問い合わせフォームの実装
   resource :contact, only: %i[show]
 
+  namespace :pages do
+    # プライバシーポリシーに使うルーティング
+    get :privacy_policy
+
+    # 利用規約に使うルーティング
+    get :terms_of_service
+  end
+
   # 仮会員に送られるメールのURLから遷移する際、getメソッドしか使えないため明示的にgetメソッドにしている
   get "users/create", to: "users#create"
   resource :provisional_users, only: %i[new create]
