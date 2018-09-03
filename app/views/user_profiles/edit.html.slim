@@ -9,5 +9,13 @@ ruby:
 p.page-description
   | プロフィールを編集してください。
 
-= render partial: "user_profiles/edit_form",
-  locals: { profile: @profile, destination: user_profile_path, method: :patch }
+= form_for @profile, method: "patch", url: user_profile_path, html: { class: "base-form" } do |f|
+  .form-group
+    .label-field
+      = f.label :job
+
+    .input-field
+      = f.text_field :job, placeholder: true, required: true
+
+  .submit-btn
+    = f.submit "完了", data: { disable_with: "送信中..." }
