@@ -278,19 +278,19 @@ $psLeftSpace: 100px;
       font-weight: bold;
       font-size: 19px;
       line-height: 29px;
-      margin-bottom: 15px;
+      margin-bottom: 20px;
 
       @include mq-up() {
         font-size: 21px;
         line-height: 42px;
-        margin-bottom: 35px;
+        margin-bottom: 25px;
       }
     }
 
     &-description {
       font-size: 15px;
       line-height: 25px;
-      margin-bottom: 15px;
+      margin-bottom: 23px;
 
       @include mq-up() {
         font-size: 15px;
