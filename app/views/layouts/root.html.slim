@@ -12,16 +12,14 @@ html
     / FontAwesome
     = stylesheet_link_tag "https://use.fontawesome.com/releases/v5.2.0/css/all.css", integrity: "sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ", crossorigin: "anonymous"
 
-    / Rails標準
-    = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track": "reload"
-    = javascript_include_tag "application", "data-turbolinks-track": "reload"
+    / Logo用のGoogleFonts
+    = stylesheet_link_tag "https://fonts.googleapis.com/css?family=Bitter"
 
-    - if yield(:template_stylesheet_path).present?
-      = stylesheet_link_tag "templates/#{yield(:template_stylesheet_path)}.css"
+    / Rails標準
+    = stylesheet_link_tag    "root/application", media: "all", "data-turbolinks-track": "reload"
+    = javascript_include_tag "application", "data-turbolinks-track": "reload"
 
     = render partial: "layouts/partials/google_analytics"
     = render partial: "layouts/partials/rollbar_js"
   body
-    = link_to "新規会員登録", new_provisional_users_path
-    br
-    = link_to "ログイン", new_login_path
+    = yield

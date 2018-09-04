@@ -1,0 +1,372 @@
+@import "../variables";
+@import "../mixins";
+
+
+//**
+//* コンテナ
+.container {
+  margin: 0 4.7vw;
+}
+
+
+//**
+//* 共通部品
+.common-parts {
+  &-fix-btn {
+    position: fixed;
+    right: 15px;
+    bottom: 15px;
+    background: $secondaryColor;
+    border-radius: 50%;
+    height: 54px;
+    width: 54px;
+    box-shadow: 0 4px 8px rgba($black, .2);
+    font-size: 13px;
+    line-height: 16px;
+    color: $white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 3000;
+  }
+
+  &-cv-btn {
+    display: block;
+    background: $secondaryColor;
+    color: $white;
+    border-radius: 25px;
+    padding: 19px 0;
+    font-size: 13px;
+    box-shadow: 0 4px 8px rgba($black, .2);
+    text-align: center;
+  }
+}
+
+
+//**
+//* ヘッダー
+.header {
+  z-index: $headerZIndex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: $mobileHeaderHeight;
+  min-height: $mobileMinHeaderHeight;
+  background: $primaryColor;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 4.7vw;
+  box-shadow: 0 4px 6px rgba($black, .1);
+
+  &-logo {
+    color: $white;
+    font-size: 18px;
+    font-family: 'Bitter', serif;
+  }
+
+  &-login-btn {
+    color: $white;
+    border: 1px solid $white;
+    border-radius: 6px;
+    padding: 8px 10px;
+    font-size: 13px;
+  }
+}
+
+
+//**
+//* Mobileで上部にFixしてるHeaderのスペースを埋める部品
+.mobile-header-space {
+  height: $mobileHeaderHeight;
+  min-height: $mobileMinHeaderHeight;
+}
+
+
+//**
+//* トップボード
+.top-board-area {
+  text-align: center;
+  background-image: image-url("root/top-board.svg");
+  background-size: cover;
+  height: 62.5vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  &-service-name {
+    font-size: 36px;
+    font-family: 'Bitter', serif;
+    margin-bottom: 18px;
+    text-shadow: 0 5px 3px rgba($black, .2);
+    font-weight: bold;
+  }
+
+  &-description {
+    font-size: 18px;
+    text-shadow: 0 5px 3px rgba($black, .2);
+    font-weight: bold;
+  }
+}
+
+
+//**
+//* サービス説明
+.service-description-area {
+  padding: 67px 0;
+
+  &-text {
+    font-size: 15px;
+    line-height: 26px;
+    font-weight: bold;
+  }
+}
+
+
+//**
+//* サービスVision
+$blockDiffSpace: 72px;
+$leftSpace: 9vw;
+.vision-area {
+  padding: $blockDiffSpace 0 40px;
+
+  &-block {
+    position: relative;
+    background: $white;
+    margin-left: $leftSpace;
+    border-radius: 28px 0 0 28px;
+    box-shadow: -1px 1px 10px rgba($black, .15);
+    padding: 33px 41px;
+
+    &::before {
+      content: "";
+      position: absolute;
+      border-radius: 0 28px 28px 0;
+      background: $primaryColor;
+      top: -$blockDiffSpace;
+      left: -$leftSpace;
+      right: 24.3vw;
+      bottom: $blockDiffSpace;
+      z-index: -1;
+    }
+
+    &-title {
+      font-weight: bold;
+      font-size: 18px;
+      line-height: 28px;
+      margin-bottom: 15px;
+    }
+
+    &-description {
+      font-size: 13px;
+      line-height: 24px;
+      margin-bottom: 10px;
+    }
+  }
+}
+
+
+//**
+//* 使い方
+.how-to-use-area {
+  padding: 0 8.75vw 36px;
+
+  .how-to-use-area-title {
+    text-align: center;
+
+    &-main {
+      display: inline-block;
+      color: $primaryColor;
+      border-bottom: 1px solid $primaryColor;
+      padding: 0 2px 2px;
+      margin-bottom: 10px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    &-sub {
+      font-size: 13px;
+      font-weight: bold;
+    }
+  }
+
+  &-block {
+    text-align: center;
+    margin-top: 32px;
+    padding-bottom: 36px;
+    border-bottom: 1px solid $baseBlack;
+
+    &:last-child {
+      border-style: none;
+      padding-bottom: 0;
+    }
+
+    &-title {
+      font-size: 18px;
+      color: $primaryColor;
+      font-weight: bold;
+    }
+
+    &-hr {
+      border-top: 1px solid $baseBlack;
+      width: 18px;
+      margin: 10px auto 14px;
+    }
+
+    &-description {
+      font-size: 13px;
+      line-height: 26px;
+      font-weight: bold;
+    }
+
+    &-image {
+      margin-top: 30px;
+      height: 70vh;
+    }
+  }
+}
+
+
+//**
+//* よくある質問
+.faq-area {
+  padding: 34px 4.7vw;
+  background: $primaryColor;
+
+  &-title {
+    font-size: 18px;
+    color: $white;
+    text-align: center;
+    margin-bottom: 25px;
+  }
+
+  &-block {
+    margin-bottom: 22px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    &-question {
+      display: flex;
+      align-items: flex-start;
+      flex: 1;
+      margin-bottom: 10px;
+
+      &-icon {
+        width: 42px;
+      }
+
+      &-content {
+        flex: 1;
+        position: relative;
+        border-radius: 11px;
+        padding: 12px 10px;
+        background: $white;
+        display: flex;
+        font-size: 11px;
+        line-height: 18px;
+        margin: 10px 23px 0 17px;
+
+        &::before {
+          content: '';
+          position: absolute;
+          display: block;
+          width: 0;
+          height: 0;
+          left: -15px;
+          top: 10px;
+          border-right: 15px solid $white;
+          border-bottom: 8px solid transparent;
+        }
+
+        &-initials {
+          font-size: 18px;
+          margin-right: 9px;
+          font-weight: bold;
+        }
+      }
+    }
+
+    &-answer {
+      display: flex;
+      align-items: flex-start;
+      flex: 1;
+
+      &-icon {
+        margin-top: 45px;
+        width: 42px;
+      }
+
+      &-content {
+        flex: 1;
+        position: relative;
+        border-radius: 11px;
+        padding: 18px 13px;
+        background: $white;
+        display: flex;
+        font-size: 11px;
+        line-height: 18px;
+        margin-left: 23px;
+        margin-right: 17px;
+
+        &::before {
+          content: '';
+          position: absolute;
+          display: block;
+          width: 0;
+          height: 0;
+          right: -15px;
+          top: 65px;
+          border-left: 15px solid $white;
+          border-bottom: 8px solid transparent;
+        }
+
+        &-initials {
+          display: inline-block;
+          font-size: 18px;
+          margin-right: 9px;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+
+  &-cv-btn-frame {
+    margin: 20px 23px 0;
+    border-bottom: 1px solid $white;
+    padding-bottom: 36px;
+  }
+}
+
+
+//**
+//* フッター
+.footer {
+  background: $primaryColor;
+  text-align: center;
+
+  &-logo {
+    color: $white;
+    font-family: 'Bitter', serif;
+    font-size: 18px;
+  }
+
+  &-menu {
+    margin: 30px 0 34px;
+
+    &-list {
+      color: $white;
+      font-size: 9px;
+      line-height: 14px;
+    }
+  }
+
+  &-copy-wright {
+    color: $white;
+    font-size: 8px;
+    padding-bottom: 5px;
+  }
+}
