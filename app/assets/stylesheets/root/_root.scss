@@ -3,9 +3,15 @@
 
 
 //**
-//* コンテナ
-.container {
-  margin: 0 4.7vw;
+//* PC時のContainer用Mixin
+@mixin container($spMarginTop: 0, $spMarginBottom: 0, $pcMarginTop: 0, $pcMarginBottom: 0) {
+  width: 90.6vw;
+  margin: $spMarginTop auto $spMarginBottom;
+
+  @include mq-up() {
+    width: 1140px;
+    margin: $pcMarginTop auto $pcMarginBottom;
+  }
 }
 
 
@@ -28,6 +34,7 @@
     align-items: center;
     justify-content: center;
     z-index: 3000;
+    @include mq-up() { display: none }
   }
 
   &-cv-btn {
@@ -39,6 +46,18 @@
     font-size: 13px;
     box-shadow: 0 4px 8px rgba($black, .2);
     text-align: center;
+
+    @include mq-up() {
+      padding: 20px 0;
+      border-radius: 27px;
+      font-size: 18px;
+      transition: .3s;
+
+      &:hover {
+        box-shadow: none;
+        transition: .3s;
+      }
+    }
   }
 }
 
@@ -51,27 +70,75 @@
   top: 0;
   left: 0;
   right: 0;
-  height: $mobileHeaderHeight;
-  min-height: $mobileMinHeaderHeight;
   background: $primaryColor;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 4.7vw;
   box-shadow: 0 4px 6px rgba($black, .1);
 
-  &-logo {
-    color: $white;
-    font-size: 18px;
-    font-family: 'Bitter', serif;
-  }
+  &-inner {
+    @include container($spMarginTop: 0, $spMarginBottom: 0, $pcMarginTop: 0, $pcMarginBottom: 0);
+    height: $mobileHeaderHeight;
+    min-height: $mobileMinHeaderHeight;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
-  &-login-btn {
-    color: $white;
-    border: 1px solid $white;
-    border-radius: 6px;
-    padding: 8px 10px;
-    font-size: 13px;
+    @include mq-up() {
+      height: $pcHeaderHeight;
+      min-height: auto;
+    }
+
+    &-logo {
+      color: $white;
+      font-size: 18px;
+      font-family: 'Bitter', serif;
+
+      @include mq-up() {
+        font-size: 27px;
+      }
+    }
+
+    &-btns {
+      @include mq-up() {
+        display: flex;
+        align-items: center;
+      }
+
+      &-login {
+        color: $white;
+        border: 1px solid $white;
+        border-radius: 6px;
+        padding: 8px 10px;
+        font-size: 13px;
+
+        @include mq-up() {
+          padding: 10px 12px;
+          font-size: 15px;
+          transition: .3s;
+
+          &:hover {
+            background: rgba($white, .25);
+            transition: .3s;
+          }
+        }
+      }
+
+      &-register {
+        display: none;
+        background: $secondaryColor;
+        margin-left: 25px;
+        border-radius: 6px;
+        padding: 11px 13px;
+        font-size: 15px;
+        color: $white;
+        box-shadow: 0 2px 4px rgba($black, .1);
+        transition: .3s;
+
+        &:hover {
+          box-shadow: none;
+          transition: .3s;
+        }
+        @include mq-up() { display: block }
+      }
+    }
   }
 }
 
@@ -81,6 +148,11 @@
 .mobile-header-space {
   height: $mobileHeaderHeight;
   min-height: $mobileMinHeaderHeight;
+
+  @include mq-up() {
+    height: $pcHeaderHeight;
+    min-height: auto;
+  }
 }
 
 
@@ -96,18 +168,44 @@
   justify-content: center;
   flex-direction: column;
 
+  @include mq-up() {
+    height: calc(100vh - #{$pcHeaderHeight});
+    background: rgba($white, .2);
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: image-url("root/top-board.svg");
+      background-size: cover;
+      z-index: -1;
+    }
+  }
+
   &-service-name {
     font-size: 36px;
     font-family: 'Bitter', serif;
     margin-bottom: 18px;
     text-shadow: 0 5px 3px rgba($black, .2);
     font-weight: bold;
+
+    @include mq-up() {
+      font-size: 58px;
+      margin-bottom: 10vh;
+    }
   }
 
   &-description {
     font-size: 18px;
     text-shadow: 0 5px 3px rgba($black, .2);
     font-weight: bold;
+
+    @include mq-up() {
+      font-size: 32px;
+    }
   }
 }
 
@@ -115,12 +213,18 @@
 //**
 //* サービス説明
 .service-description-area {
-  padding: 67px 0;
+  @include container($spMarginTop: 67px, $spMarginBottom: 67px, $pcMarginTop: 100px, $pcMarginBottom: 100px);
 
   &-text {
     font-size: 15px;
     line-height: 26px;
     font-weight: bold;
+
+    @include mq-up() {
+      font-size: 28px;
+      line-height: 84px;
+      text-align: center;
+    }
   }
 }
 
@@ -129,8 +233,14 @@
 //* サービスVision
 $blockDiffSpace: 72px;
 $leftSpace: 9vw;
+$psLeftSpace: 100px;
 .vision-area {
   padding: $blockDiffSpace 0 40px;
+
+  @include mq-up() {
+    width: 500px;
+    margin: 0 auto;
+  }
 
   &-block {
     position: relative;
@@ -139,6 +249,11 @@ $leftSpace: 9vw;
     border-radius: 28px 0 0 28px;
     box-shadow: -1px 1px 10px rgba($black, .15);
     padding: 33px 41px;
+
+    @include mq-up() {
+      border-radius: 28px;
+      margin-left: $psLeftSpace;
+    }
 
     &::before {
       content: "";
@@ -150,6 +265,12 @@ $leftSpace: 9vw;
       right: 24.3vw;
       bottom: $blockDiffSpace;
       z-index: -1;
+
+      @include mq-up() {
+        border-radius: 28px;
+        left: -$psLeftSpace;
+        right: 100px;
+      }
     }
 
     &-title {
@@ -157,12 +278,24 @@ $leftSpace: 9vw;
       font-size: 18px;
       line-height: 28px;
       margin-bottom: 15px;
+
+      @include mq-up() {
+        font-size: 21px;
+        line-height: 42px;
+        margin-bottom: 35px;
+      }
     }
 
     &-description {
       font-size: 13px;
       line-height: 24px;
       margin-bottom: 10px;
+
+      @include mq-up() {
+        font-size: 15px;
+        line-height: 28px;
+        margin-bottom: 25px;
+      }
     }
   }
 }
@@ -172,6 +305,12 @@ $leftSpace: 9vw;
 //* 使い方
 .how-to-use-area {
   padding: 0 8.75vw 36px;
+
+  @include mq-up() {
+    padding: 100px 0 36px;
+    width: 1140px;
+    margin: 0 auto;
+  }
 
   .how-to-use-area-title {
     text-align: center;
@@ -184,46 +323,87 @@ $leftSpace: 9vw;
       margin-bottom: 10px;
       font-size: 18px;
       font-weight: bold;
+
+      @include mq-up() {
+        font-size: 32px;
+        margin-bottom: 25px;
+      }
     }
 
     &-sub {
       font-size: 13px;
       font-weight: bold;
+
+      @include mq-up() {
+        font-size: 18px;
+        margin-bottom: 55px;
+      }
     }
   }
 
-  &-block {
-    text-align: center;
-    margin-top: 32px;
-    padding-bottom: 36px;
-    border-bottom: 1px solid $baseBlack;
-
-    &:last-child {
-      border-style: none;
-      padding-bottom: 0;
+  &-inner {
+    @include mq-up() {
+      display: flex;
     }
 
-    &-title {
-      font-size: 18px;
-      color: $primaryColor;
-      font-weight: bold;
-    }
+    &-block {
+      text-align: center;
+      margin-top: 32px;
+      padding-bottom: 36px;
+      border-bottom: 1px solid $baseBlack;
 
-    &-hr {
-      border-top: 1px solid $baseBlack;
-      width: 18px;
-      margin: 10px auto 14px;
-    }
+      @include mq-up() {
+        flex: 1;
+        border-style: none;
+      }
 
-    &-description {
-      font-size: 13px;
-      line-height: 26px;
-      font-weight: bold;
-    }
+      &:last-child {
+        border-style: none;
+        padding-bottom: 0;
+      }
 
-    &-image {
-      margin-top: 30px;
-      height: 70vh;
+      &-title {
+        font-size: 18px;
+        color: $primaryColor;
+        font-weight: bold;
+
+        @include mq-up() {
+          font-size: 27px;
+        }
+      }
+
+      &-hr {
+        border-top: 1px solid $baseBlack;
+        width: 18px;
+        margin: 10px auto 14px;
+
+        @include mq-up() {
+          width: 23px;
+          margin: 18px auto 28px;
+        }
+      }
+
+      &-description {
+        font-size: 13px;
+        line-height: 26px;
+        font-weight: bold;
+
+        @include mq-up() {
+          font-size: 16px;
+          line-height: 32px;
+          height: 96px;
+        }
+      }
+
+      &-image {
+        margin-top: 30px;
+        height: 70vh;
+
+        @include mq-up() {
+          height: auto;
+          width: 200px;
+        }
+      }
     }
   }
 }
@@ -232,112 +412,166 @@ $leftSpace: 9vw;
 //**
 //* よくある質問
 .faq-area {
-  padding: 34px 4.7vw;
+  padding: 34px 0 24px;
   background: $primaryColor;
+
+  @include mq-up() {
+    padding: 50px 0 40px;
+  }
 
   &-title {
     font-size: 18px;
     color: $white;
     text-align: center;
     margin-bottom: 25px;
-  }
 
-  &-block {
-    margin-bottom: 22px;
-
-    &:last-child {
-      margin-bottom: 0;
-    }
-
-    &-question {
-      display: flex;
-      align-items: flex-start;
-      flex: 1;
-      margin-bottom: 10px;
-
-      &-icon {
-        width: 42px;
-      }
-
-      &-content {
-        flex: 1;
-        position: relative;
-        border-radius: 11px;
-        padding: 12px 10px;
-        background: $white;
-        display: flex;
-        font-size: 11px;
-        line-height: 18px;
-        margin: 10px 23px 0 17px;
-
-        &::before {
-          content: '';
-          position: absolute;
-          display: block;
-          width: 0;
-          height: 0;
-          left: -15px;
-          top: 10px;
-          border-right: 15px solid $white;
-          border-bottom: 8px solid transparent;
-        }
-
-        &-initials {
-          font-size: 18px;
-          margin-right: 9px;
-          font-weight: bold;
-        }
-      }
-    }
-
-    &-answer {
-      display: flex;
-      align-items: flex-start;
-      flex: 1;
-
-      &-icon {
-        margin-top: 45px;
-        width: 42px;
-      }
-
-      &-content {
-        flex: 1;
-        position: relative;
-        border-radius: 11px;
-        padding: 18px 13px;
-        background: $white;
-        display: flex;
-        font-size: 11px;
-        line-height: 18px;
-        margin-left: 23px;
-        margin-right: 17px;
-
-        &::before {
-          content: '';
-          position: absolute;
-          display: block;
-          width: 0;
-          height: 0;
-          right: -15px;
-          top: 65px;
-          border-left: 15px solid $white;
-          border-bottom: 8px solid transparent;
-        }
-
-        &-initials {
-          display: inline-block;
-          font-size: 18px;
-          margin-right: 9px;
-          font-weight: bold;
-        }
-      }
+    @include mq-up() {
+      font-size: 27px;
+      margin-bottom: 55px;
     }
   }
 
-  &-cv-btn-frame {
-    margin: 20px 23px 0;
-    border-bottom: 1px solid $white;
-    padding-bottom: 36px;
+  &-inner {
+    @include container($spMarginTop: 0, $spMarginBottom: 0, $pcMarginTop: 0, $pcMarginBottom: 0);
+    @include mq-up() {
+      width: 900px;
+    }
+
+    &-block {
+      margin-bottom: 22px;
+      @include mq-up() { margin-bottom: 90px }
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      &-question {
+        display: flex;
+        align-items: flex-start;
+        flex: 1;
+        margin-bottom: 10px;
+        @include mq-up() { margin-bottom: 25px }
+
+        &-icon {
+          width: 42px;
+          @include mq-up() { width: 70px }
+        }
+
+        &-content {
+          flex: 1;
+          position: relative;
+          border-radius: 11px;
+          padding: 12px 10px;
+          background: $white;
+          display: flex;
+          font-size: 11px;
+          line-height: 18px;
+          margin: 10px 23px 0 17px;
+
+          @include mq-up() {
+            flex: initial;
+            padding: 21px 18px;
+            font-size: 17px;
+            line-height: 26px;
+            max-width: 60%;
+          }
+
+          &::before {
+            content: '';
+            position: absolute;
+            display: block;
+            width: 0;
+            height: 0;
+            left: -15px;
+            top: 10px;
+            border-right: 15px solid $white;
+            border-bottom: 8px solid transparent;
+          }
+
+          &-initials {
+            font-size: 18px;
+            margin-right: 9px;
+            font-weight: bold;
+
+            @include mq-up() {
+              font-size: 20px;
+            }
+          }
+        }
+      }
+
+      &-answer {
+        display: flex;
+        align-items: flex-start;
+        flex: 1;
+
+        @include mq-up() {
+          justify-content: flex-end;
+        }
+
+        &-icon {
+          margin-top: 45px;
+          width: 42px;
+          @include mq-up() { width: 70px }
+        }
+
+        &-content {
+          flex: 1;
+          position: relative;
+          border-radius: 11px;
+          padding: 18px 13px;
+          background: $white;
+          display: flex;
+          font-size: 11px;
+          line-height: 18px;
+          margin-left: 23px;
+          margin-right: 17px;
+
+          @include mq-up() {
+            flex: initial;
+            padding: 21px 18px;
+            font-size: 16px;
+            line-height: 25px;
+            max-width: 60%;
+          }
+
+          &::before {
+            content: '';
+            position: absolute;
+            display: block;
+            width: 0;
+            height: 0;
+            right: -15px;
+            top: 65px;
+            border-left: 15px solid $white;
+            border-bottom: 8px solid transparent;
+          }
+
+          &-initials {
+            display: inline-block;
+            font-size: 18px;
+            margin-right: 9px;
+            font-weight: bold;
+
+            @include mq-up() {
+              font-size: 19px;
+            }
+          }
+        }
+      }
+    }
+
+    &-cv-btn-frame {
+      margin: 20px 23px 0;
+      border-bottom: 1px solid $white;
+      padding-bottom: 36px;
+
+      @include mq-up() {
+        margin: 50px auto 0;
+        width: 300px;
+        padding-bottom: 100px;
+      }
+    }
   }
 }
 
@@ -345,6 +579,7 @@ $leftSpace: 9vw;
 //**
 //* フッター
 .footer {
+  padding-top: 10px;
   background: $primaryColor;
   text-align: center;
 
@@ -352,21 +587,39 @@ $leftSpace: 9vw;
     color: $white;
     font-family: 'Bitter', serif;
     font-size: 18px;
+    @include mq-up() { font-size: 27px }
   }
 
   &-menu {
     margin: 30px 0 34px;
 
+    @include mq-up() {
+      margin: 60px 0 70px;
+      text-align: center;
+    }
+
     &-list {
       color: $white;
-      font-size: 9px;
-      line-height: 14px;
+      font-size: 11px;
+      line-height: 24px;
+
+      @include mq-up() {
+        font-size: 14px;
+        width: 180px;
+        display: inline-block;
+        text-align: center;
+      }
     }
   }
 
-  &-copy-wright {
+  &-copyright {
     color: $white;
     font-size: 8px;
-    padding-bottom: 5px;
+    padding-bottom: 10px;
+
+    @include mq-up() {
+      font-size: 10px;
+      padding-bottom: 12px;
+    }
   }
 }
