@@ -159,30 +159,29 @@
 //**
 //* トップボード
 .top-board-area {
+  position: relative;
   text-align: center;
-  background-image: image-url("root/top-board.svg");
-  background-size: cover;
+  background: rgba($white, .5);
   height: 62.5vw;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
 
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: image-url("root/top-board.svg");
+    background-size: cover;
+    z-index: -1;
+  }
+
   @include mq-up() {
     height: calc(100vh - #{$pcHeaderHeight});
-    background: rgba($white, .2);
-
-    &::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-image: image-url("root/top-board.svg");
-      background-size: cover;
-      z-index: -1;
-    }
   }
 
   &-service-name {
