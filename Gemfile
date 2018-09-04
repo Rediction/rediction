@@ -57,6 +57,8 @@ gem "active_decorator"
 gem "webpacker"
 # activerecordでバルクインサートを利用できるようにするもの
 gem "activerecord-import"
+# ドメインやパスを判定してリダイレクトをできるようにするもの
+gem 'rack-rewrite'
 
 ## 管理画面用
 # BootstrapをImportして利用できるようにするもの
