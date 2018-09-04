@@ -189,7 +189,6 @@
     font-size: 36px;
     font-family: 'Bitter', serif;
     margin-bottom: 18px;
-    text-shadow: 0 5px 3px rgba($black, .2);
     font-weight: bold;
 
     @include mq-up() {
@@ -200,7 +199,6 @@
 
   &-description {
     font-size: 18px;
-    text-shadow: 0 5px 3px rgba($black, .2);
     font-weight: bold;
 
     @include mq-up() {
