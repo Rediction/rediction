@@ -5,11 +5,16 @@
 
 / ヘッダー
 header.header
-  .header-logo
-    | Rediction
+  .header-inner
+    .header-inner-logo
+      | Rediction
 
-  .header-login-btn
-    = link_to "ログイン", new_login_path
+    .header-inner-btns
+      .header-inner-btns-login
+        = link_to "ログイン", new_login_path
+
+      .header-inner-btns-register
+        = link_to "会員登録", new_provisional_users_path
 .mobile-header-space
 
 / トップボード
@@ -21,7 +26,7 @@ header.header
     | あなたの生き方を辞書にしよう
 
 / サービス説明
-.service-description-area.container
+.service-description-area
   p.service-description-area-text
     | Redicitonは
     br
@@ -55,86 +60,88 @@ header.header
     h3.how-to-use-area-title-sub
       | Redictionの使い方
 
-  .how-to-use-area-block
-    h4.how-to-use-area-block-title
-      | 投稿する
-    hr.how-to-use-area-block-hr
-    p.how-to-use-area-block-description
-      | あなたの言葉を
-      br
-      | 発信しましょう
+  .how-to-use-area-inner
+    .how-to-use-area-inner-block
+      h4.how-to-use-area-inner-block-title
+        | 投稿する
+      hr.how-to-use-area-inner-block-hr
+      p.how-to-use-area-inner-block-description
+        | あなたの言葉を
+        br
+        | 発信しましょう
 
-    = image_tag "root/smart-phone/post.svg", alt: "投稿中のスマホ画像", class: "how-to-use-area-block-image"
+      = image_tag "root/smart-phone/post.svg", alt: "投稿中のスマホ画像", class: "how-to-use-area-inner-block-image"
 
-  .how-to-use-area-block
-    h4.how-to-use-area-block-title
-      | 投稿を見る
-    hr.how-to-use-area-block-hr
-    p.how-to-use-area-block-description
-      | あなたの価値観を
-      br
-      | 変える言葉が
-      br
-      | あるかもしれません。
+    .how-to-use-area-inner-block
+      h4.how-to-use-area-inner-block-title
+        | 投稿を見る
+      hr.how-to-use-area-inner-block-hr
+      p.how-to-use-area-inner-block-description
+        | あなたの価値観を
+        br
+        | 変える言葉が
+        br
+        | あるかもしれません。
 
-      = image_tag "root/smart-phone/view.svg", alt: "一覧閲覧中のスマホ画像", class: "how-to-use-area-block-image"
+      = image_tag "root/smart-phone/view.svg", alt: "一覧閲覧中のスマホ画像", class: "how-to-use-area-inner-block-image"
 
-  .how-to-use-area-block
-    h4.how-to-use-area-block-title
-      | お気に入り
-    hr.how-to-use-area-block-hr
-    p.how-to-use-area-block-description
-      | 好きな意味や言葉を
-      br
-      | 集めて、あなただけの
-      br
-      | 辞書を作りましょう。
+    .how-to-use-area-inner-block
+      h4.how-to-use-area-inner-block-title
+        | お気に入り
+      hr.how-to-use-area-inner-block-hr
+      p.how-to-use-area-inner-block-description
+        | 好きな意味や言葉を
+        br
+        | 集めて、あなただけの
+        br
+        | 辞書を作りましょう。
 
-    = image_tag "root/smart-phone/favorite.svg", alt: "お気に入り閲覧中のスマホ画像", class: "how-to-use-area-block-image"
+      = image_tag "root/smart-phone/favorite.svg", alt: "お気に入り閲覧中のスマホ画像", class: "how-to-use-area-inner-block-image"
 
 / よくある質問
 .faq-area
   h2.faq-area-title
     | よくある質問
 
-  .faq-area-block
-    .faq-area-block-question
-      = image_tag "root/person/boy.svg", alt: "男の子のアイコン", class: "faq-area-block-question-icon"
-      h3.faq-area-block-question-content
-        span.faq-area-block-question-content-initials
-          | Q.
-        | サービス利用料は発生しますか？
+  .faq-area-inner
+    .faq-area-inner-block
+      .faq-area-inner-block-question
+        = image_tag "root/person/boy.svg", alt: "男の子のアイコン", class: "faq-area-inner-block-question-icon"
+        h3.faq-area-inner-block-question-content
+          span.faq-area-inner-block-question-content-initials
+            | Q.
+          | サービス利用料は発生しますか？
 
-    .faq-area-block-answer
-      p.faq-area-block-answer-content
-        span.faq-area-block-answer-content-initials
-          | A.
-        | 発生いたしません。
-        br
-        | 会員登録が終わりましたら、すぐに、
-        br
-        | お使いになれます。
-      = image_tag "root/person/operator.svg", alt: "オペレーターのアイコン", class: "faq-area-block-answer-icon"
+      .faq-area-inner-block-answer
+        p.faq-area-inner-block-answer-content
+          span.faq-area-inner-block-answer-content-initials
+            | A.
+          | 発生いたしません。
+          br
+          | 会員登録が終わりましたら、すぐに、
+          br
+          | お使いになれます。
+        = image_tag "root/person/operator.svg", alt: "オペレーターのアイコン", class: "faq-area-inner-block-answer-icon"
 
-  .faq-area-block
-    .faq-area-block-question
-      = image_tag "root/person/girl.svg", alt: "女の子のアイコン", class: "faq-area-block-question-icon"
-      h3.faq-area-block-question-content
-        span.faq-area-block-question-content-initials
-          | Q.
-        | 辞書を創るというのは具体的にどういうことですか？
+    .faq-area-inner-block
+      .faq-area-inner-block-question
+        = image_tag "root/person/girl.svg", alt: "女の子のアイコン", class: "faq-area-inner-block-question-icon"
+        h3.faq-area-inner-block-question-content
+          span.faq-area-inner-block-question-content-initials
+            | Q.
+          | 辞書を創るというのは具体的にどういうことですか？
 
-    .faq-area-block-answer
-      p.faq-area-block-answer-content
-        span.faq-area-block-answer-content-initials
-          | A.
-        | マイページに言葉とユーザーを登録できる辞書があり、タイムラインに投稿された言葉をワンクリックで登録することができます。
-        br
-        | そのようにして自分好みの辞書を作りながら、様々な価値観を広げることができます。
-      = image_tag "root/person/operator.svg", alt: "オペレーターのアイコン", class: "faq-area-block-answer-icon"
+      .faq-area-inner-block-answer
+        p.faq-area-inner-block-answer-content
+          span.faq-area-inner-block-answer-content-initials
+            | A.
+          | マイページに言葉とユーザーを登録できる辞書があり、タイムラインに投稿された言葉をワンクリックで登録することができます。
+          br
+          | そのようにして自分好みの辞書を作りながら、様々な価値観を広げることができます。
+        = image_tag "root/person/operator.svg", alt: "オペレーターのアイコン", class: "faq-area-inner-block-answer-icon"
 
-  .faq-area-cv-btn-frame
-    = link_to "会員登録する", new_provisional_users_path, class: "common-parts-cv-btn"
+    .faq-area-inner-cv-btn-frame
+      = link_to "会員登録する", new_provisional_users_path, class: "common-parts-cv-btn"
 
 / フッター
 footer.footer
@@ -143,13 +150,14 @@ footer.footer
 
   ul.footer-menu
     li.footer-menu-list
-      = link_to "お問い合わせ", ""
-    li.footer-menu-list
+      = link_to "お問い合わせ", contact_path
+    / TODO(Shokei Takanashi) : 会社情報のURLが決定次第挿入する。
+    / li.footer-menu-list
       = link_to "会社情報", ""
     li.footer-menu-list
-      = link_to "利用規約", ""
+      = link_to "利用規約", pages_terms_of_service_path
     li.footer-menu-list
-      = link_to "プライバシーポリシー", ""
+      = link_to "プライバシーポリシー", pages_privacy_policy_path
 
-  p.footer-copy-wright
+  p.footer-copyright
     | COPYRIGHT ©︎ 2018 COELA INC.
