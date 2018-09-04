@@ -43,7 +43,7 @@
     color: $white;
     border-radius: 25px;
     padding: 19px 0;
-    font-size: 13px;
+    font-size: 15px;
     box-shadow: 0 4px 8px rgba($black, .2);
     text-align: center;
 
@@ -159,30 +159,29 @@
 //**
 //* トップボード
 .top-board-area {
+  position: relative;
   text-align: center;
-  background-image: image-url("root/top-board.svg");
-  background-size: cover;
+  background: rgba($white, .5);
   height: 62.5vw;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
 
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: image-url("root/top-board.svg");
+    background-size: cover;
+    z-index: -1;
+  }
+
   @include mq-up() {
     height: calc(100vh - #{$pcHeaderHeight});
-    background: rgba($white, .2);
-
-    &::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-image: image-url("root/top-board.svg");
-      background-size: cover;
-      z-index: -1;
-    }
   }
 
   &-service-name {
@@ -211,11 +210,11 @@
 //**
 //* サービス説明
 .service-description-area {
-  @include container($spMarginTop: 67px, $spMarginBottom: 67px, $pcMarginTop: 100px, $pcMarginBottom: 100px);
+  @include container($spMarginTop: 57px, $spMarginBottom: 57px, $pcMarginTop: 100px, $pcMarginBottom: 100px);
 
   &-text {
-    font-size: 15px;
-    line-height: 26px;
+    font-size: 20px;
+    line-height: 45px;
     font-weight: bold;
 
     @include mq-up() {
@@ -273,8 +272,8 @@ $psLeftSpace: 100px;
 
     &-title {
       font-weight: bold;
-      font-size: 18px;
-      line-height: 28px;
+      font-size: 19px;
+      line-height: 29px;
       margin-bottom: 15px;
 
       @include mq-up() {
@@ -285,9 +284,9 @@ $psLeftSpace: 100px;
     }
 
     &-description {
-      font-size: 13px;
-      line-height: 24px;
-      margin-bottom: 10px;
+      font-size: 15px;
+      line-height: 25px;
+      margin-bottom: 15px;
 
       @include mq-up() {
         font-size: 15px;
@@ -318,8 +317,8 @@ $psLeftSpace: 100px;
       color: $primaryColor;
       border-bottom: 1px solid $primaryColor;
       padding: 0 2px 2px;
-      margin-bottom: 10px;
-      font-size: 18px;
+      margin-bottom: 15px;
+      font-size: 23px;
       font-weight: bold;
 
       @include mq-up() {
@@ -329,7 +328,7 @@ $psLeftSpace: 100px;
     }
 
     &-sub {
-      font-size: 13px;
+      font-size: 16px;
       font-weight: bold;
 
       @include mq-up() {
@@ -346,7 +345,7 @@ $psLeftSpace: 100px;
 
     &-block {
       text-align: center;
-      margin-top: 32px;
+      margin-top: 38px;
       padding-bottom: 36px;
       border-bottom: 1px solid $baseBlack;
 
@@ -361,7 +360,7 @@ $psLeftSpace: 100px;
       }
 
       &-title {
-        font-size: 18px;
+        font-size: 20px;
         color: $primaryColor;
         font-weight: bold;
 
@@ -382,8 +381,8 @@ $psLeftSpace: 100px;
       }
 
       &-description {
-        font-size: 13px;
-        line-height: 26px;
+        font-size: 15px;
+        line-height: 28px;
         font-weight: bold;
 
         @include mq-up() {
@@ -418,7 +417,7 @@ $psLeftSpace: 100px;
   }
 
   &-title {
-    font-size: 18px;
+    font-size: 20px;
     color: $white;
     text-align: center;
     margin-bottom: 25px;
@@ -462,8 +461,8 @@ $psLeftSpace: 100px;
           padding: 12px 10px;
           background: $white;
           display: flex;
-          font-size: 11px;
-          line-height: 18px;
+          font-size: 13px;
+          line-height: 21px;
           margin: 10px 23px 0 17px;
 
           @include mq-up() {
@@ -487,7 +486,7 @@ $psLeftSpace: 100px;
           }
 
           &-initials {
-            font-size: 18px;
+            font-size: 17px;
             margin-right: 9px;
             font-weight: bold;
 
@@ -520,8 +519,8 @@ $psLeftSpace: 100px;
           padding: 18px 13px;
           background: $white;
           display: flex;
-          font-size: 11px;
-          line-height: 18px;
+          font-size: 13px;
+          line-height: 21px;
           margin-left: 23px;
           margin-right: 17px;
 
@@ -547,7 +546,7 @@ $psLeftSpace: 100px;
 
           &-initials {
             display: inline-block;
-            font-size: 18px;
+            font-size: 17px;
             margin-right: 9px;
             font-weight: bold;
 
@@ -584,7 +583,7 @@ $psLeftSpace: 100px;
   &-logo {
     color: $white;
     font-family: 'Bitter', serif;
-    font-size: 18px;
+    font-size: 23px;
     @include mq-up() { font-size: 27px }
   }
 
