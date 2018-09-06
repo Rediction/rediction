@@ -23,7 +23,7 @@ class UserProfilesController < ApplicationController
 
   def update
     @profile = current_user.profile
-    @profile.update_with_changes!(user_profile_params)
+    @profile.update_with_changes!(user_profile_update_params)
 
     redirect_to user_mypage_path, flash: { success: "プロフィールを更新しました。" }
   rescue ActiveRecord::RecordInvalid
@@ -36,6 +36,10 @@ class UserProfilesController < ApplicationController
     def user_profile_params
       params.require(:user_profile)
             .permit(:last_name, :last_name_kana, :first_name, :first_name_kana, :birth_on, :job)
+    end
+
+    def user_profile_update_params
+      params.require(:user_profile).permit(:job)
     end
 
     # ユーザーの初回プロフィール入力の有無を確かめるメソッド

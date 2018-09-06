@@ -7,9 +7,15 @@ ruby:
   provide :container_type, "form"
 
 p.page-description
-  | 本登録が完了しました。
-  br
-  | プロフィールを作成してください。
+  | プロフィールを編集してください。
 
-= render partial: "user_profiles/form",
-  locals: { profile: @profile, destination: user_profile_path, method: :patch }
+= base_form_for @profile, method: "patch", url: user_profile_path, html: { class: "base-form" } do |f|
+  .form-group
+    .label-field
+      = f.label :job
+
+    .input-field
+      = f.text_field :job, placeholder: true, required: true
+
+  .submit-btn
+    = f.submit "完了", data: { disable_with: "送信中..." }

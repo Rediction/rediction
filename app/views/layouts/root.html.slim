@@ -2,26 +2,21 @@ doctype html
 html
   head
     meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no"
-    title Rediction
+    title Rediction | あなたの生き方を辞書にしよう
     = csrf_meta_tags
     = csp_meta_tag
 
     / Reset CSS
     = stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.css"
 
-    / FontAwesome
-    = stylesheet_link_tag "https://use.fontawesome.com/releases/v5.2.0/css/all.css", integrity: "sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ", crossorigin: "anonymous"
+    / Logo用のGoogleFonts
+    = stylesheet_link_tag "https://fonts.googleapis.com/css?family=Bitter"
 
     / Rails標準
-    = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track": "reload"
+    = stylesheet_link_tag    "root/application", media: "all", "data-turbolinks-track": "reload"
     = javascript_include_tag "application", "data-turbolinks-track": "reload"
-
-    - if yield(:template_stylesheet_path).present?
-      = stylesheet_link_tag "templates/#{yield(:template_stylesheet_path)}.css"
 
     = render partial: "layouts/partials/google_analytics"
     = render partial: "layouts/partials/rollbar_js"
   body
-    = link_to "新規会員登録", new_provisional_users_path
-    br
-    = link_to "ログイン", new_login_path
+    = yield
