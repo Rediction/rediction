@@ -1,4 +1,5 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: "info@coela.co"
+  # TODO (shuji ota) : サービスを開始する前にdefaultのメールを変更する
+  default from: "shujiota723@gmail.com"
   layout "mailer"
 end
