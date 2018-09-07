@@ -3,6 +3,5 @@ class RootController < ApplicationController
   layout "root"
 
   def index
-    redirect_authed_user_base_page if logged_in?
   end
 end
