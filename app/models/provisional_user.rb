@@ -14,9 +14,7 @@ class ProvisionalUser < ApplicationRecord
   has_one :provisional_user_completed_log, dependent: :destroy
 
   validates :email, presence: true, email: true
-
-  # TODO(shuji ota):形式チェックのvalidationを追加する
-  validates :password, presence: true, length: {minimum: 8}
+  validates :password, presence: true, password: true
   validates :verification_token, presence: true, uniqueness: true
 
   # 検証用トークンとともに仮会員の情報を保存するメソッド

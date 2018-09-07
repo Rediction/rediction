@@ -5,8 +5,7 @@ class User::PasswordReissueForm
 
   has_secure_password
 
-  # TODO(shuji ota):形式チェックのvalidationを追加する
-  validates :password, length: (8..32), presence: true, confirmation: true
+  validates :password, presence: true, confirmation: true, password: true
 
   # ユーザーのパスワード再設定処理
   def save!
