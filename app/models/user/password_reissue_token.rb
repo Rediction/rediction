@@ -3,10 +3,10 @@
 # Table name: user_password_reissue_tokens # ユーザー用のパスワード再発行用トークン
 #
 #  id         :bigint(8)        not null, primary key
-#  user_id    :bigint(8)        not null              # ユーザーID(FK)
-#  email      :string(255)      not null              # メールアドレス
-#  token      :string(255)      not null              # トークン
-#  consumed   :boolean          not null              # 利用済み
+#  user_id    :bigint(8)        not null                        # ユーザーID(FK)
+#  email      :string(255)      not null                        # メールアドレス
+#  token      :string(255)      not null                        # トークン
+#  consumed   :boolean          default("unconsumed"), not null # 利用済み
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #

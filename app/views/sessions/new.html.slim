@@ -6,7 +6,7 @@ ruby:
   provide :template_stylesheet_path, "sessions/new"
   provide :container_type, "form"
 
-= form_for @user, url: login_path, html: { class: "base-form" } do |f|
+= form_for @login_form, url: login_path, html: { class: "base-form" } do |f|
   .form-group
     .label-field
       = f.label :email
