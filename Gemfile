@@ -59,8 +59,11 @@ gem "webpacker"
 gem "activerecord-import"
 # ドメインやパスを判定してリダイレクトをできるようにするもの
 gem 'rack-rewrite'
+# IPアドレス閲覧制限をおこなえるようにするもの
+gem 'rack-attack'
 
-## 管理画面用
+##
+# 管理画面用
 # BootstrapをImportして利用できるようにするもの
 gem "bootstrap-sass"
 # ページネーションを簡易的にできるようにするもの
