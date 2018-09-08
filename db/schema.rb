@@ -10,7 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_20_201652) do
+ActiveRecord::Schema.define(version: 2018_09_08_010017) do
+
   create_table "admin_users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", comment: "管理者ユーザー", force: :cascade do |t|
     t.string "email", null: false, comment: "メールアドレス"
     t.string "uid", comment: "OAuth用のユニークID"
@@ -139,6 +140,22 @@ ActiveRecord::Schema.define(version: 2018_08_20_201652) do
     t.index ["user_id"], name: "index_user_profiles_on_user_id", unique: true
   end
 
+  create_table "user_remember_me_token_changes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", comment: "ユーザーのRemember Me機能に利用するトークンの履歴", force: :cascade do |t|
+    t.bigint "user_remember_me_token_id", null: false, comment: "Remember MeトークンID"
+    t.bigint "user_id", null: false, comment: "ユーザーID"
+    t.string "token_digest", null: false, comment: "認証用トークン"
+    t.string "event", null: false, comment: "イベント"
+    t.datetime "created_at", null: false
+  end
+
+  create_table "user_remember_me_tokens", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", comment: "ユーザーのRemember Me機能に利用するトークン", force: :cascade do |t|
+    t.bigint "user_id", null: false, comment: "ユーザーID(FK)"
+    t.string "token_digest", null: false, comment: "認証用トークン"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_user_remember_me_tokens_on_user_id", unique: true
+  end
+
   create_table "user_resignation_request_cancels", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", comment: "ユーザーの退会申請のキャンセルが格納されるテーブル", force: :cascade do |t|
     t.bigint "user_id", null: false, comment: "ユーザーID"
     t.string "description", null: false, comment: "退会キャンセル理由"
@@ -215,6 +232,7 @@ ActiveRecord::Schema.define(version: 2018_08_20_201652) do
   add_foreign_key "user_freezed_reasons", "users"
   add_foreign_key "user_password_reissue_tokens", "users"
   add_foreign_key "user_profiles", "users"
+  add_foreign_key "user_remember_me_tokens", "users"
   add_foreign_key "user_unfreezed_reasons", "users"
   add_foreign_key "word_random_fetched_records", "word_random_fetched_tokens", column: "token_id"
   add_foreign_key "word_random_fetched_records", "words"
