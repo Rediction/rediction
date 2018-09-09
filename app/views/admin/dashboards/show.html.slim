@@ -29,3 +29,23 @@
           .panel-body.text-right
             span.h3
               = separate_comma @favorites_count
+
+    h4
+      | 言葉ランキング
+    = link_to "お気に入りされている数の多い言葉", favorited_admin_dashboard_ranking_words_path, class: "btn btn-sm"
+
+    h4
+      | ユーザーランキング
+
+    = link_to "お気に入りされている言葉の多いユーザー", favorited_words_admin_dashboard_ranking_users_path, class: "btn btn-sm"
+    = link_to "お気に入りしている言葉の多いユーザー", favoriting_words_admin_dashboard_ranking_users_path, class: "btn btn-sm"
+    = link_to "投稿数の多いユーザー", posted_words_admin_dashboard_ranking_users_path, class: "btn btn-sm"
+    = link_to "フォロワー数の多いユーザー", followed_admin_dashboard_ranking_users_path, class: "btn btn-sm"
+    = link_to "フォロー数の多いユーザー", following_admin_dashboard_ranking_users_path, class: "btn btn-sm"
+
+    h4
+      | 推移
+    = link_to "お気に入り数の推移", favorite_admin_dashboard_transition_favorites_path, class: "btn btn-sm"
+    = link_to "フォロー数の推移", follow_admin_dashboard_transition_follows_path, class: "btn btn-sm"
+    = link_to "ユーザーの登録数の推移", registered_admin_dashboard_transition_users_path, class: "btn btn-sm"
+    = link_to "言葉の投稿数の推移", posted_admin_dashboard_transition_words_path, class: "btn btn-sm"

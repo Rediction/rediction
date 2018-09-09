@@ -1,0 +1,47 @@
+.panel.panel-default
+  .panel-heading
+    = link_to "ダッシュボード", admin_dashboard_path
+    | &nbsp;> お気に入りされている言葉の多いユーザー
+
+  .panel-body
+    = render partial: "admin/dashboard/ranking/users/ranking_menu"
+
+    h5
+      | 「ユーザーの登録日」で絞り込み
+    = form_tag nil, method: :get
+      = date_field_tag :user_start_date, params[:user_start_date]
+      | 〜
+      = date_field_tag :user_end_date, params[:user_end_date]
+      | &nbsp;&nbsp;
+      = submit_tag "更新"
+
+    h5
+      | 「フォローされた日」で絞り込み
+    = form_tag nil, method: :get
+      = date_field_tag :followed_start_date, params[:followed_start_date]
+      | 〜
+      = date_field_tag :followed_end_date, params[:followed_end_date]
+      | &nbsp;&nbsp;
+      = submit_tag "更新"
+
+    table.table.table-striped
+      thead
+        th
+          | 順位
+        th
+          | ユーザーID
+        th
+          | 氏名
+        th
+          | フォロワー数
+      tbody
+        - @rows.each_with_index do |row, i|
+          tr
+            td
+              = i + 1
+            td
+              = link_to row["user_id"], admin_user_path(id: row["user_id"])
+            td
+              = row["full_name"]
+            td
+              = row["followed_count"]

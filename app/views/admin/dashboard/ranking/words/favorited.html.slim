@@ -1,0 +1,53 @@
+.panel.panel-default
+  .panel-heading
+    = link_to "ダッシュボード", admin_dashboard_path
+    | &nbsp;> お気に入りされている数の多い言葉
+
+  .panel-body
+    h5
+      | 「ユーザーの登録日」で絞り込み
+    = form_tag nil, method: :get
+      = date_field_tag :user_start_date, params[:user_start_date]
+      | 〜
+      = date_field_tag :user_end_date, params[:user_end_date]
+      | &nbsp;&nbsp;
+      = submit_tag "更新"
+
+    h5
+      | 「フォローされた日」で絞り込み
+    = form_tag nil, method: :get
+      = date_field_tag :word_start_date, params[:word_start_date]
+      | 〜
+      = date_field_tag :word_end_date, params[:word_end_date]
+      | &nbsp;&nbsp;
+      = submit_tag "更新"
+
+    table.table.table-striped
+      thead
+        th
+          | 順位
+        th
+          | 言葉ID
+        th
+          | 言葉
+        th
+          | 意味
+        th
+          | 投稿者
+        th
+          | お気に入り数
+      tbody
+        - @rows.each_with_index do |row, i|
+          tr
+            td
+              = i + 1
+            td
+              = link_to row["word_id"], admin_word_path(id: row["word_id"])
+            td
+              = row["word_name"]
+            td width="300"
+              = truncate row["word_description"], length: 20
+            td
+              = row["full_name"]
+            td
+              = row["favorite_count"]

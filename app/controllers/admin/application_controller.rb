@@ -16,6 +16,13 @@ class Admin::ApplicationController < ActionController::Base
     session[:admin_user_id] = nil
   end
 
+  # ActiveRecordをSQLに直して実行する処理
+  def excute_sql(active_record)
+    con = ActiveRecord::Base.connection
+    result = con.select_all(active_record.to_sql)
+    result.to_hash
+  end
+
   private
 
   # 管理者用の認証処理
