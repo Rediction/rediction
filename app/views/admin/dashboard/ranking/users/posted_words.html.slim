@@ -1,0 +1,46 @@
+.panel.panel-default
+  .panel-heading
+    = link_to "ダッシュボード", admin_dashboard_path
+    | &nbsp;> 投稿数の多いユーザー
+
+  .panel-body
+    = render partial: "admin/dashboard/ranking/users/ranking_menu"
+
+    h5
+      | 「ユーザーの登録日」で絞り込み
+    = form_tag nil, method: :get
+      = date_field_tag :user_start_date, params[:user_start_date]
+      | 〜
+      = date_field_tag :user_end_date, params[:user_end_date]
+      | &nbsp;&nbsp;
+      = submit_tag "更新"
+    h5
+      | 「言葉の投稿日」で絞り込み
+    = form_tag nil, method: :get
+      = date_field_tag :word_start_date, params[:word_start_date]
+      | 〜
+      = date_field_tag :word_end_date, params[:word_end_date]
+      | &nbsp;&nbsp;
+      = submit_tag "更新"
+
+    table.table.table-striped
+      thead
+        th
+          | 順位
+        th
+          | ユーザーID
+        th
+          | 氏名
+        th
+          | 投稿数
+      tbody
+        - @rows.each_with_index do |row, i|
+          tr
+            td
+              = i + 1
+            td
+              = link_to row["user_id"], admin_user_path(id: row["user_id"])
+            td
+              = row["full_name"]
+            td
+              = row["word_count"]
