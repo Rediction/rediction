@@ -91,7 +91,7 @@ Rails.application.configure do
     config.logger    = ActiveSupport::TaggedLogging.new(logger)
   end
 
-  config.service_host = ENV['SERVICE_DOMAIN'] || "https://rediction-prod.herokuapp.com"
+  config.service_host = ENV['SERVICE_DOMAIN'] || "rediction.jp"
   # アプリケーションのホスト情報をmailer内で使用する際にそれをグローバルで利用できるようにするもの
   config.action_mailer.default_url_options = { host: config.service_host }
 
