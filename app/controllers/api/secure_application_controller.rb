@@ -1,6 +1,13 @@
 class Api::SecureApplicationController < ActionController::Base
   before_action :authenticate
 
+  # lograge用のメソッド
+  # user_idはAPI, Adminなどで取得方法が異なるため、Controllerごとにpayloadに格納している。
+  def append_info_to_payload(payload)
+    super
+    payload[:user_id] = session[:user_id]
+  end
+
   private
 
   # ユーザー認証を行うメソッド

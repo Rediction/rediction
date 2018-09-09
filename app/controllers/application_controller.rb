@@ -26,6 +26,13 @@ class ApplicationController < ActionController::Base
     redirect_to index_scoped_follow_users_words_path
   end
 
+  # lograge用のメソッド
+  # user_idはAPI, Adminなどで取得方法が異なるため、Controllerごとにpayloadに格納している。
+  def append_info_to_payload(payload)
+    super
+    payload[:user_id] = current_user&.id
+  end
+
   private
 
   # Basic認証
