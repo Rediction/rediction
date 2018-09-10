@@ -1,0 +1,39 @@
+.panel.panel-default
+  .panel-heading
+    = link_to "ダッシュボード", admin_dashboard_path
+    | &nbsp;> フォロー数の推移
+
+  .panel-body
+    = render partial: "admin/dashboard/transition/transition_menu"
+
+    h5
+      | 「日付」で絞り込み
+    = form_tag nil, method: :get
+      = date_field_tag :start_date, params[:start_date]
+      | 〜
+      = date_field_tag :end_date, params[:end_date]
+      | &nbsp;&nbsp;
+      = submit_tag "更新", class: "btn btn-default"
+
+    - if @daily_counts.present?
+      canvas#chart data-amounts=@daily_counts.to_json
+
+      table.table.table-striped
+        thead
+          th
+            | 日付
+          th
+            | フォロー数
+        tbody
+          - @daily_counts.each do |date, count|
+            tr
+              td
+                = date
+              td
+                = count
+    - else
+      h4.text-center
+        | データが存在しません。
+
+- if @daily_counts.present?
+  = javascript_pack_tag "admin/dashboard/follows/follow"

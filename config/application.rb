@@ -18,6 +18,8 @@ require "sprockets/railtie"
 Bundler.require(*Rails.groups)
 
 module Rediction
+  RELEASE_DATE = "2018-09-05".to_date.freeze
+
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.2

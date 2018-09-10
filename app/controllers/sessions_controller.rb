@@ -3,39 +3,30 @@ class SessionsController < ApplicationController
   before_action :check_auth_status, only: %i[new create]
 
   def new
-    @user = User.new
+    @login_form = User::LoginForm.new
   end
 
-  # TODO(shuji ota):ログイン用のformクラスを作成して、それを利用するように改修する
   # ログイン処理を行うメソッド
   def create
-    # paramsで取得したメールアドレスからユーザーを特定する
-    user = User.find_by(email: user_params[:email])
+    @login_form = User::LoginForm.new(login_form_params)
 
-    if user.nil?
-      @user = User.new(email: user_params[:email])
-      flash.now[:error] = "メールアドレスが間違っています。"
-      return render "new"
-    end
-
-    # paramsで取得したパスワードが正しいかを判断する
-    if user.authenticate(user_params[:password])
-      log_in(user)
+    if @login_form.authenticate
+      log_in(@login_form.user)
 
       flash[:success] = "ログインしました。"
       redirect_authed_user_base_page
     else
       # TODO(shuji ota):パスワードを規定数間違えた時にuserをfreezeさせるようにする
-      flash.now[:error] = "パスワードが間違っています。"
-      UserAuthLog.create_failure_log(user)
-      @user = User.new(email: user_params[:email])
+      UserAuthLog.create_failure_log(@login_form.user) if @login_form.user
+
+      flash.now[:error] = "メールアドレスまたはパスワードが正しくありません。"
       render "new"
     end
   end
 
   # ログアウト処理を行うメソッド
   def destroy
-    log_out
+    log_out if logged_in?
     redirect_to new_login_path, flash: { success: "ログアウトしました。" }
   end
 
@@ -45,7 +36,7 @@ class SessionsController < ApplicationController
     redirect_authed_user_base_page if logged_in?
   end
 
-  def user_params
-    params.require(:user).permit(:email, :password)
+  def login_form_params
+    params.require(:user_login_form).permit(:email, :password)
   end
 end

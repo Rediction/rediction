@@ -10,6 +10,10 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+// JSエラーやCSSの読み込み遅延の問題を解決するコストがかかるので、
+// turbolinksは切っている。
+// 将来的にSPA化する予定なので、ユーザーに速度低下の印象を与えない意味でもメリットはあると考えている。
+//
 //= require rails-ujs
 //= require activestorage
 //  require turbolinks

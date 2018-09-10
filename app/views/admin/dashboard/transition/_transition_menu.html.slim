@@ -1,0 +1,26 @@
+h5
+  | 推移
+
+= link_to "お気に入り数の推移", \
+  favorite_admin_dashboard_transition_favorites_path(start_date: params[:start_date], end_date: params[:end_date]), \
+  class: "btn btn-sm"
+
+| &nbsp;
+
+= link_to "フォロー数の推移", \
+  follow_admin_dashboard_transition_follows_path(start_date: params[:start_date], end_date: params[:end_date]), \
+  class: "btn btn-sm"
+
+| &nbsp;
+
+= link_to "ユーザーの登録数の推移", \
+  registered_admin_dashboard_transition_users_path(start_date: params[:start_date], end_date: params[:end_date]), \
+  class: "btn btn-sm"
+
+| &nbsp;
+
+= link_to "言葉の投稿数の推移", \
+  posted_admin_dashboard_transition_words_path(start_date: params[:start_date], end_date: params[:end_date]), \
+  class: "btn btn-sm"
+
+hr
