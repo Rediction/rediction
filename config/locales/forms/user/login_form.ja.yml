@@ -1,0 +1,6 @@
+ja:
+  activemodel:
+    attributes:
+      user/login_form:
+        email: メールアドレス
+        password: パスワード

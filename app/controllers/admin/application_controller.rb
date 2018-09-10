@@ -16,6 +16,20 @@ class Admin::ApplicationController < ActionController::Base
     session[:admin_user_id] = nil
   end
 
+  # ActiveRecordをSQLに直して実行する処理
+  def excute_sql(active_record)
+    con = ActiveRecord::Base.connection
+    result = con.select_all(active_record.to_sql)
+    result.to_hash
+  end
+
+  # lograge用のメソッド
+  # user_idはAPI, Adminなどで取得方法が異なるため、Controllerごとにpayloadに格納している。
+  def append_info_to_payload(payload)
+    super
+    payload[:user_id] = current_admin_user&.id
+  end
+
   private
 
   # 管理者用の認証処理

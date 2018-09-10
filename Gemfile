@@ -59,8 +59,15 @@ gem "webpacker"
 gem "activerecord-import"
 # ドメインやパスを判定してリダイレクトをできるようにするもの
 gem 'rack-rewrite'
+# IPアドレス閲覧制限をおこなえるようにするもの
+gem 'rack-attack'
+# ログをより見やすくしてくれるもの(ユーザーIDなど好きな項目を簡易的にログに残せる)
+gem 'lograge'
+# Logstashに合うアウトップができるようにするもの
+gem 'logstash-event'
 
-## 管理画面用
+##
+# 管理画面用
 # BootstrapをImportして利用できるようにするもの
 gem "bootstrap-sass"
 # ページネーションを簡易的にできるようにするもの
