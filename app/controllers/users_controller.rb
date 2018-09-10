@@ -15,8 +15,6 @@ class UsersController < ApplicationController
     # URLについてるトークンから仮会員の情報を取得する
     provisional_user = ProvisionalUser.find_by(verification_token: params[:verification_token])
 
-    provisional_user.token_expired?
-
     # 検証用トークンが不正な場合、エラーメッセージを表示して会員登録画面へ遷移させる
     if provisional_user.nil?
       return redirect_to new_provisional_users_path, flash: { error: "不正なURLです。登録をしなおしてください。" }
