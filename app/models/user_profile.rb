@@ -24,17 +24,9 @@ class UserProfile < ApplicationRecord
 
   belongs_to :user
   validates :last_name, presence: true, length: { maximum: 20 }
-
-  # TODO(shuji ota):字数制限と正規表現のValidatorクラスを使ってそれを利用するようにする
-  validates :last_name_kana, presence: true, length: { maximum: 30 },
-             format: { with: /\A[ァ-ヴー]+\z/, message: "にはカタカナのみが使用できます。"}
-
+  validates :last_name_kana, presence: true, length: { maximum: 30 }, katakana: true
   validates :first_name, presence: true, length: { maximum: 20 }
-
-  # TODO(shuji ota):字数制限と正規表現のValidatorクラスを使ってそれを利用するようにする
-  validates :first_name_kana, presence: true, length: { maximum: 30 },
-             format: { with: /\A[ァ-ヴー]+\z/, message: "にはカタカナのみが使用できます。"}
-
+  validates :first_name_kana, presence: true, length: { maximum: 30 }, katakana: true
   validates :birth_on, presence: true
   validates :job, presence: true, length: { maximum: 20 }
   validate :check_birth_date, on: :create
