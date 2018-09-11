@@ -12,7 +12,7 @@
 FactoryBot.define do
   factory :provisional_user do
     sequence(:email) { |n| "example+#{n}@gmail.com" }
-    password "password"
+    password "Password1!"
     sequence(:verification_token) { |n| "xxxxxxxxxxxxx#{n}" }
   end
 end

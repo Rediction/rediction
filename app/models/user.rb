@@ -35,9 +35,7 @@ class User < ApplicationRecord
   enum resigned: {resigned: true, unresigned: false}
 
   validates :email, presence: true, uniqueness: true, email: true
-
-  # TODO(shuji ota):形式チェックのvalidationを追加する
-  validates :password, length: (8..32), presence: true, confirmation: true, allow_nil: true
+  validates :password, presence: true, confirmation: true, allow_nil: true, password: true
   validates :password_confirmation, presence: true, allow_nil: true
 
   # 稼働中のアカウント(未凍結 & 退会していない)
