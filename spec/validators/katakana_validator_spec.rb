@@ -17,12 +17,10 @@ describe KatakanaValidator, type: :validator do
       it { is_expected.to be_invalid }
     end
 
-    describe "success" do
-      context "カタカナのみが使用されている場合" do
-        let(:first_name_kana) { "アイウエオ" }
+    context "カタカナのみが使用されている場合" do
+      let(:first_name_kana) { "アイウエオ" }
 
-        it { is_expected.to be_valid }
-      end
+      it { is_expected.to be_valid }
     end
   end
 end
