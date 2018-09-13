@@ -21,9 +21,9 @@ class ApplicationController < ActionController::Base
     update_remember_token if require_token_update?
   end
 
-  # 認証ユーザーのベースページへのリダイレクト
+  # 認証ユーザーのベースページへのパスを返す
   def redirect_authed_user_base_page
-    redirect_to index_scoped_follow_users_words_path
+    redirect_to index_latest_order_words_path
   end
 
   # lograge用のメソッド
