@@ -5,10 +5,10 @@ class ScopedFavoriteWordsFetcher extends BaseFetcher
   // 取得した言葉のうち、最古のID
   private oldestFetchedId: number = 0;
 
-  constructor(userId: string, targetUserId: string) {
+  constructor(currentUserId: string, targetUserId: string) {
     // APIのパスを設定
     super(
-      `/words/index_scoped_favorite_words?user_id=${userId}&target_user_id=${targetUserId}`
+      `/words/index_scoped_favorite_words?current_user_id=${currentUserId}&target_user_id=${targetUserId}`
     );
   }
 

@@ -25,7 +25,7 @@ ReactDOM.render(
   <WordsCardList
     wordFethcer={scopedFavoriteWordsFetcher}
     targetIdAttr={targetIdAttr}
-    userId={currentUserId}
+    currentUserId={currentUserId}
   />,
   document.getElementById(targetIdAttr)
 );

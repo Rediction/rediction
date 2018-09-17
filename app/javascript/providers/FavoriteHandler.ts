@@ -5,8 +5,8 @@ interface FavoriteHandlerInterface extends BaseFetcherInterface {
 }
 
 class FavoriteHandler extends BaseFetcher implements FavoriteHandlerInterface {
-  constructor(wordId: string, userId: string) {
-    super(`/words/${wordId}/users/${userId}/favorite`);
+  constructor(wordId: string, currentUserId: string) {
+    super(`/words/${wordId}/users/${currentUserId}/favorite`);
   }
 
   // お気に入りステータスを更新(現状のステータスと反対のステータスに更新する)

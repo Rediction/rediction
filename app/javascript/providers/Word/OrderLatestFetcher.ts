@@ -5,9 +5,9 @@ class WordsOrderLatestFetcher extends BaseFetcher
   // 取得した言葉のうち、最古のID
   private oldestFetchedId: number = 0;
 
-  constructor(userId: string) {
+  constructor(currentUserId: string) {
     // APIのパスを設定
-    super(`/words/index_latest_order?user_id=${userId}`);
+    super(`/words/index_latest_order?current_user_id=${currentUserId}`);
   }
 
   // 言葉を取得
