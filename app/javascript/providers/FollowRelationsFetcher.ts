@@ -1,10 +1,15 @@
 import BaseFetcher, { BaseFetcherInterface } from "./BaseFetcher";
 
-export interface FollowedUser {
+export interface FollowRelation {
+  id: number;
+  user: User;
+  profile: Profile;
+  latest_word_ja_created_at: string;
+}
+
+interface User {
   id: number;
   email: string;
-  latest_word_ja_created_at: string;
-  profile: Profile;
 }
 
 interface Profile {
@@ -19,12 +24,12 @@ interface Profile {
   age: number;
 }
 
-interface FollowedUserFetcherrInterface extends BaseFetcherInterface {
-  fetchUsers(): Promise<FollowedUser[]>;
+interface FollowRelationsFetcherInterface extends BaseFetcherInterface {
+  fetchFollowRelations(): Promise<FollowRelation[]>;
 }
 
-class FollowedUserFetcher extends BaseFetcher
-  implements FollowedUserFetcherrInterface {
+class FollowRelationsFetcher extends BaseFetcher
+  implements FollowRelationsFetcherInterface {
   // 取得した言葉のうち、最古のID
   private oldestFetchedId: number = 0;
 
@@ -34,7 +39,7 @@ class FollowedUserFetcher extends BaseFetcher
   }
 
   // 言葉を取得
-  async fetchUsers() {
+  async fetchFollowRelations() {
     // リクエスト中の場合は、空配列を返却
     if (this.isRequesting()) {
       return [];
@@ -50,18 +55,18 @@ class FollowedUserFetcher extends BaseFetcher
         : "";
 
     // 言葉リストを取得
-    const { users } = await this.fetch(parameter);
+    const { follow_relations: followRelations } = await this.fetch(parameter);
 
     // 言葉を１つ以上取得できた場合は、最古のIDを更新
-    if (users.length > 0) {
-      this.oldestFetchedId = users[users.length - 1].id;
+    if (followRelations.length > 0) {
+      this.oldestFetchedId = followRelations[followRelations.length - 1].id;
     }
 
     // リクエスト終了
     this.endRequest();
 
-    return users;
+    return followRelations;
   }
 }
 
-export default FollowedUserFetcher;
+export default FollowRelationsFetcher;
