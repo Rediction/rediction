@@ -79,7 +79,7 @@ describe Api::WordsController, type: :request do
   end
 
   describe "GET #index_scoped_user" do
-    subject { get index_scoped_user_api_words_path(last_fetched_word_id: last_fetched_word_id, user_id: user.id) }
+    subject { get index_scoped_user_api_words_path(last_fetched_word_id: last_fetched_word_id, target_user_id: user.id) }
     let(:last_fetched_word_id) { nil }
     let(:user) { create(:user_with_profile) }
 

@@ -4,9 +4,11 @@ class ScopedUserFetcher extends BaseFetcher implements WordFetcherInterface {
   // 取得した言葉のうち、最古のID
   private oldestFetchedId: number = 0;
 
-  constructor(userId: string) {
+  constructor(currentUserId: string, targetUserId: string) {
     // APIのパスを設定
-    super(`/words/index_scoped_user?user_id=${userId}`);
+    super(
+      `/words/index_scoped_user?current_user_id=${currentUserId}&target_user_id=${targetUserId}`
+    );
   }
 
   // 言葉を取得

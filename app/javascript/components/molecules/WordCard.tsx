@@ -7,7 +7,7 @@ import Card from "../atoms/Card";
 interface Props {
   word: FetchedWordInterface;
   intervalSpace: string;
-  userId: string;
+  currentUserId: string;
 }
 
 interface State {
@@ -17,7 +17,7 @@ interface State {
 class WordCard extends React.Component<Props, State> {
   private favoriteHandler: FavoriteHandler = new FavoriteHandler(
     String(this.props.word.id),
-    this.props.userId
+    this.props.currentUserId
   );
 
   constructor(props: Props) {

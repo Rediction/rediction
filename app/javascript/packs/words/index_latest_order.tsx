@@ -22,7 +22,7 @@ ReactDOM.render(
   <WordsCardList
     wordFethcer={wordOrderLatestFetcher}
     targetIdAttr={targetIdAttr}
-    userId={currentUserId}
+    currentUserId={currentUserId}
   />,
   document.getElementById(targetIdAttr)
 );

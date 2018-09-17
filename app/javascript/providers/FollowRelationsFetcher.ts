@@ -33,9 +33,9 @@ class FollowRelationsFetcher extends BaseFetcher
   // 取得した言葉のうち、最古のID
   private oldestFetchedId: number = 0;
 
-  constructor(userId: string) {
+  constructor(targetUserId: string) {
     // APIのパスを設定
-    super(`/users/${userId}/follow_relations`);
+    super(`/users/${targetUserId}/follow_relations`);
   }
 
   // 言葉を取得
