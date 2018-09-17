@@ -8,7 +8,7 @@ import WordCard from "../molecules/WordCard";
 interface Props {
   targetIdAttr: string; // 一覧を表示する対象のID
   wordFethcer: WordFetcherInterface;
-  userId: string;
+  currentUserId: string;
 }
 
 interface State {
@@ -63,7 +63,7 @@ class WordsCardList extends React.Component<Props, State> {
   }
 
   render() {
-    const { userId } = this.props;
+    const { currentUserId } = this.props;
     const { words, loading } = this.state;
 
     if (loading && words.length === 0) {
@@ -80,7 +80,7 @@ class WordsCardList extends React.Component<Props, State> {
           <WordCard
             key={word.id}
             word={word}
-            userId={userId}
+            currentUserId={currentUserId}
             intervalSpace="13"
           />
         ))}

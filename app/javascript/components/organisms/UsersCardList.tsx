@@ -8,7 +8,7 @@ import FollowedUserCard from "../molecules/FollowedUserCard";
 
 interface Props {
   targetIdAttr: string; // 一覧を表示する対象のID
-  userId: string;
+  targetUserId: string;
 }
 
 interface State {
@@ -18,7 +18,7 @@ interface State {
 
 class UsersCardList extends React.Component<Props, State> {
   private followRelationsFetcher: FollowRelationsFetcher = new FollowRelationsFetcher(
-    this.props.userId
+    this.props.targetUserId
   );
   private scrollHandler: ScrollHandler = new ScrollHandler();
 

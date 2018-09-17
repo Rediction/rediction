@@ -16,7 +16,7 @@ ReactDOM.render(
     targetIdAttr={targetIdAttr}
     searchFieldIdAttr={searchFieldIdAttr}
     searchBtnIdAttr={searchBtnIdAttr}
-    userId={currentUserId}
+    currentUserId={currentUserId}
   />,
   document.getElementById(targetIdAttr)
 );
