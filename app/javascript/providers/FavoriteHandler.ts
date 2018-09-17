@@ -1,7 +1,7 @@
 import BaseFetcher, { BaseFetcherInterface } from "./BaseFetcher";
 
 interface FavoriteHandlerInterface extends BaseFetcherInterface {
-  toggleFavoriteStatus(): Promise<number | boolean | null>;
+  toggleFavoriteStatus(): Promise<boolean | null>;
 }
 
 class FavoriteHandler extends BaseFetcher implements FavoriteHandlerInterface {
@@ -13,7 +13,7 @@ class FavoriteHandler extends BaseFetcher implements FavoriteHandlerInterface {
   async toggleFavoriteStatus() {
     // リクエスト中の場合は、空配列を返却
     if (this.isRequesting()) {
-      return false;
+      return null;
     }
 
     // リクエスト開始
@@ -21,12 +21,12 @@ class FavoriteHandler extends BaseFetcher implements FavoriteHandlerInterface {
 
     // 言葉リストを取得
     const responseData = await this.patch();
-    const favoriteId: number | null = responseData.favorite_id;
+    const favorited: boolean = responseData.favorited;
 
     // リクエスト終了
     this.endRequest();
 
-    return favoriteId;
+    return favorited;
   }
 }
 

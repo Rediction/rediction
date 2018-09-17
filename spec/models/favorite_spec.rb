@@ -57,5 +57,42 @@ RSpec.describe Favorite, type: :model do
         end
       end
     end
+
+    describe ".extract_favorite_word_ids" do
+      subject { Favorite.extract_favorite_word_ids(words: words, user_id: user.id) }
+      let(:user) { create(:user) }
+      let(:words) { create_list(:word, 10) }
+
+      context "wordsが空配列の場合" do
+        let(:words) { [] }
+
+        it "空配列が返されること" do
+          is_expected.to eq []
+        end
+      end
+
+      context "引数のwordsのうちuser_idに該当するユーザーのお気に入り中のものが存在しない場合" do
+        it "空配列が返されること" do
+          is_expected.to eq []
+        end
+      end
+
+      context "引数のwordsのうち１つがuser_idに該当するユーザーのお気に入り中のものである場合" do
+        before { create(:favorite, user_id: user.id, word_id: target_word.id) }
+        let(:target_word) { words.first }
+
+        it "お気に入り中のwordのIDのみが格納されていること" do
+          is_expected.to eq [target_word.id]
+        end
+      end
+
+      context "引数のwords全てがuser_idに該当するユーザーのお気に入り中のものである場合" do
+        before { words.each { |word| create(:favorite, user_id: user.id, word_id: word.id) } }
+
+        it "引数のwordsのID全てが格納されている配列が返されること" do
+          is_expected.to eq words.map(&:id)
+        end
+      end
+    end
   end
 end
