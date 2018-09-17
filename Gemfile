@@ -65,6 +65,10 @@ gem 'rack-attack'
 gem 'lograge'
 # Logstashに合うアウトップができるようにするもの
 gem 'logstash-event'
+# 画像を簡易的にアップロードできるようにするもの
+gem 'carrierwave'
+# S3などのクラウドストレージに簡易的にファイルを保存できるようにするもの
+gem 'fog'
 
 ##
 # 管理画面用

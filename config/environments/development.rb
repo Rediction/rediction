@@ -32,6 +32,9 @@ Rails.application.configure do
     config.cache_store = :null_store
   end
 
+  # ファイル保存先をS3に設定するかを示す
+  config.attachment_use_s3 = false
+
   # Store uploaded files on the local file system (see config/storage.yml for options)
   config.active_storage.service = :local
 
