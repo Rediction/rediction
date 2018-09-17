@@ -48,6 +48,8 @@ ruby:
       | (削除した言葉は元に戻りません。)
 
     .confirm-btns
-      = link_to "はい", word_path, method: :delete, class: "confirm-btns-elm"
+      = form_tag word_path, method: :delete, class: "confirm-btn-frame-form"
+        = submit_tag "はい", data: { disable_with: nil }, class: "confirm-btns-elm"
+
       a#close-modal.confirm-btns-elm
         | いいえ
