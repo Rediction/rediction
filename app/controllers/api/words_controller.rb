@@ -6,8 +6,9 @@ class Api::WordsController < Api::SecureApplicationController
 
   # 最新順のWords一覧
   def index_latest_order
-    @words =
-      Word.includes(:favorites).find_latest_records(limit: FETCH_COUNT, max_fetched_id: params[:last_fetched_word_id])
+    @words = Word.fetch_latest_records(limit: FETCH_COUNT, max_fetched_id: params[:last_fetched_word_id])
+
+    set_favorite_word_ids(@words, params[:user_id])
   end
 
   # ランダム並んだWords一覧
@@ -24,45 +25,51 @@ class Api::WordsController < Api::SecureApplicationController
     @random_fetched_token = Word::RandomFetchedToken.first_or_create_unique_token(params[:token])
 
     # まだ取得していないwordsをランダム取得
-    @words =
-      Word.includes(:favorites).find_random_by_fetched_token(token: @random_fetched_token.token, limit: FETCH_COUNT)
+    @words = Word.fetch_random_by_fetched_token(token: @random_fetched_token.token, limit: FETCH_COUNT)
 
     # 取得したwordsをトークンに紐づけて登録
     Word::RandomFetchedRecord.bulk_insert_by_words_and_token_id(token_id: @random_fetched_token.id, words: @words)
+
+    set_favorite_word_ids(@words, params[:user_id])
   end
 
   # お気に入り登録されたWords一覧
   def index_scoped_favorite_words
-    @words = Word.includes(:favorites).find_favorites_records(
+    @words = Word.fetch_favorites_records(
       limit: FETCH_COUNT,
       max_fetched_id: params[:last_fetched_favorite_id],
-      user_id: params[:user_id],
+      user_id: params[:target_user_id],
     )
+
+    set_favorite_word_ids(@words, params[:user_id])
   end
 
   # フォローしたユーザーのWords一覧
   def index_scoped_follow_users
-    @words =
-      Word.includes(:favorites).find_latest_records(limit: FETCH_COUNT, max_fetched_id: params[:last_fetched_word_id])
-          .includes(user: :followed_relations)
-          .where(user_follow_relations: {following_user_id: params[:user_id]})
+    @words = Word.fetch_latest_records(limit: FETCH_COUNT, max_fetched_id: params[:last_fetched_word_id])
+                 .includes(user: :followed_relations)
+                 .where(user_follow_relations: {following_user_id: params[:user_id]})
+
+    set_favorite_word_ids(@words, params[:user_id])
   end
 
   # ログイン中のユーザーのWords一覧
   def index_scoped_user
-    @words =
-      Word.includes(:favorites).find_latest_records(limit: FETCH_COUNT, max_fetched_id: params[:last_fetched_word_id])
-          .where(user_id: params[:user_id])
+    @words = Word.fetch_latest_records(limit: FETCH_COUNT, max_fetched_id: params[:last_fetched_word_id])
+                 .where(user_id: params[:user_id])
+
+    set_favorite_word_ids(@words, params[:user_id])
   end
 
   # 検索結果一覧
   def search
-    @words =
-      Word.includes(:favorites).find_latest_records(limit: FETCH_COUNT, max_fetched_id: params[:last_fetched_word_id])
+    @words = Word.fetch_latest_records(limit: FETCH_COUNT, max_fetched_id: params[:last_fetched_word_id])
 
     # 検索条件を追加
     @words = @words.where("name LIKE ?", "%#{params[:search_word]}%")
                    .or(@words.where("phonetic LIKE ?", "%#{params[:search_word]}%"))
+
+    set_favorite_word_ids(@words, params[:user_id])
   end
 
   private
@@ -70,5 +77,10 @@ class Api::WordsController < Api::SecureApplicationController
   # TODO (Shokei Takanashi) : 今後、JWTなどを利用したAPI用のcurrent_userを実装して、そのcurrent_userを利用するようにする。
   def set_current_user_id
     @current_user_id = params[:user_id].to_i
+  end
+
+  # お気に入り登録されているWordのID(配列)をインスタンス変数に格納
+  def set_favorite_word_ids(words, user_id)
+    @favorite_word_ids = Favorite.extract_favorite_word_ids(words: words, user_id: user_id)
   end
 end

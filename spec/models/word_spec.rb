@@ -18,8 +18,8 @@ RSpec.describe Word, type: :model do
   describe "Classメソッド" do
     let(:limit) { 10 }
 
-    describe ".find_random_by_fetched_token" do
-      subject { Word.find_random_by_fetched_token(token: token, limit: limit) }
+    describe ".fetch_random_by_fetched_token" do
+      subject { Word.fetch_random_by_fetched_token(token: token, limit: limit) }
       let(:token) { "xxxxxxxxxxxxx" }
 
       context "トークンが空の場合" do
@@ -45,8 +45,8 @@ RSpec.describe Word, type: :model do
       end
     end
 
-    describe ".find_latest_records" do
-      subject { Word.find_latest_records(limit: limit, max_fetched_id: max_fetched_id) }
+    describe ".fetch_latest_records" do
+      subject { Word.fetch_latest_records(limit: limit, max_fetched_id: max_fetched_id) }
       let(:max_fetched_id) { nil }
 
       context "正常時の場合" do
@@ -76,8 +76,8 @@ RSpec.describe Word, type: :model do
       end
     end
 
-    describe ".find_favorites_records" do
-      subject{ Word.find_favorites_records(limit: limit, max_fetched_id: max_fetched_id, user_id: user.id) }
+    describe ".fetch_favorites_records" do
+      subject{ Word.fetch_favorites_records(limit: limit, max_fetched_id: max_fetched_id, user_id: user.id) }
       before { create_list(:word, limit) }
       let(:max_fetched_id) { nil }
       let(:user) { create(:user) }

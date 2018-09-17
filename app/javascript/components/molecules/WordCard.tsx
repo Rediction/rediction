@@ -45,20 +45,19 @@ class WordCard extends React.Component<Props, State> {
 
     // API通信が完了する前に見た目上だけ切り替える。
     this.setState({
-      word: { ...this.state.word, favorite_id: !this.state.word.favorite_id }
+      word: { ...this.state.word, favorited: !this.state.word.favorited }
     });
 
-    const favoriteId:
-      | number
+    const favorited:
       | boolean
       | null = await this.favoriteHandler.toggleFavoriteStatus();
 
-    // falseが返された時は処理を中断
-    if (favoriteId === false) {
+    // nullが返された時は処理を中断
+    if (favorited === null) {
       return;
     }
 
-    this.setState({ word: { ...this.state.word, favorite_id: favoriteId } });
+    this.setState({ word: { ...this.state.word, favorited } });
   }
 
   render() {
@@ -86,7 +85,7 @@ class WordCard extends React.Component<Props, State> {
             <img
               style={styles.favoriteIcon}
               src={
-                word.favorite_id
+                word.favorited
                   ? require("../../images/favorite/favoriteIcon.svg")
                   : require("../../images/favorite/unfavoriteIcon.svg")
               }

@@ -25,7 +25,7 @@ class Word < ApplicationRecord
   class << self
     # word_random_fetched_recordsのトークンを元に、取得済みのwordsを除隊してランダムで規定数取得
     # ランダム取得ということもあり、負荷が高いメソッドなので、事前にスコアを振るレコメンドなどに切り替える予定。
-    def find_random_by_fetched_token(token:, limit: 10)
+    def fetch_random_by_fetched_token(token:, limit: 10)
       fetched_token = Word::RandomFetchedToken.find_by(token: token)
 
       includes(user: :profile)
@@ -36,7 +36,7 @@ class Word < ApplicationRecord
 
     # 最新のレコードを取得
     # 第二引数(max_fetched_id)で取得する最大のIDを指定可能。
-    def find_latest_records(limit: 10, max_fetched_id: nil)
+    def fetch_latest_records(limit: 10, max_fetched_id: nil)
       words = includes(user: :profile).order(id: :desc).limit(limit)
 
       # 最後に取得したIDがparamsに含まれている場合、それより前のIDを取得するように条件を追加
@@ -46,7 +46,7 @@ class Word < ApplicationRecord
     end
 
     # お気に入り登録されている言葉のみに絞り込む
-    def find_favorites_records(limit: 10, max_fetched_id: nil, user_id:)
+    def fetch_favorites_records(limit: 10, max_fetched_id: nil, user_id:)
       words = joins(:favorites).where(favorites: {user_id: user_id})
                                .includes(user: :profile)
                                .order("favorites.id DESC")
