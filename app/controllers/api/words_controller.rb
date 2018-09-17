@@ -76,9 +76,10 @@ class Api::WordsController < Api::SecureApplicationController
 
   # TODO (Shokei Takanashi)
   # 今後、JWTなどを利用したAPI用のcurrent_userを実装して、そのcurrent_userを利用するようにする。
-  # 今の段階でsession[:user_id]を利用せずにわざわざクライアント側からuser_idを送るようにしているのは、
-  # 将来的にAPI側とクライアント側を別APPにした時にも大きく回収する必要がないように、
-  # 今のうちにRESTにしている。
+  # 今の段階でsession[:user_id]を利用せずにわざわざクライアント側からcurrent_userのidを送るようにしているのは、
+  # 将来的にAPI側とクライアント側を別APPにした時にも大きく改修する必要がないように、
+  # 今のうちにAPI側とクライアント側をRESTな関係にするために、
+  # session[:user_id]を利用せずにクライアント側からcurrent_userのidを送るようにしている。
   def set_current_user_id
     @current_user_id = params[:current_user_id].to_i
   end
