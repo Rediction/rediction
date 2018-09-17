@@ -22,12 +22,12 @@ describe Api::Users::FollowRelationsController, type: :request do
 
       it "返り値のKeyの値が適切であること", :aggregate_failures do
         is_expected.to eq 200
-        expect(response.body).to have_json_type(Array).at_path("users")
+        expect(response.body).to have_json_type(Array).at_path("follow_relations")
       end
 
       it "ページネーションの規定値分の値が取れること" do
         is_expected.to eq 200
-        expect(JSON.parse(response.body)["users"].count).to eq fetch_count
+        expect(JSON.parse(response.body)["follow_relations"].count).to eq fetch_count
       end
     end
   end
