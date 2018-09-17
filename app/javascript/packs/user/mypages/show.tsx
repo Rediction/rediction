@@ -14,7 +14,8 @@ const currentUserId = $(`#${targetIdAttr}`).data("current-user-id");
 // Word一覧をAPI経由で取得するクラスのインスタンス
 // 現在のログイン中のユーザーが投稿したWordのみを取得する。
 const scopedUserFetcher: WordFetcherInterface = new ScopedUserFetcher(
-  currentUserId, currentUserId
+  currentUserId,
+  currentUserId
 );
 
 ReactDOM.render(
