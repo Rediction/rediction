@@ -1,0 +1,4 @@
+ja:
+  errors:
+    messages:
+      extension_whitelist_error: の形式が不正です。jpg, jpeg, pngのうちいずれかの画像形式のみアップロード可能です。
