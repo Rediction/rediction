@@ -166,15 +166,12 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  background-image: image-url("root/top-board.svg");
+  background-image: image-url("root/top-board.png");
   background-size: cover;
 
   @include mq-up() {
     height: calc(100vh - #{$pcHeaderHeight});
-
-    &::before {
-      background-image: image-url("root/top-board.svg");
-    }
+    background-image: image-url("root/top-board.svg");
   }
 
   &-service-name {
@@ -192,7 +189,8 @@
 
   &-description {
     font-size: 13px;
-    margin: 1vh 0 0 33vw;
+    margin-top: 1vh;
+    margin-left: 33vw;
     color: $white;
 
     @include mq-up() {
