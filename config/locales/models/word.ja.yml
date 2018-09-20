@@ -4,7 +4,7 @@ ja:
       word:
         name: 言葉
         phonetic: ふりがな
-        description: 説明
+        description: 定義
   helpers:
     placeholder:
       word:
