@@ -1,4 +1,4 @@
-class UsersController < ApplicaionController
+class UsersController < ApplicationController
   skip_before_action :authenticate, only: %i[create]
 
   # 他ユーザーの詳細ページ
