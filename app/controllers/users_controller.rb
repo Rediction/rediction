@@ -1,4 +1,4 @@
-class UsersController < ApplicationController
+class UsersController < ApplicaionController
   skip_before_action :authenticate, only: %i[create]
 
   # 他ユーザーの詳細ページ
@@ -18,6 +18,11 @@ class UsersController < ApplicationController
     # 検証用トークンが不正な場合、エラーメッセージを表示して会員登録画面へ遷移させる
     if provisional_user.nil?
       return redirect_to new_provisional_users_path, flash: { error: "不正なURLです。登録をしなおしてください。" }
+    end
+
+    # 仮会員登録時に送信したURLの期限が切れていないかを判定する
+    if provisional_user.url_expired?
+      return redirect_to new_provisional_users_path, flash: {error: "URLの期限切れです。登録をしなおしてください。"}
     end
 
     # 仮会員のemailが本会員として登録済みの場合は、ログイン画面へ遷移させる

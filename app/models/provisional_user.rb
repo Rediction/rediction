@@ -23,6 +23,10 @@ class ProvisionalUser < ApplicationRecord
     save
   end
 
+  def url_expired?
+    created_at < 10.minutes.ago
+  end
+
   # 仮会員のemailがすでに会員登録されているかを判定するメソッド
   def signed_up_email?
     User.exists?(email: email)
