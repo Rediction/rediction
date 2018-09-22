@@ -17,7 +17,7 @@ class UsersController < ApplicationController
 
     # 検証用トークンが不正な場合、エラーメッセージを表示して会員登録画面へ遷移させる
     if provisional_user.nil?
-      return redirect_to new_provisional_users_path, flash: { error: "不正なURLです。登録をしなおしてください。" }
+      return redirect_to new_signup_path, flash: { error: "不正なURLです。登録をしなおしてください。" }
     end
 
     # 仮会員のemailが本会員として登録済みの場合は、ログイン画面へ遷移させる
@@ -35,6 +35,6 @@ class UsersController < ApplicationController
     redirect_to new_user_profile_path
   rescue ActiveRecord::RecordInvalid
     # 本会員登録に失敗した場合、会員登録画面へ画面を遷移させる
-    redirect_to new_provisional_users_path, flash: { error: "登録に失敗しました。もう一度やり直してください。"}
+    redirect_to new_signup_path, flash: { error: "登録に失敗しました。もう一度やり直してください。"}
   end
 end
