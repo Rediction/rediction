@@ -1,4 +1,4 @@
-= link_to new_provisional_users_path, class: "common-parts-fix-btn" do
+= link_to new_signup_path, class: "common-parts-fix-btn" do
   | 会員
   br
   | 登録
@@ -14,7 +14,7 @@ header.header
         = link_to "ログイン", new_login_path
 
       .header-inner-btns-register
-        = link_to "会員登録", new_provisional_users_path
+        = link_to "会員登録", new_signup_path
 .mobile-header-space
 
 / トップボード
@@ -49,7 +49,7 @@ header.header
       br
       | 自分だけの辞書を作りましょう。
 
-    = link_to "会員登録する", new_provisional_users_path, class: "common-parts-cv-btn"
+    = link_to "会員登録する", new_signup_path, class: "common-parts-cv-btn"
 
 / 使い方
 .how-to-use-area
@@ -141,7 +141,7 @@ header.header
         = image_tag "root/person/operator.svg", alt: "オペレーターのアイコン", class: "faq-area-inner-block-answer-icon"
 
     .faq-area-inner-cv-btn-frame
-      = link_to "会員登録する", new_provisional_users_path, class: "common-parts-cv-btn"
+      = link_to "会員登録する", new_signup_path, class: "common-parts-cv-btn"
 
 / フッター
 footer.footer

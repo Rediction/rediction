@@ -6,7 +6,7 @@ ruby:
   provide :template_stylesheet_path, "provisional_users/new"
   provide :container_type, "form"
 
-= form_for @provisional_user, url: provisional_users_path, html: { class: "base-form" } do |f|
+= base_form_for @provisional_user, url: signup_path, html: { class: "base-form" } do |f|
   .form-group
     .label-field
       = f.label :email
