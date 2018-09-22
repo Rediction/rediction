@@ -11,32 +11,38 @@ describe PasswordValidator, type: :validator do
   describe "#validate_each" do
     subject { klass.new(password) }
 
-    context "大文字アルファベットを含んでいない場合" do
-      let(:password) { "password1!" }
-
-      it { is_expected.to be_invalid }
-    end
-
-    context "小文字アルファベットを含んでいない場合" do
-      let(:password) { "PASSWORD1!" }
+    context "半角英字を含んでいない場合" do
+      let(:password) { "11111111" }
 
       it { is_expected.to be_invalid }
     end
 
     context "数字を含んでいない場合" do
-      let(:password) { "Password!" }
+      let(:password) { "password" }
 
       it { is_expected.to be_invalid }
     end
 
-    context "記号を含んでいない場合" do
-      let(:password) { "Password1" }
+    context "ひらがなを含んでいる場合" do
+      let(:password) { "password1あ" }
 
       it { is_expected.to be_invalid }
     end
 
     describe "success" do
-      context "半角大文字英字、半角小文字英字、半角数字、記号の４つ全てが含まれている場合" do
+      context "半角小文字英字、半角数字の2種が含まれている場合" do
+        let(:password) { "password1" }
+
+        it { is_expected.to be_valid }
+      end
+
+      context "半角大文字英字、半角数字の2種が含まれている場合" do
+        let(:password) { "PASSWORD1" }
+
+        it { is_expected.to be_valid }
+      end
+
+      context "半角大文字英字、半角小文字英字、半角数字、記号の4種が含まれている場合" do
         let(:password) { "Password1!" }
 
         it { is_expected.to be_valid }

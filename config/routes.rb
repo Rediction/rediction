@@ -42,7 +42,7 @@ Rails.application.routes.draw do
 
   # 仮会員に送られるメールのURLから遷移する際、getメソッドしか使えないため明示的にgetメソッドにしている
   get "users/create", to: "users#create"
-  resource :provisional_users, only: %i[new create]
+  resource :signup, only: %i[new create], controller: :provisional_users, path_names: {new: ""}
   resource :user_profile, only: %i[new create edit update]
 
   # ログイン・ログアウト処理に使うルーティング
