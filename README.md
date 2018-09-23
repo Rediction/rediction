@@ -46,13 +46,14 @@ docker-compose run --rm rails rails c
 `docker-compose down`
 
 ## ブランチの命名規約
-[担当の名前]#[issue番号]
+[担当の名前]#[TrelloのカードNumber]
 
 **例**
 
-山田太郎がissue（番号４）の対応用のブランチを作る場合の名前は`taro#4`になる。
+山田太郎がTrelloのカードNumber 4番の対応用のブランチを作る場合の名前は`taro#4`になる。
 
 ## masterブランチへのプルリク作成コマンド
+*hubがインストールされていることが前提*
 ```
 hub pull-request -b master -h develop -m "RELEASE `date '+%Y%m%d%H%M'`"
 ```

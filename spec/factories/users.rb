@@ -14,7 +14,7 @@
 FactoryBot.define do
   factory :user do
     sequence(:email) { |n| "example+#{n}@gmail.com" }
-    password "Password1!"
+    password "password1"
     freezed :unfreezed
     resigned :unresigned
 
