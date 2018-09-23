@@ -64,6 +64,12 @@ form.base-form {
     }
   }
 
+  p.supplementaryExplanation {
+    margin-top: 4px;
+    font-size: 11px;
+    color: $supplementaryExplanationColor;
+  }
+
   > .submit-btn {
     > input[type="submit"] {
       cursor: pointer;

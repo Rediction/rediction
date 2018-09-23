@@ -1,13 +1,2 @@
 @import "../../components/base_form";
 @import "../../components/bottom_link_frame";
-@import "../../mixins";
-
-p.password-hint {
-  margin-top: 1vh;
-  font-size: 11px;
-  color: $passwordHintColor;
-
-  @include mq-up() {
-    text-align: right;
-  }
-}
