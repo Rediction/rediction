@@ -7,9 +7,9 @@ import UsersCardList from "../../../components/organisms/UsersCardList";
 const targetIdAttr = "users-list";
 
 // 表示中のページのユーザーのID
-const userId = $(`#${targetIdAttr}`).data("user-id");
+const targetUserId = $(`#${targetIdAttr}`).data("target-user-id");
 
 ReactDOM.render(
-  <UsersCardList targetIdAttr={targetIdAttr} userId={userId} />,
+  <UsersCardList targetIdAttr={targetIdAttr} targetUserId={targetUserId} />,
   document.getElementById(targetIdAttr)
 );

@@ -29,5 +29,10 @@ class Favorite < ApplicationRecord
         create_with_changes!(user_id: user_id, word_id: word_id)
       end
     end
+
+    # wordsのうちuser_idがお気に入り登録中のwordのみを抽出して、そのIDを配列で返却
+    def extract_favorite_word_ids(words:, user_id:)
+      where(word_id: words.map(&:id), user_id: user_id).map(&:word_id)
+    end
   end
 end

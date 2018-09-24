@@ -4,9 +4,9 @@ class WordsOrderRandomFetcher extends BaseFetcher
   implements WordFetcherInterface {
   private token: string = "";
 
-  constructor(userId: string) {
+  constructor(currentUserId: string) {
     // APIのパスを設定
-    super(`/words/index_random_order?user_id=${userId}`);
+    super(`/words/index_random_order?current_user_id=${currentUserId}`);
   }
 
   // 言葉を取得

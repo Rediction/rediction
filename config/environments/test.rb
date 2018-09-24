@@ -21,6 +21,9 @@ Rails.application.configure do
     "Cache-Control" => "public, max-age=#{1.hour.to_i}",
   }
 
+  # ファイル保存先をS3に設定するかを示す
+  config.attachment_use_s3 = false
+
   # Show full error reports and disable caching.
   config.consider_all_requests_local = true
   config.action_controller.perform_caching = false

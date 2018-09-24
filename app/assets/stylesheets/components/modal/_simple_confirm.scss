@@ -50,11 +50,27 @@
       display: flex;
       border-top: 1px solid $confirmModalBorderColor;
 
+      > .confirm-btn-frame-form {
+        flex: 1;
+        border-right: 1px solid $confirmModalBorderColor;
+
+        > .confirm-btns-elm {
+          cursor: pointer;
+          background: $white;
+          width: 100%;
+          text-align: center;
+          font-size: 12px;
+          padding: 24px 0;
+          border-style: none;
+        }
+      }
+
       > .confirm-btns-elm {
         cursor: pointer;
         flex: 1;
         text-align: center;
         font-size: 12px;
+        line-height: 18px;
         padding: 24px 0;
         border-right: 1px solid $confirmModalBorderColor;
 

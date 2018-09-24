@@ -1,49 +1,51 @@
 import * as React from "react";
-import FollowedUserFetcher, {
-  FollowedUser
-} from "../../providers/FollowedUserFetcher";
+import FollowRelationsFetcher, {
+  FollowRelation
+} from "../../providers/FollowRelationsFetcher";
 import ScrollHandler from "../../providers/ScrollHandler";
 import ActivityIndicator from "../atoms/ActivityIndicator";
-import UserCard from "../molecules/UserCard";
+import FollowedUserCard from "../molecules/FollowedUserCard";
 
 interface Props {
   targetIdAttr: string; // 一覧を表示する対象のID
-  userId: string;
+  targetUserId: string;
 }
 
 interface State {
-  users: any;
+  followRelations: FollowRelation[];
   loading: boolean;
 }
 
 class UsersCardList extends React.Component<Props, State> {
-  private followedUserFetcher: FollowedUserFetcher = new FollowedUserFetcher(
-    this.props.userId
+  private followRelationsFetcher: FollowRelationsFetcher = new FollowRelationsFetcher(
+    this.props.targetUserId
   );
   private scrollHandler: ScrollHandler = new ScrollHandler();
 
   constructor(props: Props) {
     super(props);
 
-    this.state = { users: [], loading: true };
+    this.state = { followRelations: [], loading: true };
 
-    this.refetchUsers = this.refetchUsers.bind(this);
+    this.refetchFollowRelations = this.refetchFollowRelations.bind(this);
   }
 
   componentDidMount() {
     const { targetIdAttr } = this.props;
 
-    this.fetchUsers();
+    this.fetchFollowRelations();
 
     // 無限スクロール用のイベントを設定
     this.scrollHandler.setActionWhenBottomOfElm(
       targetIdAttr,
-      this.refetchUsers
+      this.refetchFollowRelations
     );
   }
 
-  handleUsers(users: FollowedUser[]) {
-    this.setState({ users: this.state.users.concat(users) });
+  handleFollowRelations(followRelations: FollowRelation[]) {
+    this.setState({
+      followRelations: this.state.followRelations.concat(followRelations)
+    });
   }
 
   handleLoading(loading: boolean) {
@@ -51,23 +53,23 @@ class UsersCardList extends React.Component<Props, State> {
   }
 
   // ユーザーを取得
-  async fetchUsers() {
-    const users: FollowedUser[] = await this.followedUserFetcher.fetchUsers();
+  async fetchFollowRelations() {
+    const followRelations: FollowRelation[] = await this.followRelationsFetcher.fetchFollowRelations();
 
-    this.handleUsers(users);
+    this.handleFollowRelations(followRelations);
     this.handleLoading(false);
   }
 
   // ユーザーを再度取得
-  refetchUsers() {
+  refetchFollowRelations() {
     this.handleLoading(true);
-    this.fetchUsers();
+    this.fetchFollowRelations();
   }
 
   render() {
-    const { users, loading } = this.state;
+    const { followRelations, loading } = this.state;
 
-    if (loading && users.length === 0) {
+    if (loading && followRelations.length === 0) {
       return (
         <div style={styles.container}>
           <ActivityIndicator size="small" />
@@ -77,8 +79,12 @@ class UsersCardList extends React.Component<Props, State> {
 
     return (
       <div style={styles.container}>
-        {users.map((user: FollowedUser) => (
-          <UserCard key={user.id} user={user} intervalSpace="13" />
+        {followRelations.map((followRelation: FollowRelation) => (
+          <FollowedUserCard
+            key={followRelation.id}
+            followRelation={followRelation}
+            intervalSpace="13"
+          />
         ))}
         {loading ? <ActivityIndicator size="small" /> : null}
       </div>

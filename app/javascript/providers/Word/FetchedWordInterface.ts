@@ -4,7 +4,7 @@ interface FetchedWord {
   name: string;
   phonetic: string;
   description: string;
-  favorite_id: number | boolean | null;
+  favorited: boolean;
   profile: Profile;
 }
 

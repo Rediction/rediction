@@ -81,6 +81,17 @@ Rails.application.configure do
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
 
+  config.aws_options = {
+    access_key_id: ENV['AWS_KEY_ID'],
+    secret_access_key: ENV['AWS_SECRET_KEY'],
+    region: ENV['AWS_REGION'],
+    s3: {
+      bucket_name: ENV['AWS_S3_BUCKET_NAME'],
+    }
+  }
+
+  config.attachment_use_s3 = true
+
   # Use a different logger for distributed setups.
   # require 'syslog/logger'
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
