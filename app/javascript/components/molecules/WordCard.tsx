@@ -1,5 +1,8 @@
 import * as React from "react";
-import FavoriteHandler from "../../providers/FavoriteHandler";
+import FavoriteHandler, {
+  FavoriteHandlerResponse
+} from "../../providers/FavoriteHandler";
+import NumberFormatter from "../../providers/Formatter/NumberFormatter";
 import FetchedWordInterface from "../../providers/Word/FetchedWordInterface";
 import Color from "../../styles/Color";
 import Card from "../atoms/Card";
@@ -40,24 +43,41 @@ class WordCard extends React.Component<Props, State> {
 
   // お気に入りステータスを更新(現状のステータスと反対のステータスに更新する)
   async toggleFavoriteStatus(e: any) {
+    // リンクによるページ遷移を停止
     e.stopPropagation();
     e.preventDefault();
 
     // API通信が完了する前に見た目上だけ切り替える。
-    this.setState({
-      word: { ...this.state.word, favorited: !this.state.word.favorited }
-    });
+    this.advanceUpdateForToggleFavoriteStatus();
 
-    const favorited:
-      | boolean
-      | null = await this.favoriteHandler.toggleFavoriteStatus();
+    const favoriteHandlerResponse: FavoriteHandlerResponse | null = await this.favoriteHandler.toggleFavoriteStatus();
 
     // nullが返された時は処理を中断
-    if (favorited === null) {
+    if (favoriteHandlerResponse === null) {
       return;
     }
 
-    this.setState({ word: { ...this.state.word, favorited } });
+    const { favorited, favorite_count } = favoriteHandlerResponse;
+    this.setState({ word: { ...this.state.word, favorited, favorite_count } });
+  }
+
+  // お気に入りステータスの切り替え用の事前更新処理
+  advanceUpdateForToggleFavoriteStatus() {
+    const { word } = this.state;
+    const { favorited, favorite_count: favoriteCount } = word;
+
+    // お気に入り済みの場合は現状のお気に入り件数 - 1、お気に入り未登録の場合は現状のお気に入り件数 + 1の件数を格納
+    const advanceFavoriteCount: number = favorited
+      ? favoriteCount - 1
+      : favoriteCount + 1;
+
+    this.setState({
+      word: {
+        ...word,
+        favorited: !favorited,
+        favorite_count: advanceFavoriteCount
+      }
+    });
   }
 
   render() {
@@ -82,15 +102,23 @@ class WordCard extends React.Component<Props, State> {
               {word.profile.job}
             </p>
 
-            <img
-              style={styles.favoriteIcon}
-              src={
-                word.favorited
-                  ? require("../../images/favorite/favoriteIcon.svg")
-                  : require("../../images/favorite/unfavoriteIcon.svg")
-              }
-              onClick={e => this.toggleFavoriteStatus(e)}
-            />
+            <div style={styles.favoriteFrame}>
+              <img
+                style={styles.favoriteIcon}
+                src={
+                  word.favorited
+                    ? require("../../images/favorite/favoriteIcon.svg")
+                    : require("../../images/favorite/unfavoriteIcon.svg")
+                }
+                onClick={e => this.toggleFavoriteStatus(e)}
+              />
+
+              <p style={styles.favoriteCount}>
+                {word.favorite_count !== 0
+                  ? NumberFormatter.separateByComma(word.favorite_count)
+                  : ""}
+              </p>
+            </div>
           </div>
         </div>
       </Card>
@@ -123,8 +151,19 @@ const styles = {
     fontSize: "9px",
     color: Color.Elm.Card.THIN_GRAY
   },
+  favoriteFrame: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between"
+  },
   favoriteIcon: {
     width: "19px",
+    color: Color.Site.SECONDARY
+  },
+  favoriteCount: {
+    textAlign: "right" as "right",
+    fontSize: "11px",
+    width: "28px",
     color: Color.Site.SECONDARY
   }
 };
