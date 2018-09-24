@@ -20,6 +20,11 @@ class UsersController < ApplicationController
       return redirect_to new_signup_path, flash: { error: "不正なURLです。登録をしなおしてください。" }
     end
 
+    # 仮会員登録時に送信したURLの期限が切れていないかを判定する
+    if provisional_user.url_expired?
+      return redirect_to new_provisional_users_path, flash: {error: "URLの期限切れです。登録をしなおしてください。"}
+    end
+
     # 仮会員のemailが本会員として登録済みの場合は、ログイン画面へ遷移させる
     if provisional_user.signed_up_email?
       flash[:error] = "このメールアドレスはすでに登録済みです。\nログインしてください。"
