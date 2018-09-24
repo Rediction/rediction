@@ -14,9 +14,9 @@ class WordsSearchFetcher extends BaseFetcher
   private oldestFetchedId: number = 0;
   private searchWord: string = "";
 
-  constructor(userId: string) {
+  constructor(currentUserId: string) {
     // APIのパスを設定
-    super(`/words/search?user_id=${userId}`);
+    super(`/words/search?current_user_id=${currentUserId}`);
   }
 
   setSearchWord(searchWord: string) {

@@ -13,24 +13,30 @@ const targetIdAttr = "words-list";
 const currentUserId = $(`#${targetIdAttr}`).data("current-user-id");
 
 // 表示中のページのユーザーのID
-const userId = $(`#${targetIdAttr}`).data("user-id");
+const targetUserId = $(`#${targetIdAttr}`).data("target-user-id");
 
 // Word一覧をAPI経由で取得するクラスのインスタンス
 // 現在表示中のページのユーザーが投稿したWordのみを取得する。
-const scopedUserFetcher: WordFetcherInterface = new ScopedUserFetcher(userId);
+const scopedUserFetcher: WordFetcherInterface = new ScopedUserFetcher(
+  currentUserId,
+  targetUserId
+);
 
 ReactDOM.render(
   <WordsCardList
     wordFethcer={scopedUserFetcher}
     targetIdAttr={targetIdAttr}
-    userId={currentUserId}
+    currentUserId={currentUserId}
   />,
   document.getElementById(targetIdAttr)
 );
 
 /*----- 以下、フォロー関係の処理 -----*/
 
-const followHandler: FollowHandler = new FollowHandler(currentUserId, userId);
+const followHandler: FollowHandler = new FollowHandler(
+  currentUserId,
+  targetUserId
+);
 
 // TODO (Shokei Takanashi)
 // Reactで生成している範囲外のDOMに対する操作なので、JQueryでイベントをつけているが、

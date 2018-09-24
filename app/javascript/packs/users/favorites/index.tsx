@@ -17,6 +17,7 @@ const userId = $(`#${targetIdAttr}`).data("user-id");
 // Word一覧をAPI経由で取得するクラスのインスタンス
 // お気に入り登録中のWordのみを取得する。
 const scopedFavoriteWordsFetcher: WordFetcherInterface = new ScopedFavoriteWordsFetcher(
+  currentUserId,
   userId
 );
 
@@ -24,7 +25,7 @@ ReactDOM.render(
   <WordsCardList
     wordFethcer={scopedFavoriteWordsFetcher}
     targetIdAttr={targetIdAttr}
-    userId={currentUserId}
+    currentUserId={currentUserId}
   />,
   document.getElementById(targetIdAttr)
 );

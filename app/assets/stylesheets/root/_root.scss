@@ -161,51 +161,41 @@
 .top-board-area {
   position: relative;
   text-align: center;
-  background: rgba($white, .5);
   height: 62.5vw;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-
-  &::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: image-url("root/top-board.png");
-    background-size: cover;
-    z-index: -1;
-  }
+  background-image: image-url("root/top-board.png");
+  background-size: cover;
 
   @include mq-up() {
     height: calc(100vh - #{$pcHeaderHeight});
-
-    &::before {
-      background-image: image-url("root/top-board.svg");
-    }
+    background-image: image-url("root/top-board.svg");
   }
 
   &-service-name {
-    font-size: 36px;
+    font-size: 27px;
     font-family: 'Bitter', serif;
-    margin-bottom: 18px;
     font-weight: bold;
+    margin: 12vh 0 18px 33vw;
+    color: $white;
 
     @include mq-up() {
-      font-size: 58px;
-      margin-bottom: 10vh;
+      font-size: 85px;
+      margin: 40vh 0 18px 40vw;
     }
   }
 
   &-description {
-    font-size: 18px;
-    font-weight: bold;
+    font-size: 13px;
+    margin-top: 1vh;
+    margin-left: 33vw;
+    color: $white;
 
     @include mq-up() {
-      font-size: 32px;
+      font-size: 39px;
+      margin: 7vh 0 18px 40vw;
     }
   }
 }
