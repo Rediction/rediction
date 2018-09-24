@@ -8,6 +8,7 @@ class Api::WordsController < Api::SecureApplicationController
   def index_latest_order
     @words = Word.fetch_latest_records(limit: FETCH_COUNT, max_fetched_id: params[:last_fetched_word_id])
 
+    set_favorite_counts(@words)
     set_favorite_word_ids(@words, params[:current_user_id])
   end
 
@@ -30,6 +31,7 @@ class Api::WordsController < Api::SecureApplicationController
     # 取得したwordsをトークンに紐づけて登録
     Word::RandomFetchedRecord.bulk_insert_by_words_and_token_id(token_id: @random_fetched_token.id, words: @words)
 
+    set_favorite_counts(@words)
     set_favorite_word_ids(@words, params[:current_user_id])
   end
 
@@ -41,6 +43,7 @@ class Api::WordsController < Api::SecureApplicationController
       user_id: params[:target_user_id],
     )
 
+    set_favorite_counts(@words)
     set_favorite_word_ids(@words, params[:current_user_id])
   end
 
@@ -50,6 +53,7 @@ class Api::WordsController < Api::SecureApplicationController
                  .includes(user: :followed_relations)
                  .where(user_follow_relations: {following_user_id: params[:current_user_id]})
 
+    set_favorite_counts(@words)
     set_favorite_word_ids(@words, params[:current_user_id])
   end
 
@@ -58,6 +62,7 @@ class Api::WordsController < Api::SecureApplicationController
     @words = Word.fetch_latest_records(limit: FETCH_COUNT, max_fetched_id: params[:last_fetched_word_id])
                  .where(user_id: params[:target_user_id])
 
+    set_favorite_counts(@words)
     set_favorite_word_ids(@words, params[:current_user_id])
   end
 
@@ -69,6 +74,7 @@ class Api::WordsController < Api::SecureApplicationController
     @words = @words.where("name LIKE ?", "%#{params[:search_word]}%")
                    .or(@words.where("phonetic LIKE ?", "%#{params[:search_word]}%"))
 
+    set_favorite_counts(@words)
     set_favorite_word_ids(@words, params[:current_user_id])
   end
 
@@ -87,5 +93,10 @@ class Api::WordsController < Api::SecureApplicationController
   # お気に入り登録されているWordのID(配列)をインスタンス変数に格納
   def set_favorite_word_ids(words, user_id)
     @favorite_word_ids = Favorite.extract_favorite_word_ids(words: words, user_id: user_id)
+  end
+
+  # 各Wordのお気に入り数をハッシュ形式でインスタンス変数に格納
+  def set_favorite_counts(words)
+    @faborite_counts = Favorite.favorite_counts_hash(words)
   end
 end

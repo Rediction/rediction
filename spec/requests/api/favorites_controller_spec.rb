@@ -22,6 +22,7 @@ describe Api::FavoritesController, type: :request do
       it "favoritedにfalseが格納されて返されること" do
         subject
         expect(JSON.parse(response.body)["favorited"]).to eq false
+        expect(JSON.parse(response.body)["favorite_count"]).to eq 0
       end
 
       it "changesテーブルのeventがdeleteとして登録されること" do
@@ -39,6 +40,7 @@ describe Api::FavoritesController, type: :request do
       it "favoritedにtrueが格納されて返されること" do
         subject
         expect(JSON.parse(response.body)["favorited"]).to eq true
+        expect(JSON.parse(response.body)["favorite_count"]).to eq 1
       end
 
       it "changesテーブルのeventがcreateとして登録されること" do
