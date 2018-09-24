@@ -49,34 +49,46 @@
       }
     }
 
-    &-favorite {
-      &.active {
-        .show-word-sub-favorite-icon {
+    &-action {
+      display: flex;
+      align-items: center;
+
+      &-favorite {
+        &.active {
+          .show-word-sub-action-favorite-icon {
+            &.favorite {
+              display: block;
+            }
+
+            &.unfavorite {
+              display: none;
+            }
+          }
+        }
+
+        &-icon {
+          cursor: pointer;
+          width: 30px;
+
           &.favorite {
-            display: block;
-          }
-
-          &.unfavorite {
             display: none;
+            margin-bottom: 2px;
           }
         }
       }
 
-      &-icon {
-        cursor: pointer;
-        width: 30px;
-
-        &.favorite {
-          display: none;
-          margin-bottom: 2px;
-        }
+      &-favorite-count {
+        width: 28px;
+        font-size: 13px;
+        text-align: right;
+        color: $secondaryColor;
       }
-    }
 
-    &-trash-icon {
-      cursor: pointer;
-      color: $wordTrashIconColor;
-      font-size: 24px;
+      &-trash-icon {
+        cursor: pointer;
+        color: $wordTrashIconColor;
+        font-size: 24px;
+      }
     }
   }
 }
