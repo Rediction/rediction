@@ -84,14 +84,13 @@ describe SessionsController, type: :controller do
     end
   end
 
-  describe "GET #destroy" do
+  describe "DELETE #destroy" do
     before { controller.log_in(user) }
-    subject { get :destroy }
+    subject { delete :destroy }
     let(:user) { create(:user) }
     include_context "current_userとしてログイン後にアクセスする"
 
     context "平常時アクセスの場合" do
-
       # TODO(shuji ota):ユーザーがログアウトする際にcookiesが削除されるように改修されたらそのテストを追加する
       it "Cookieが削除されること"
 
