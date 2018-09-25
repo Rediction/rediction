@@ -21,8 +21,8 @@ ruby:
     .input-field
       = f.password_field :password, required: true
 
-    p.supplementaryExplanation
-      | ※半角大文字英字、半角小文字英字、半角数字、記号(!や%)の４つを全て含め、８文字以上
+    p.supplementary-explanation
+      | ※半角英数字を全て含む８文字以上３２文字以内
 
   .submit-btn
     = f.submit "登録", data: { disable_with: "送信中..." }

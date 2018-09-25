@@ -64,10 +64,11 @@ form.base-form {
     }
   }
 
-  p.supplementaryExplanation {
+  p.supplementary-explanation {
     margin-top: 4px;
     font-size: 11px;
-    color: $supplementaryExplanationColor;
+    line-height: 13px;
+    color: $supplementaryTextColor;
   }
 
   > .submit-btn {
