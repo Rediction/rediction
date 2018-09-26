@@ -34,5 +34,14 @@ class Favorite < ApplicationRecord
     def extract_favorite_word_ids(words:, user_id:)
       where(word_id: words.map(&:id), user_id: user_id).map(&:word_id)
     end
+
+    # words(複数)のお気に入り件数をハッシュ形式で返却
+    # ハッシュの形式 : { word_id => お気に入り数 }
+    def favorite_counts_hash(words)
+      select("word_id").select("count(word_id) as favorite_count")
+                       .where(word_id: words.map(&:id))
+                       .group(:word_id)
+                       .reduce(Hash.new) { |sum, v| sum.merge(v.word_id => v.favorite_count) }
+    end
   end
 end

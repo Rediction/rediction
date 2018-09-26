@@ -33,12 +33,16 @@ ruby:
           p
             = @word.user.profile.job
 
-    - if current_user.id == @word.user_id
-      i.fas.fa-trash-alt#show-word-sub-trash-icon.show-word-sub-trash-icon
-    - else
-      #show-word-sub-favorite.show-word-sub-favorite class=(current_user.favorite_word?(@word) ? "active" : "")
-        = image_tag "favorite/favoriteIcon.svg", class: "show-word-sub-favorite-icon favorite"
-        = image_tag "favorite/unfavoriteIcon.svg", class: "show-word-sub-favorite-icon unfavorite"
+    .show-word-sub-action
+      - if current_user.id == @word.user_id
+        i.fas.fa-trash-alt#show-word-sub-action-trash-icon.show-word-sub-action-trash-icon
+      - else
+        #show-word-sub-action-favorite.show-word-sub-action-favorite class=(current_user.favorite_word?(@word) ? "active" : "")
+          = image_tag "favorite/favoriteIcon.svg", class: "show-word-sub-action-favorite-icon favorite"
+          = image_tag "favorite/unfavoriteIcon.svg", class: "show-word-sub-action-favorite-icon unfavorite"
+
+        #show-word-sub-action-favorite-count.show-word-sub-action-favorite-count
+          = @word.favorites.count != 0 ? @word.favorites.count.to_s(:delimited) : ""
 
 #modal-simple-confirm.modal-simple-confirm
   #modal-simple-confirm-cassette.modal-simple-confirm-cassette
