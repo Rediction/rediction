@@ -27,7 +27,7 @@ describe UserProfilesController, type: :controller do
           expect{ subject }.to change(UserProfile, :count).by(1).and change(UserProfileChange, :count).by(1)
           expect(UserProfileChange.last&.event).to eq "create"
           expect(response).to have_http_status 302
-          expect(response).to redirect_to index_scoped_follow_users_words_path
+          expect(response).to redirect_to index_latest_order_words_path
         end
       end
 
