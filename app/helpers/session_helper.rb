@@ -23,6 +23,7 @@ module SessionHelper
   end
 
   # sessionのuser_idを削除するメソッド
+  # TODO(shuji ota):ユーザーがログアウトする際にcookiesが削除されるように改修する
   def log_out
     current_user&.remember_me_token&.forget
     session[:user_id] = nil
