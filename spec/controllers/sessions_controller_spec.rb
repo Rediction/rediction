@@ -85,17 +85,16 @@ describe SessionsController, type: :controller do
   end
 
   describe "DELETE #destroy" do
-    include_context "current_userとしてログイン後にアクセスする"
     before { controller.log_in(user) }
     subject { delete :destroy }
-    let(:user) { create(:user) }
+    let(:user) { create(:user_with_profile) }
 
     context "平常時アクセスの場合" do
       # TODO(shuji ota):ユーザーがログアウトする際にcookiesが削除されるように改修されたらそのテストを追加する
       it "Cookieが削除されること"
 
       it "HTTP 302 Moved Temporarily", :aggregate_failures do
-        expect{ subject }.to change{session[:user_id]}.from(session[:user_id]).to(nil)
+        expect{ subject }.to change{ session[:user_id] }.from(session[:user_id]).to(nil)
         expect(response).to have_http_status 302
         expect(response).to redirect_to new_login_path
         expect(flash[:success]).to eq "ログアウトしました。"
