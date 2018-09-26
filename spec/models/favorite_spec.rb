@@ -94,5 +94,35 @@ RSpec.describe Favorite, type: :model do
         end
       end
     end
+
+    describe ".favorite_counts_hash" do
+      subject { Favorite.favorite_counts_hash(words) }
+      let(:words) { create_list(:word, 5) }
+      let(:result) { subject }
+
+      context "全てのwordのお気に入り件数が0件より多い場合" do
+        before { words.each { |word| create(:favorite, word: word) } }
+
+        it "全てのwordのお気に入り件数がハッシュ形式で返されること" do
+          expect(result.size).to eq words.size
+          expect(words.all? { |word| result[word.id] == 1 }).to eq true
+        end
+      end
+
+      context "1つのwordのお気に入り件数のみ0件より多い場合" do
+        before { create(:favorite, word: words.first) }
+
+        it "お気に入り件数の多いwordのお気に入り件数のみがハッシュ形式で返されること" do
+          expect(result.size).to eq 1
+          expect(result[words.first.id]).to eq 1
+        end
+      end
+
+      context "全てのwordのお気に入り件数が0件の場合" do
+        it "空のハッシュが返されること" do
+          expect(result.size).to eq 0
+        end
+      end
+    end
   end
 end

@@ -1,7 +1,12 @@
 import BaseFetcher, { BaseFetcherInterface } from "./BaseFetcher";
 
 interface FavoriteHandlerInterface extends BaseFetcherInterface {
-  toggleFavoriteStatus(): Promise<boolean | null>;
+  toggleFavoriteStatus(): Promise<FavoriteHandlerResponse | null>;
+}
+
+export interface FavoriteHandlerResponse {
+  favorited: boolean;
+  favorite_count: number;
 }
 
 class FavoriteHandler extends BaseFetcher implements FavoriteHandlerInterface {
@@ -19,14 +24,13 @@ class FavoriteHandler extends BaseFetcher implements FavoriteHandlerInterface {
     // リクエスト開始
     this.startRequest();
 
-    // 言葉リストを取得
-    const responseData = await this.patch();
-    const favorited: boolean = responseData.favorited;
+    // お気に入りステータスの更新
+    const responseData: FavoriteHandlerResponse = await this.patch();
 
     // リクエスト終了
     this.endRequest();
 
-    return favorited;
+    return responseData;
   }
 }
 
