@@ -21,6 +21,9 @@ ruby:
     .input-field
       = f.password_field :password, required: true
 
+    p.supplementary-text
+      | ※半角英字、数字を組み合わせて 8 文字以上で入力してください
+
   .submit-btn
     = f.submit "登録", data: { disable_with: "送信中..." }
 
